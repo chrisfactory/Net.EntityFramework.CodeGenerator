@@ -5,6 +5,6 @@ namespace SqlG
     public interface ISqlGBuilder
     {
         IServiceCollection Services { get; }
-        ISqlGenerator Build();
+        ICodeGenerator Build();
     }
 }

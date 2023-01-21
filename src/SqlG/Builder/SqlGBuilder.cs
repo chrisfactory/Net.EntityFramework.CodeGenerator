@@ -7,13 +7,16 @@ namespace SqlG
         public SqlGBuilder()
         {
             Services = new ServiceCollection();
+            Services.AddSingleton<IProjectResolver, CurrentCSProjectResolver>();
         }
         public IServiceCollection Services { get; }
 
-        public ISqlGenerator Build()
+        public ICodeGenerator Build()
         {
+            Services.AddTransient<IEntityStrategyBuilder, EntityStrategyBuilder>();
+            Services.AddSingleton<ICodeGenerator, CodeGenerator>();
             var provider = Services.BuildServiceProvider();
-            return provider.GetRequiredService<ISqlGenerator>();
+            return provider.GetRequiredService<ICodeGenerator>();
         }
     }
 }

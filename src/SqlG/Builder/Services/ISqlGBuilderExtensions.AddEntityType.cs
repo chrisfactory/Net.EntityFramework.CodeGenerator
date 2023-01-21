@@ -2,7 +2,7 @@
 
 namespace SqlG
 {
-    public static class ISqlGBuilderExtensions
+    public static partial class ISqlGBuilderExtensions
     {
         public static ISqlGBuilder AddEntity<TEntity>(this ISqlGBuilder services, Action<IEntityStrategyBuilder> builder)
             => services.AddEntity<TEntity>((p, b) => builder(b));
@@ -12,6 +12,7 @@ namespace SqlG
             services.Services.AddSingleton(p =>
             {
                 var b = p.GetRequiredService<IEntityStrategyBuilder>();
+                b.Services.AddSingleton<IEntityModel>(p => new EntityModelFromType<TEntity>());
                 builder(p, b);
                 return b.Build();
             });

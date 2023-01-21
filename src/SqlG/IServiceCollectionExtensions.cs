@@ -5,13 +5,12 @@ namespace SqlG
 {
     public static class IServiceCollectionExtensions
     {
-        public static IServiceCollection UseSqlG(this IServiceCollection services, Action<ISqlGBuilder> builder)
-            => services.UseSqlG((p, b) => builder(b));
+        public static IServiceCollection UseSqlGContext(this IServiceCollection services, Action<ISqlGBuilder> builder)
+            => services.UseSqlGContext((p, b) => builder(b));
 
-        public static IServiceCollection UseSqlG(this IServiceCollection services, Action<IServiceProvider, ISqlGBuilder> builder)
+        public static IServiceCollection UseSqlGContext(this IServiceCollection services, Action<IServiceProvider, ISqlGBuilder> builder)
         {
-            services.TryAddSingleton<ISqlGBuilder, SqlGBuilder>();
-            services.TryAddTransient<IEntityStrategyBuilder, EntityStrategyBuilder>();
+            services.TryAddTransient<ISqlGBuilder, SqlGBuilder>();
             services.AddSingleton(p =>
             {
                 var b = p.GetRequiredService<ISqlGBuilder>();

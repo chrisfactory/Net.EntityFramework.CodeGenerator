@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -9,13 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNetProjectParser" Version="1.0.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" /> 
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\SqlG\SqlG.csproj" />
+    <ProjectReference Include="..\..\SqlG\SqlG.csproj"/>
     <ProjectReference Include="..\Sample.App\Sample.App.csproj" />
+    <ProjectReference Include="..\Sample.DbProj\Sample.DbProj.sqlproj">
+      <IncludeAssets>all</IncludeAssets>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>

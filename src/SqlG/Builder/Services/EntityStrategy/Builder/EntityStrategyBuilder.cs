@@ -11,6 +11,9 @@ namespace SqlG
         public IServiceCollection Services { get; }
         public IEntityStrategy Build()
         {
+            Services.AddSingleton<IEntitySchemaFactory, EntitySchemaFactory>();
+            Services.AddSingleton<IEntitySchemaProvider, EntitySchemaProvider>();
+            Services.AddSingleton<IEntityStrategy, EntityStrategy>();
             var provider = Services.BuildServiceProvider();
             return provider.GetRequiredService<IEntityStrategy>();
         }
