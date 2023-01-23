@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.ModelGenerator", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.App", "src\Sample\Sample.App\Sample.App.csproj", "{82E31651-5099-495B-9398-1051BDC85BFA}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Sample.DbProj", "src\Sample\Sample.DbProj\Sample.DbProj.sqlproj", "{916E9B69-9896-41DA-9220-1249CA394F01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.DbProj", "src\Sample\Sample.DbProj\Sample.DbProj.csproj", "{00ED1193-F5E5-4CE6-A8FA-A522B3BAC9A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,12 +31,10 @@ Global
 		{82E31651-5099-495B-9398-1051BDC85BFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82E31651-5099-495B-9398-1051BDC85BFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82E31651-5099-495B-9398-1051BDC85BFA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{916E9B69-9896-41DA-9220-1249CA394F01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{916E9B69-9896-41DA-9220-1249CA394F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{916E9B69-9896-41DA-9220-1249CA394F01}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{916E9B69-9896-41DA-9220-1249CA394F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{916E9B69-9896-41DA-9220-1249CA394F01}.Release|Any CPU.Build.0 = Release|Any CPU
-		{916E9B69-9896-41DA-9220-1249CA394F01}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{00ED1193-F5E5-4CE6-A8FA-A522B3BAC9A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00ED1193-F5E5-4CE6-A8FA-A522B3BAC9A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00ED1193-F5E5-4CE6-A8FA-A522B3BAC9A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00ED1193-F5E5-4CE6-A8FA-A522B3BAC9A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,7 +42,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{DB410149-BFEB-473D-B4FC-FA790BC127CA} = {9094A10A-6E58-43EE-AB0E-65C9291B9171}
 		{82E31651-5099-495B-9398-1051BDC85BFA} = {9094A10A-6E58-43EE-AB0E-65C9291B9171}
-		{916E9B69-9896-41DA-9220-1249CA394F01} = {9094A10A-6E58-43EE-AB0E-65C9291B9171}
+		{00ED1193-F5E5-4CE6-A8FA-A522B3BAC9A9} = {9094A10A-6E58-43EE-AB0E-65C9291B9171}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2750D931-9603-44C4-BF79-3F80FD042D41}
