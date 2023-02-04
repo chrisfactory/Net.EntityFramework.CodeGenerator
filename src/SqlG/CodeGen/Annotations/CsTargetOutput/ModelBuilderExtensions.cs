@@ -4,11 +4,11 @@ namespace Microsoft.EntityFrameworkCore
 {
     public static partial class ModelBuilderExtensions
     {
-        public static ModelBuilder HasDefaultCsTargetOutput(this ModelBuilder modelBuilder, string projectName)
+        public static ModelBuilder HasDefaultCsTargetOutput(this ModelBuilder modelBuilder, string rootPath)
         {
             return modelBuilder.HasDefaultCsTargetOutput(o =>
             {
-                o.ProjectName = projectName;
+                o.RootPath = rootPath;
             });
         }
         public static ModelBuilder HasDefaultCsTargetOutput(this ModelBuilder modelBuilder, Action<CsTargetOutput> config)

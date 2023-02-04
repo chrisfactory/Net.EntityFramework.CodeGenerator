@@ -7,15 +7,13 @@ namespace Sample.App
 {
     public class Food
     {
-         
-
         public int Id { get; set; }
         public string Name { get; set; }
     }
 
-    public   class Animal
+    public class Animal
     {
-        
+
 
         public int Id { get; set; }
         public string Name { get; set; }
@@ -26,7 +24,7 @@ namespace Sample.App
 
     public abstract class Pet : Animal
     {
-         
+
         public string? Vet { get; set; }
 
         public ICollection<Human> Humans { get; } = new List<Human>();
@@ -34,7 +32,7 @@ namespace Sample.App
 
     public class FarmAnimal : Animal
     {
-         
+
 
         public override string Species { get; set; }
 
@@ -46,7 +44,7 @@ namespace Sample.App
     }
 
     public class Cat : Pet
-    { 
+    {
         public string EducationLevel { get; set; }
         public override string Species => "Felis catus";
 
@@ -56,7 +54,7 @@ namespace Sample.App
 
     public class Dog : Pet
     {
-        
+
 
         public string FavoriteToy { get; set; }
         public override string Species => "Canis familiaris";
@@ -66,7 +64,7 @@ namespace Sample.App
     }
 
     public class Human : Animal
-    { 
+    {
 
         public override string Species => "Homo sapiens";
 

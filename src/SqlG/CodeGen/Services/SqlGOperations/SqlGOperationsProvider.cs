@@ -1,5 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SqlG
 {
@@ -19,8 +20,13 @@ namespace SqlG
         public IEnumerable<ISqlGAction> GetOperations()
         {
             var rootSqlPath = _ModelExtractor.DefaultSqlTargetOutput.RootPath;
+            var rootCsPath = _ModelExtractor.DefaultCsTargetOutput.RootPath;
             foreach (var item in _ModelExtractor.CreateTableIntents)
             {
+
+                var entity = _ModelExtractor.Entities.Where(e => e.EntityType.GetTableName() == item.Operation.Name).Single();
+
+
                 yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
                     .UseCommandText(item.Command.CommandText)
                     .UseTargetFiles(GetSqlFileInfo(rootSqlPath, _ModelExtractor.DefaultSqlTargetOutput.TablesPatternPath, item.Operation.Schema, item.Operation.Name))
@@ -42,7 +48,25 @@ namespace SqlG
                 yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
                   .UseFileAction(new SpDelete(item.Operation, spDelete))
                   .UseTargetFiles(GetSqlFileInfo(rootSqlPath, _ModelExtractor.DefaultSqlTargetOutput.StoredProceduresPatternPath, item.Operation.Schema, item.Operation.Name, spDelete))
-                  .Build();
+                .Build();
+
+
+
+
+                string mapExtName = $"{item.Operation.Name}MapExtensions";
+                yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
+                  .UseFileAction(new CsMapExt(item.Operation, mapExtName, _ModelExtractor.Model, entity.EntityType))
+                  .UseTargetFiles(GetCsFileInfo(rootCsPath, _ModelExtractor.DefaultCsTargetOutput.MapExtensionsPatternPath, item.Operation.Schema, item.Operation.Name, mapExtName))
+                .Build();
+
+
+
+                string className = $"{item.Operation.Name}DbService"; 
+                yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
+                  .UseFileAction(new CsDbAccess(item.Operation, className, _ModelExtractor.Model, entity.EntityType))
+                  .UseTargetFiles(GetCsFileInfo(rootCsPath, _ModelExtractor.DefaultCsTargetOutput.DbServicePatternPath, item.Operation.Schema, item.Operation.Name, className))
+                .Build();
+
 
             }
             foreach (var item in _ModelExtractor.CreateIndexIntents)
@@ -75,6 +99,17 @@ namespace SqlG
             str.Add("{schemaExt}", string.IsNullOrWhiteSpace(schema) ? "" : $"{schema}.");
             str.Add("{name}", operationName);
             str.Add("{spname}", spName);
+            var subPath = str.ToString().TrimStart('\\');
+            return new FileInfo(Path.Combine(rootPath, subPath));
+        }
+
+
+        private FileInfo GetCsFileInfo(string rootPath, string pattern, string? schema, string operationName, string classname)
+        {
+            var str = new StringFormatter(pattern);
+            str.Add("{schema}", schema);
+            str.Add("{name}", operationName);
+            str.Add("{classname}", classname);
             var subPath = str.ToString().TrimStart('\\');
             return new FileInfo(Path.Combine(rootPath, subPath));
         }

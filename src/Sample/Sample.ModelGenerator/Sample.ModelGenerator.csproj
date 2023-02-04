@@ -28,7 +28,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\SqlG\SqlG.csproj" />
-    <ProjectReference Include="..\Sample.App\Sample.App.csproj" />
   </ItemGroup>
 
 </Project>

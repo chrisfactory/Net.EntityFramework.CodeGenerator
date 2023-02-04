@@ -8,11 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="SqlG\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\SqlG\SqlG.csproj" />
+    <ProjectReference Include="..\Sample.ModelGenerator\Sample.ModelGenerator.csproj" />
   </ItemGroup>
 
 </Project>
