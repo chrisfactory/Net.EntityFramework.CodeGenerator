@@ -29,9 +29,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\SqlG\SqlG.csproj" />
     <ProjectReference Include="..\Sample.App\Sample.App.csproj" />
-    <ProjectReference Include="..\Sample.DbProj\Sample.DbProj.csproj">
-      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
 
 </Project>

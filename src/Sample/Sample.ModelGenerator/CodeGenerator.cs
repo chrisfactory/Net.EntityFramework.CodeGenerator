@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
@@ -21,32 +22,30 @@ namespace Sample.ModelGenerator
     {
         public CustomDbContext(DbContextOptions options) : base(options)
         {
+
         }
     }
 
     public class TargetSqlOutput
     {
-        public const string AnnotationKey = $"sqlg.{nameof(TargetSqlOutput)}";
-
-        public string TablesPattern { get; set; } = @"{schema}\Tables";
-        public string StoredProceduresPattern { get; set; } = @"{schema}\Stored Procedures";
-        public string IndexsPattern { get; set; } = @"{schema}\Indexs\{tableName}";
-        public string SequencesPattern { get; set; } = @"{schema}\Sequences\{tableName}";
-        public string SchemasPattern { get; set; } = @"Schemas";
+      
     }
 
+    
     partial class CodeGenerator
     {
         [STAThread]
         static void Main(string[] args)
         {
+ 
+
             var services = new ServiceCollection();
             services.AddSqlServerFileGenerator(
                         modelBuilder =>
                         {
-                            modelBuilder.HasAnnotation(TargetSqlOutput.AnnotationKey, new TargetSqlOutput());
-
-
+                            modelBuilder.HasDefaultSqlTargetOutput(@"..\..\..\..\Sample.DbProj");
+                            modelBuilder.HasDefaultCsTargetOutput("Sample.App");
+                             
                             modelBuilder.HasDefaultSchema("dbo");
                             modelBuilder.Entity<Animal>().UseTpcMappingStrategy();
                             modelBuilder.Entity<Food>();
@@ -54,7 +53,7 @@ namespace Sample.ModelGenerator
                             modelBuilder.Entity<Cat>();
                             modelBuilder.Entity<Dog>();
                             modelBuilder.Entity<Human>();
-                            modelBuilder.HasSequence("CustomSequence", "customShema");
+                            //modelBuilder.HasSequence("CustomSequence", "customShema");
 
                         });
 
@@ -108,10 +107,6 @@ namespace Sample.ModelGenerator
                         //var path = storedProcedure.GetAnnotation("sqlg.target.path");
                         //var fileName = storedProcedure.GetAnnotation("sqlg.target.filename");
                     }
-
-
-
-
 
 
                     AddInsert(co);
