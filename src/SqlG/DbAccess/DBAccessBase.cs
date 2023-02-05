@@ -11,7 +11,7 @@ namespace DataBaseAccess
         {
             _cnx = cnx;
         }
-        protected async Task<SqlDataReader> ExecuteReaderAsync(string storedProcedureName, IReadOnlyDictionary<string, object> parameters, int? timeout = null)
+        protected async Task<SqlDataReader> ExecuteReaderAsync(string storedProcedureName, IReadOnlyDictionary<string, object?> parameters, int? timeout = null)
         {
             var conn = new SqlConnection(_cnx);
             await conn.OpenAsync();

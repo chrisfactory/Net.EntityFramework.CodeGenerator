@@ -14,36 +14,39 @@ namespace SqlG
     internal class CsDbAccess : IContentFileRootSegment
     {
         private readonly CreateTableOperation _operation;
-        private readonly string _name;
-        private readonly IModel _model;
-        private readonly IEntityType _entity;
-        public CsDbAccess(CreateTableOperation operation, string name, IModel model, IEntityType entity)
+        private readonly string _name; 
+        private readonly IEntityTypeTable _entity;
+        private readonly IContentFileSegment[] _childs;
+        public CsDbAccess(CreateTableOperation operation, string name, IEntityTypeTable entity, params IContentFileSegment[] childs)
         {
             _operation = operation;
-            _name = name;
-            _model = model;
+            _name = name; 
             _entity = entity;
+            _childs = childs;
         }
 
         public void Build(StringBuilder builder)
         {
-            string typeName = _entity.ClrType.Name;
-      
+            string typeName = _entity.EntityType.ClrType.Name;
 
-            if (_entity.ClrType == typeof(System.Collections.Generic.Dictionary<string, object>))
+
+            if (_entity.EntityType.ClrType == typeof(System.Collections.Generic.Dictionary<string, object>))
                 return;
 
-             
+
             builder.AppendLine($"using {typeof(DBAccessBase).Namespace};");
+            builder.AppendLine($"using {_entity.EntityType.ClrType.Namespace};");
             builder.AppendLine();
-            builder.AppendLine($"internal partial class {_name} : {nameof(DBAccessBase)}//, I{_name}");
+            builder.AppendLine($"public partial class {_name} : {nameof(DBAccessBase)}");
             builder.AppendLine("{");
             builder.AppendLine($"    public {_name}(string cnx) : base(cnx)");
             builder.AppendLine("    { }");
             builder.AppendLine();
 
 
-
+            if (_childs != null)
+                foreach (var item in _childs)
+                    item.Build(builder);
 
             builder.AppendLine();
             builder.AppendLine("}");
@@ -54,12 +57,12 @@ namespace SqlG
 
         public IEnumerator<IContentFileSegment> GetEnumerator()
         {
-            return Enumerable.Empty<IContentFileSegment>().GetEnumerator();
+            return _childs?.Cast<IContentFileSegment>().GetEnumerator() ?? Enumerable.Empty<IContentFileSegment>().GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return Enumerable.Empty<IContentFileSegment>().GetEnumerator();
+            return _childs?.GetEnumerator() ?? Enumerable.Empty<IContentFileSegment>().GetEnumerator();
         }
     }
 }

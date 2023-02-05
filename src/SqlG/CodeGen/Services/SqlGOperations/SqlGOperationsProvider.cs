@@ -38,6 +38,13 @@ namespace SqlG
                   .UseTargetFiles(GetSqlFileInfo(rootSqlPath, _ModelExtractor.DefaultSqlTargetOutput.StoredProceduresPatternPath, item.Operation.Schema, item.Operation.Name, spInsert))
                   .Build();
 
+                var spSelect = $"Select{item.Operation.Name}";
+                yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
+                  .UseFileAction(new SpSelect(item.Operation, spSelect))
+                  .UseTargetFiles(GetSqlFileInfo(rootSqlPath, _ModelExtractor.DefaultSqlTargetOutput.StoredProceduresPatternPath, item.Operation.Schema, item.Operation.Name, spSelect))
+                  .Build();
+
+
                 var spUpdate = $"Update{item.Operation.Name}";
                 yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
                   .UseFileAction(new SpUpdate(item.Operation, spUpdate))
@@ -60,10 +67,11 @@ namespace SqlG
                 .Build();
 
 
-
+                var insertMap = new CsCallInsertPs(spInsert, entity);
+                var selectMap = new CsCallSelectPs(spSelect, entity);
                 string className = $"{item.Operation.Name}DbService"; 
                 yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
-                  .UseFileAction(new CsDbAccess(item.Operation, className, _ModelExtractor.Model, entity.EntityType))
+                  .UseFileAction(new CsDbAccess(item.Operation, className, entity, insertMap, selectMap))
                   .UseTargetFiles(GetCsFileInfo(rootCsPath, _ModelExtractor.DefaultCsTargetOutput.DbServicePatternPath, item.Operation.Schema, item.Operation.Name, className))
                 .Build();
 

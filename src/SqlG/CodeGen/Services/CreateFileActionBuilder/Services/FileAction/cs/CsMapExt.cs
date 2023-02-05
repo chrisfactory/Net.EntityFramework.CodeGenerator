@@ -64,9 +64,8 @@ namespace SqlG
             {
                 if (dictionaryProps.ContainsKey(item.Name))
                 {
-                    var clrProp = dictionaryProps[item.Name];
-                    var comment = item.Name != clrProp.Name ? $"// => {item.Name}" : string.Empty;
-                    builder.AppendLine($"        data.{clrProp.Name} = dataRecord.Get<{clrProp.PropertyType.ToCSharpString()}>(nameof({typeName}.{clrProp.Name}));{comment}");
+                    var clrProp = dictionaryProps[item.Name]; 
+                    builder.AppendLine($"        data.{clrProp.Name} = dataRecord.Get<{clrProp.PropertyType.ToCSharpString()}>(\"{item.Name}\");");
                 }
             }
             builder.AppendLine($"        return data;");
