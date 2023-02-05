@@ -4,45 +4,46 @@ using System.Text;
 
 namespace SqlG
 {
-    internal class SpDelete : IContentFileRootSegment
+    internal class SpDelete : IContentFileSegment
     {
-        private readonly CreateTableOperation _operation;
         private readonly string _spName;
-        public SpDelete(CreateTableOperation operation, string spName)
+        private readonly IEntityTypeTable _entity;
+        public SpDelete(string spName, IEntityTypeTable entity)
         {
-            _operation = operation;
+            _entity = entity;
             _spName = spName;
         }
 
         public void Build(StringBuilder builder)
         {
 
+            if (_entity.PrimaryKeys.Count == 0)
+                return;
 
-            string relatedSchemaExt = string.IsNullOrWhiteSpace(_operation.Schema) ? "" : $"[{_operation.Schema}].";
-             
+            var firstKp = _entity.PrimaryKeys.First();
+            var lastPk = _entity.PrimaryKeys.Last();
+
+            string relatedSchemaExt = string.IsNullOrWhiteSpace(_entity.Table.Schema) ? "" : $"[{_entity.Table.Schema}].";
+
             builder.AppendLine($"CREATE PROCEDURE {relatedSchemaExt}[{_spName}]");
             builder.AppendLine("(");
-            var cCount = _operation.PrimaryKey.Columns.Length;
-            var i = cCount;
-            foreach (var param in _operation.PrimaryKey.Columns)
+
+            foreach (var column in _entity.PrimaryKeys)
             {
-                i--;
-                var c = _operation.Columns.Single(c => c.Name == param);
-                string end = (i > 0) ? "," : "";
-                builder.AppendLine($"     @{param} {c.ColumnType?.ToUpper()}{end}");
+                string end = column != lastPk ? "," : "";
+                builder.AppendLine($"     @{column.ColumnName} {column.SqlType.ToUpper()}{end}");
 
             }
             builder.AppendLine(")");
             builder.AppendLine("AS BEGIN");
             builder.AppendLine("");
-            builder.AppendLine($"    DELETE FROM {relatedSchemaExt}[{_operation.Name}]");
+            builder.AppendLine($"    DELETE FROM {relatedSchemaExt}[{_entity.Table.Name}]");
             builder.AppendLine($"    WHERE");
-            i = cCount;
-            foreach (var param in _operation.PrimaryKey.Columns)
+
+            foreach (var param in _entity.PrimaryKeys)
             {
-                string and = cCount > 1 && i != cCount ? "AND " : (cCount > 1 ? "    " : string.Empty);
-                builder.AppendLine($"        {and}[{param}] = @{param}");
-                i--;
+                string and = param != firstKp ? "AND " : (_entity.PrimaryKeys.Count > 1 ? "    " : string.Empty);
+                builder.AppendLine($"        {and}[{param.ColumnName}] = @{param.ColumnName}");
             }
             builder.AppendLine("");
             builder.AppendLine("END");
@@ -50,14 +51,5 @@ namespace SqlG
 
         }
 
-        public IEnumerator<IContentFileSegment> GetEnumerator()
-        {
-            return Enumerable.Empty<IContentFileSegment>().GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return Enumerable.Empty<IContentFileSegment>().GetEnumerator();
-        }
     }
 }

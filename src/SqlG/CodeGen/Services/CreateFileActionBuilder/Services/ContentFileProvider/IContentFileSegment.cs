@@ -3,7 +3,7 @@ using System.Text;
 
 namespace SqlG
 {
-    public interface IContentFileSegment : IEnumerable<IContentFileSegment>
+    public interface IContentFileSegment  
     {
         void Build(StringBuilder builder);
     }

@@ -1,26 +1,16 @@
 ﻿using DataBaseAccess;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
-using SqlG.CodeGen.Tools;
-using System.Collections;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
-using System.Reflection;
 using System.Text;
 
 namespace SqlG
 {
-    internal class CsDbAccess : IContentFileRootSegment
+    internal class CsDbAccess : IContentFileSegment
     {
-        private readonly CreateTableOperation _operation;
-        private readonly string _name; 
+        private readonly string _name;
         private readonly IEntityTypeTable _entity;
         private readonly IContentFileSegment[] _childs;
-        public CsDbAccess(CreateTableOperation operation, string name, IEntityTypeTable entity, params IContentFileSegment[] childs)
+        public CsDbAccess(string name, IEntityTypeTable entity, params IContentFileSegment[] childs)
         {
-            _operation = operation;
-            _name = name; 
+            _name = name;
             _entity = entity;
             _childs = childs;
         }
@@ -46,23 +36,13 @@ namespace SqlG
 
             if (_childs != null)
                 foreach (var item in _childs)
+                { 
                     item.Build(builder);
+                    builder.AppendLine();
+                } 
 
-            builder.AppendLine();
             builder.AppendLine("}");
-
-
-
         }
 
-        public IEnumerator<IContentFileSegment> GetEnumerator()
-        {
-            return _childs?.Cast<IContentFileSegment>().GetEnumerator() ?? Enumerable.Empty<IContentFileSegment>().GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _childs?.GetEnumerator() ?? Enumerable.Empty<IContentFileSegment>().GetEnumerator();
-        }
     }
 }

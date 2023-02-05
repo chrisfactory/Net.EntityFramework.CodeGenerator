@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations.Operations;
-using System.Collections;
 using System.Text;
 
 namespace SqlG
 {
-    internal class SpSelect : IContentFileRootSegment
+    internal class SpSelect : IContentFileSegment
     {
         private readonly CreateTableOperation _operation;
         private readonly string _spName;
@@ -19,7 +18,7 @@ namespace SqlG
 
 
             string relatedSchemaExt = string.IsNullOrWhiteSpace(_operation.Schema) ? "" : $"[{_operation.Schema}].";
-             
+
             builder.AppendLine($"CREATE PROCEDURE {relatedSchemaExt}[{_spName}]");
             builder.AppendLine("(");
             var cCount = _operation.PrimaryKey.Columns.Length;
@@ -48,16 +47,6 @@ namespace SqlG
             builder.AppendLine("END");
 
 
-        }
-
-        public IEnumerator<IContentFileSegment> GetEnumerator()
-        {
-            return Enumerable.Empty<IContentFileSegment>().GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return Enumerable.Empty<IContentFileSegment>().GetEnumerator();
         }
     }
 }

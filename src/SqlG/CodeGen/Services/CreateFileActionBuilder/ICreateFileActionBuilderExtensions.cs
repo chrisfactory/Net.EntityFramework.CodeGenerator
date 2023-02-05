@@ -9,9 +9,9 @@ namespace SqlG
            return  builder.UseFileAction(new CommandTextSegment(commandText)); 
         }
         public static ICreateFileActionBuilder UseFileAction<TFileAction>(this ICreateFileActionBuilder builder, TFileAction fileAction)
-            where TFileAction : IContentFileRootSegment
+            where TFileAction : IContentFileSegment
         {
-            builder.Services.AddSingleton<IContentFileRootSegment>(fileAction);
+            builder.Services.AddSingleton<IContentFileSegment>(fileAction);
             return builder;
         }
         public static ICreateFileActionBuilder UseTargetFiles(this ICreateFileActionBuilder builder, params FileInfo[] targets)

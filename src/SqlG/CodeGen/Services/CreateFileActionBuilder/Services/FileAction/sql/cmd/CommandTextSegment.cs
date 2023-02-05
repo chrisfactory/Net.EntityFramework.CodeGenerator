@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Text;
+﻿using System.Text;
 
 namespace SqlG
 {
-    public class CommandTextSegment : IContentFileRootSegment
+    public class CommandTextSegment : IContentFileSegment
     {
         private readonly string _text;
         public CommandTextSegment(string text)
@@ -13,16 +12,6 @@ namespace SqlG
         public void Build(StringBuilder builder)
         {
             builder.Append(_text);
-        }
-
-        public IEnumerator<IContentFileSegment> GetEnumerator()
-        {
-            return Enumerable.Empty<IContentFileSegment>().GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return Enumerable.Empty<IContentFileSegment>().GetEnumerator();
-        }
+        } 
     }
 }

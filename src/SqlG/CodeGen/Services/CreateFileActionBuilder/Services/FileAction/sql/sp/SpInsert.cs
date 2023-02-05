@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations.Operations;
-using System.Collections;
 using System.Text;
 
 namespace SqlG
 {
-    internal class SpInsert : IContentFileRootSegment
+    internal class SpInsert : IContentFileSegment
     {
         private readonly CreateTableOperation _operation;
         private readonly string _spName;
@@ -66,16 +65,6 @@ namespace SqlG
             builder.AppendLine("");
             builder.AppendLine("END");
 
-        }
-
-        public IEnumerator<IContentFileSegment> GetEnumerator()
-        {
-            return Enumerable.Empty<IContentFileSegment>().GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return Enumerable.Empty<IContentFileSegment>().GetEnumerator();
         }
     }
 }

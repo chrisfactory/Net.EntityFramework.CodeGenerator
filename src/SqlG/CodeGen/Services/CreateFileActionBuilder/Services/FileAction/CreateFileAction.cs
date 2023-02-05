@@ -4,9 +4,9 @@ namespace SqlG
 {
     internal class CreateFileAction : ISqlGAction
     {
-        private readonly IContentFileRootSegment _contentFile;
+        private readonly IContentFileSegment _contentFile;
         private readonly IFileInfosProvider _fileInfosProvider;
-        public CreateFileAction(IContentFileRootSegment contentFile, IFileInfosProvider fileInfosProvider)
+        public CreateFileAction(IContentFileSegment contentFile, IFileInfosProvider fileInfosProvider)
         {
             _contentFile = contentFile;
             _fileInfosProvider = fileInfosProvider;

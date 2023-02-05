@@ -53,25 +53,28 @@ namespace SqlG
 
                 var spDelete = $"Delete{item.Operation.Name}";
                 yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
-                  .UseFileAction(new SpDelete(item.Operation, spDelete))
+                  .UseFileAction(new SpDelete(spDelete, entity))
                   .UseTargetFiles(GetSqlFileInfo(rootSqlPath, _ModelExtractor.DefaultSqlTargetOutput.StoredProceduresPatternPath, item.Operation.Schema, item.Operation.Name, spDelete))
                 .Build();
 
 
 
-
+                var mapDr = new MapDataReader(entity);
+                var mapParam = new MapParameters(entity);
                 string mapExtName = $"{item.Operation.Name}MapExtensions";
                 yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
-                  .UseFileAction(new CsMapExt(item.Operation, mapExtName, _ModelExtractor.Model, entity.EntityType))
+                  .UseFileAction(new CsMapExt(mapExtName, entity, mapDr, mapParam))
                   .UseTargetFiles(GetCsFileInfo(rootCsPath, _ModelExtractor.DefaultCsTargetOutput.MapExtensionsPatternPath, item.Operation.Schema, item.Operation.Name, mapExtName))
                 .Build();
 
 
                 var insertMap = new CsCallInsertPs(spInsert, entity);
                 var selectMap = new CsCallSelectPs(spSelect, entity);
-                string className = $"{item.Operation.Name}DbService"; 
+                var updateMap = new CsCallUpdatetPs(spUpdate, entity);
+                var deleteMap = new CsCallDeletePs(spDelete, entity);
+                string className = $"{item.Operation.Name}DbService";
                 yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
-                  .UseFileAction(new CsDbAccess(item.Operation, className, entity, insertMap, selectMap))
+                  .UseFileAction(new CsDbAccess(className, entity, insertMap, selectMap, updateMap, deleteMap))
                   .UseTargetFiles(GetCsFileInfo(rootCsPath, _ModelExtractor.DefaultCsTargetOutput.DbServicePatternPath, item.Operation.Schema, item.Operation.Name, className))
                 .Build();
 

@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using System.Collections;
-using System.Text;
+﻿using System.Text;
 
 namespace SqlG
 {
@@ -28,16 +26,7 @@ namespace SqlG
             builder.AppendLine("            return null;");
             builder.AppendLine("        } ");
             builder.AppendLine("    }");
-        }
+        } 
 
-        public IEnumerator<IContentFileSegment> GetEnumerator()
-        {
-            return Enumerable.Empty<IContentFileSegment>().GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return Enumerable.Empty<IContentFileSegment>().GetEnumerator();
-        }
     }
 }

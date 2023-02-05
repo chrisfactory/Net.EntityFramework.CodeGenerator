@@ -1,16 +1,30 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace SqlG
 {
     public interface IEntityTypeTable
     {
-        public IModel Model { get; }
-        public IEntityType EntityType { get; }
-        public ITable Table { get; }
+        IModel Model { get; }
+        IEntityType EntityType { get; }
+        ITable Table { get; }
+
+        IReadOnlyCollection<IEntityColumn> PrimaryKeys { get; }
+        IReadOnlyCollection<IEntityColumn> UpdatableColumns { get; }
+        IReadOnlyCollection<IEntityColumn> AllColumns { get; }
     }
+    public interface IEntityColumn
+    {
+        bool IsPrimaryKey { get; }
+
+        string ColumnName { get; }
+        string SqlType { get; }
+
+        PropertyInfo? PropertyInfo { get; }
+        string? PropertyName { get; }
+        string PropertyType { get; }
+
+        IColumn Column { get; }
+    }
+
 }

@@ -1,18 +1,13 @@
-﻿using Azure;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
-using SqlG.CodeGen.Tools;
-using System.Collections;
-using System.Reflection.PortableExecutable;
+﻿using SqlG.CodeGen.Tools;
 using System.Text;
 
 namespace SqlG
 {
-    internal class CsCallSelectPs : IContentFileSegment
+    internal class CsCallDeletePs : IContentFileSegment
     {
         private readonly string _name;
         private readonly IEntityTypeTable _entity;
-        public CsCallSelectPs(string name, IEntityTypeTable entity)
+        public CsCallDeletePs(string name, IEntityTypeTable entity)
         {
             _name = name;
             _entity = entity;
@@ -42,7 +37,7 @@ namespace SqlG
             }
 
 
-            builder.AppendLine($"    public async Task<{clrEntity.ClrType.Name}?> {_name}Async({parameters})");
+            builder.AppendLine($"    public async Task {_name}Async({parameters})");
             builder.AppendLine("    {");
             builder.AppendLine("        var parameters = new Dictionary<string, object?>");
             builder.AppendLine("        {");
@@ -50,7 +45,7 @@ namespace SqlG
             foreach (var item in pks)
             {
                 i--;
-                 
+
                 string end = (i > 0) ? "," : "";
                 builder.AppendLine($"            {{ \"@{item.Name}\", {item.PropertyMappings[0].Property.Name.ToCamelCase()} }}{end}");
 
@@ -58,22 +53,11 @@ namespace SqlG
             builder.AppendLine("        };");
             builder.AppendLine($"        using (var reader = await base.ExecuteReaderAsync(\"{_name}\", parameters))");
             builder.AppendLine("        { ");
-            builder.AppendLine("            if (await reader.ReadAsync())");
-            builder.AppendLine($"                return new {clrEntity.ClrType.Name}().Map(reader);");
-            builder.AppendLine("            return null;");
             builder.AppendLine("        } ");
             builder.AppendLine("    }");
 
         }
 
-        public IEnumerator<IContentFileSegment> GetEnumerator()
-        {
-            return Enumerable.Empty<IContentFileSegment>().GetEnumerator();
-        }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return Enumerable.Empty<IContentFileSegment>().GetEnumerator();
-        }
     }
 }

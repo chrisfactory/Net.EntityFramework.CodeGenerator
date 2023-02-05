@@ -22,7 +22,7 @@ namespace Sample.ModelGenerator
 
                             modelBuilder.HasDefaultSchema("dbo");
                             modelBuilder.Entity<Animal>().UseTpcMappingStrategy();
-                            modelBuilder.Entity<Food>();
+                            modelBuilder.Entity<Food>().Property(typeof(string), "test");
                             modelBuilder.Entity<FarmAnimal>();
                             modelBuilder.Entity<Cat>();
                             modelBuilder.Entity<Dog>();
