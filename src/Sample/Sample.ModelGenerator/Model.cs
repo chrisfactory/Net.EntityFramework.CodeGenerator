@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Update.Internal;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Sample.App
@@ -16,10 +14,9 @@ namespace Sample.App
     public class Animal
     {
         public int Id { get; set; }
-      
         public string Name { get; set; }
         public virtual string Species { get; set; }
-
+        public int? FoodId { get; set; }
         public Food? Food { get; set; }
     }
 
@@ -73,12 +70,15 @@ namespace Sample.App
                $" eats {Food?.ToString() ?? "<Unknown>"}";
     }
 
-    public class HumanPet
-    { 
-        public int HumansId { get; set; } 
+    public class Yolo
+    {
+        public int Id { get; set; }
         public int PetsId { get; set; }
         public Human? Human { get; set; }
         public Pet? Pet { get; set; }
     }
+
+
+ 
 }
 

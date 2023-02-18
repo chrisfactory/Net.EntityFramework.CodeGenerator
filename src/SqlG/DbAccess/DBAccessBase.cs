@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Data;
-using System.Data.SqlTypes;
 
 namespace DataBaseAccess
 {
@@ -18,94 +18,21 @@ namespace DataBaseAccess
 
             await using (var cmd = new SqlCommand())
             {
-
                 if (parameters != null)
-                    foreach (string key in parameters.Keys)
+                    foreach (var parameter in parameters)
                     {
-                        SqlParameter parameter = new SqlParameter(key, parameters[key]);
-
-                        if (parameter.Value == null)
-                            parameter.Value = DBNull.Value;
-
-                        if (parameter.SqlDbType == SqlDbType.DateTime && parameter.Value is DateTime && (DateTime)parameter.Value == default(DateTime))
-                            parameter.Value = SqlDateTime.MinValue.Value;
-
-                        cmd.Parameters.Add(parameter);
-
+                        var pValue = parameter.Value;
+                        if (pValue == null)
+                            pValue = DBNull.Value; 
+                        cmd.Parameters.Add(new SqlParameter(parameter.Key, pValue));
                     }
 
                 cmd.Connection = conn;
                 cmd.CommandText = storedProcedureName;
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                //conn.Open();
-
                 return await cmd.ExecuteReaderAsync(CommandBehavior.CloseConnection);
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //if (storedProcedureName == null)
-        //    throw new ArgumentNullException("storedProcedureName");
-
-
-        //parameters = parameters ?? new Dictionary<string, object>();
-        ///// Check for SQL Paramter Logging
-
-        //// 1.  create a command object identifying the stored procedure
-        //using (SqlCommand cmd = new SqlCommand(storedProcedureName))
-        //{   
-
-        //    cmd.CommandType = CommandType.StoredProcedure;
-        //    if (timeout != null)
-        //        cmd.CommandTimeout = timeout.Value;
-
-        //    foreach (string key in parameters.Keys)
-        //    {
-        //        SqlParameter parameter = new SqlParameter(key, parameters[key]);
-
-        //        if (parameter.Value == null)
-        //            parameter.Value = DBNull.Value;
-
-        //        if (parameter.SqlDbType == SqlDbType.DateTime && parameter.Value is DateTime && (DateTime)parameter.Value == default(DateTime))
-        //            parameter.Value = SqlDateTime.MinValue.Value;
-
-        //        cmd.Parameters.Add(parameter);
-
-        //    }
-
-
-        //    SqlDatabase database = new SqlDatabase(crud.ConnectionString);
-
-        //    if (typeof(T) == typeof(IDataReader))
-        //    {
-        //        IDataReader reader = new JmbDataReaderWrapper(database.ExecuteReader(cmd));
-        //        return (T)reader;
-        //    }
-        //    else
-        //    {
-        //        var ret = (T)database.ExecuteScalar(cmd);
-        //        return ret;
-        //    }
-        //}
-
-        //}
-        //}
     }
 }

@@ -8,28 +8,41 @@ namespace SqlG
 {
     internal class EntityTypeTable : IEntityTypeTable
     {
-        public EntityTypeTable(IModel model, IEntityType entityType, ITable table)
+        public EntityTypeTable(
+            IReadOnlyCollection<ISqlGenActionBuilder> actionBuilders,
+            IModel model,
+            IEntityType entityType,
+            ITable table)
         {
+            ActionBuilders = actionBuilders;
             Model = model;
             EntityType = entityType;
             Table = table;
-
+            TableFullName = GetTableFullName(table.Schema, table.Name);
             LoadColumns();
         }
         public IModel Model { get; }
         public IEntityType EntityType { get; }
         public ITable Table { get; }
+        public string TableFullName { get; }
+
+        public IReadOnlyCollection<ISqlGenActionBuilder> ActionBuilders { get; }
 
 
         public override string ToString() => $"{EntityType.Name} => {Table.Name}";
 
         public IReadOnlyCollection<IEntityColumn> PrimaryKeys { get; private set; } = new List<IEntityColumn>();
         public IReadOnlyCollection<IEntityColumn> UpdatableColumns { get; private set; } = new List<IEntityColumn>();
+        public IReadOnlyCollection<IEntityColumn> InsertColumns { get; private set; } = new List<IEntityColumn>();
         public IReadOnlyCollection<IEntityColumn> AllColumns { get; private set; } = new List<IEntityColumn>();
+
+
+
         private void LoadColumns()
         {
             var primaryKeys = new List<IEntityColumn>();
             var updatableColumns = new List<IEntityColumn>();
+            var insertColumns = new List<IEntityColumn>();
             var allColumns = new List<IEntityColumn>();
             var pks = new HashSet<IColumn>();
             if (Table.PrimaryKey != null)
@@ -70,7 +83,14 @@ namespace SqlG
 
             PrimaryKeys = primaryKeys;
             UpdatableColumns = updatableColumns;
+            InsertColumns = insertColumns;
             AllColumns = allColumns;
+        }
+
+        public static string GetTableFullName(string? schema, string tableName)
+        {
+            var s = string.IsNullOrEmpty(schema) ? "" : $"{schema}.";
+            return $"{s}{tableName}";
         }
     }
 

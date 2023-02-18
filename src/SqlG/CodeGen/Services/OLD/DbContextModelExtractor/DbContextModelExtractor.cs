@@ -22,7 +22,6 @@ namespace SqlG
             _relationModel = model.GetRelationalModel();
 
             Model = model;
-            Entities = ExtractEntities();
 
             var sqlTargetAnnotation = Model.FindAnnotation(SqlTargetOutput.AnnotationKey);
             DefaultSqlTargetOutput = sqlTargetAnnotation?.Value as SqlTargetOutput ?? new SqlTargetOutput();
@@ -40,11 +39,16 @@ namespace SqlG
 
             CreateTableIntents = createTables;
             CreateIndexIntents = indexsTables;
-            EnsureSchemantents = schemaTables;
+            EnsureSchemaIntents = schemaTables;
             CreateSequenceIntents = sequenceTables;
+
+            Entities = ExtractEntities();
+
+            var builderProvider = model.FindAnnotation(ISqlGenEntityBuilderExtensions.ModelGenerateAnnotationKey)?.Value as ISqlGenActionBuilderProvider;
+            ActionBuilders = builderProvider?.Get() ?? new List<ISqlGenActionBuilder>();
         }
 
-       
+
 
         public IModel Model { get; }
         public IReadOnlyCollection<IEntityTypeTable> Entities { get; }
@@ -52,23 +56,28 @@ namespace SqlG
         public ISqlTargetOutput DefaultSqlTargetOutput { get; }
         public ICsTargetOutput DefaultCsTargetOutput { get; }
 
+        public IReadOnlyCollection<ISqlGenActionBuilder> ActionBuilders { get; }
+
         public IReadOnlyCollection<IOperationCommand<CreateTableOperation, MigrationCommand>> CreateTableIntents { get; }
         public IReadOnlyCollection<IOperationCommand<CreateIndexOperation, MigrationCommand>> CreateIndexIntents { get; }
-        public IReadOnlyCollection<IOperationCommand<EnsureSchemaOperation, MigrationCommand>> EnsureSchemantents { get; }
-        public IReadOnlyCollection<IOperationCommand<CreateSequenceOperation, MigrationCommand>> CreateSequenceIntents { get; } 
+        public IReadOnlyCollection<IOperationCommand<EnsureSchemaOperation, MigrationCommand>> EnsureSchemaIntents { get; }
+        public IReadOnlyCollection<IOperationCommand<CreateSequenceOperation, MigrationCommand>> CreateSequenceIntents { get; }
 
         private IReadOnlyCollection<IEntityTypeTable> ExtractEntities()
         {
             var result = new List<IEntityTypeTable>();
 
             var tables = _relationModel.Tables.ToDictionary(t => t.Name);
+
             foreach (var entityType in Model.GetEntityTypes())
             {
                 var tableName = entityType.GetTableName();
                 if (!string.IsNullOrEmpty(tableName))
                 {
                     var table = tables[tableName];
-                    result.Add(new EntityTypeTable(Model, entityType, table));
+                    var builder = entityType.FindAnnotation(ISqlGenEntityBuilderExtensions.EntityGenerateAnnotationKey)?.Value as ISqlGenActionBuilderProvider;
+                    result.Add(new EntityTypeTable(builder?.Get() ?? new List<ISqlGenActionBuilder>(), Model, entityType, table));
+
                 }
             }
             return result;

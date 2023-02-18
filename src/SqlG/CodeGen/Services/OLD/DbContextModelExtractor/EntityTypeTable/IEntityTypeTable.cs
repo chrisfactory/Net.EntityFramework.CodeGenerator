@@ -8,8 +8,12 @@ namespace SqlG
         IModel Model { get; }
         IEntityType EntityType { get; }
         ITable Table { get; }
+        string TableFullName { get; }
+
+        IReadOnlyCollection<ISqlGenActionBuilder> ActionBuilders { get; }
 
         IReadOnlyCollection<IEntityColumn> PrimaryKeys { get; }
+        IReadOnlyCollection<IEntityColumn> InsertColumns { get; }
         IReadOnlyCollection<IEntityColumn> UpdatableColumns { get; }
         IReadOnlyCollection<IEntityColumn> AllColumns { get; }
     }

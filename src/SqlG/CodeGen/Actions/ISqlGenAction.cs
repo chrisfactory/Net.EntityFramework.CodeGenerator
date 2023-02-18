@@ -1,6 +1,6 @@
 ﻿namespace SqlG
 {
-    public interface ISqlGAction
+    public interface ISqlGenAction
     {
         Task ExecuteAsync(CancellationToken token);
     }

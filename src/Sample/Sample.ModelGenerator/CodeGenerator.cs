@@ -20,17 +20,33 @@ namespace Sample.ModelGenerator
                             modelBuilder.HasDefaultSqlTargetOutput(@"..\..\..\..\Sample.DbProj");
                             modelBuilder.HasDefaultCsTargetOutput(@"..\..\..\..\Sample.App");
 
-                            modelBuilder.HasDefaultSchema("dbo");
-                            modelBuilder.Entity<Animal>().UseTpcMappingStrategy();
+                           // modelBuilder.HasDefaultSchema("dbo");
+
+                            modelBuilder.Entity<Animal>()
+                                 .UseTpcMappingStrategy()
+                                 .Generate(b =>
+                                 {
+
+                                 });
+
                             modelBuilder.Entity<Food>().Property(typeof(string), "test");
+
+
                             modelBuilder.Entity<FarmAnimal>();
                             modelBuilder.Entity<Cat>();
                             modelBuilder.Entity<Dog>();
                             modelBuilder.Entity<Human>();
 
-                            //modelBuilder.Entity<HumanPet>().ToTable("HumanPet").HasKey(o => new { o.HumansId, o.PetsId});
-                            //modelBuilder.HasSequence("CustomSequence", "customShema");
+                         
 
+
+                            modelBuilder.Generate(b =>
+                            {
+                                b.AllTables();
+                                b.AllIndexs();
+                                b.AllSequences();
+                                b.AllSchema();
+                            });
                         });
 
 
@@ -39,7 +55,7 @@ namespace Sample.ModelGenerator
 
 
             Console.WriteLine("finished");
-            Console.ReadLine();
+            //Console.ReadLine();
         }
 
 

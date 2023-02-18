@@ -11,11 +11,11 @@ namespace SqlG
 
         public IServiceCollection Services { get; }
 
-        public ISqlGAction Build()
+        public ISqlGenAction Build()
         {
-            Services.AddSingleton<ISqlGAction, CreateFileAction>();
+            Services.AddSingleton<ISqlGenAction, CreateFileAction>();
             var provider = Services.BuildServiceProvider();
-            return provider.GetRequiredService<ISqlGAction>();
+            return provider.GetRequiredService<ISqlGenAction>();
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace SqlG
 {
@@ -16,7 +13,6 @@ namespace SqlG
 
         public ICodeGenerator Build()
         {
-            Services.AddTransient<ICreateFileActionBuilder, CreateFileActionBuilder>();
             Services.AddSingleton<IDbContextModelExtractor, DbContextModelExtractor>();
             Services.AddSingleton<ISqlGOperationsProvider, SqlGOperationsProvider>();
             Services.AddSingleton<ICodeGenerator, CodeGenerator>();
@@ -35,12 +31,11 @@ namespace SqlG
     {
         public CodeGenerator(ISqlGOperationsProvider provider)
         {
-            foreach (var item in provider.GetOperations())
+            var actions = provider.GetOperations().ToList();
+            foreach (var action in actions)
             {
-                item.ExecuteAsync(CancellationToken.None);
-            }
-
-        }
-
+                action.ExecuteAsync(CancellationToken.None);
+            } 
+        } 
     }
 }

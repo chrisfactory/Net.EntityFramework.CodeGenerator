@@ -1,15 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using System.Text;
+using System.Xml.Linq;
+using static Azure.Core.HttpHeader;
 
 namespace SqlG
 {
     internal class SpInsert : IContentFileSegment
     {
-        private readonly CreateTableOperation _operation;
+        private readonly IEntityTypeTable _entity;
         private readonly string _spName;
-        public SpInsert(CreateTableOperation operation, string spName)
+        public SpInsert(string spName, IEntityTypeTable entity)
         {
-            _operation = operation;
+            _entity = entity;
             _spName = spName;
         }
 
@@ -17,52 +19,80 @@ namespace SqlG
         {
 
 
-            string relatedSchemaExt = string.IsNullOrWhiteSpace(_operation.Schema) ? "" : $"[{_operation.Schema}].";
+            string relatedSchemaExt = string.IsNullOrWhiteSpace(_entity.Table.Schema) ? "" : $"[{_entity.Table.Schema}].";
 
-            var includePK = _operation.PrimaryKey?.Columns.Length > 1;
-            var buildColumns = _operation.Columns.ToList();
-            if (!includePK && _operation.PrimaryKey != null)
-                buildColumns.RemoveAll(c => _operation.PrimaryKey.Columns.Contains(c.Name));
 
 
             builder.AppendLine($"CREATE PROCEDURE {relatedSchemaExt}[{_spName}]");
             builder.AppendLine("(");
 
-            var cCount = buildColumns.Count;
-            var i = cCount;
-            foreach (var param in buildColumns)
+            var lastColumn = _entity.UpdatableColumns.Last();
+
+            foreach (var param in _entity.UpdatableColumns)
             {
-                i--;
-                string end = (i > 0) ? "," : "";
-                builder.AppendLine($"     @{param.Name} {param.ColumnType?.ToUpper()}{end}");
+                string end = lastColumn != param ? "," : "";
+                builder.AppendLine($"     @{param.ColumnName} {param.SqlType?.ToUpper()}{end}");
 
             }
             builder.AppendLine(")");
             builder.AppendLine("AS BEGIN");
             builder.AppendLine("");
-            builder.AppendLine($"    INSERT INTO {relatedSchemaExt}[{_operation.Name}]");
-            builder.AppendLine("                 (");
-            i = cCount;
-            foreach (var param in buildColumns)
+
+
+
+
+            builder.AppendLine("DECLARE @OutputTable TABLE");
+            builder.AppendLine("(");
+            var l1 = _entity.AllColumns.Last();
+            foreach (var param in _entity.AllColumns)
             {
-                i--;
-                string end = (i > 0) ? "," : "";
-                builder.AppendLine($"                    [{param.Name}]{end}");
+                string end = l1 != param ? "," : "";
+                builder.AppendLine($"     [{param.ColumnName}] {param.SqlType?.ToUpper()}{end}");
 
             }
-            builder.AppendLine("                 )");
+            builder.AppendLine(")");
+
+            builder.AppendLine(); 
+            builder.AppendLine();
+
+
+
+
+            builder.AppendLine($"    INSERT INTO {relatedSchemaExt}[{_entity.Table.Name}]");
+            builder.AppendLine("                 (");
+
+            foreach (var param in _entity.UpdatableColumns)
+            {
+                string end = lastColumn != param ? "," : "";
+                builder.AppendLine($"                    [{param.ColumnName}]{end}");
+
+            }
+            builder.AppendLine("                 )"); 
+
+            var strColumns = string.Empty;
+            foreach (var param in _entity.AllColumns)
+            {
+                string end = l1 != param ? "," : "";
+                strColumns += $"INSERTED.[{param.ColumnName}]{end} ";
+
+            }
+
+            builder.AppendLine($"         OUTPUT {strColumns} INTO @OutputTable");
+
+
             builder.AppendLine("         VALUES");
             builder.AppendLine("                 (");
-            i = cCount;
-            foreach (var param in buildColumns)
+
+            foreach (var param in _entity.UpdatableColumns)
             {
-                i--;
-                string end = (i > 0) ? "," : "";
-                builder.AppendLine($"                    @{param.Name}{end}");
+                string end = lastColumn != param ? "," : "";
+                builder.AppendLine($"                    @{param.ColumnName}{end}");
 
             }
             builder.AppendLine("                 )");
             builder.AppendLine("");
+
+            builder.AppendLine("SELECT * FROM @OutputTable"); 
             builder.AppendLine("END");
 
         }
