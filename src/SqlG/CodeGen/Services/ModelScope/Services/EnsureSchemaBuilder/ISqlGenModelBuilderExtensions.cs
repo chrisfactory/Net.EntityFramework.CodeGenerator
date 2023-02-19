@@ -6,7 +6,7 @@ namespace SqlG
 {
     public static partial class ISqlGenModelBuilderExtensions
     {
-        public static ISqlGenModelBuilder AllSchema(this ISqlGenModelBuilder genBuilder)
+        public static ISqlGenModelBuilder Schemas(this ISqlGenModelBuilder genBuilder)
         {
             return genBuilder.AddGenActionBuilder<IEnsureSchemaBuilder, EnsureSchemaBuilder>();
         }
@@ -23,8 +23,7 @@ namespace SqlG
     {
 
         public override ISqlGenActionProvider Build()
-        {
-            Services.AddSingleton<ISqlFileInfoFactory, GetSqlFileInfoFactory>();
+        { 
             Services.AddSingleton<IEnsureSchemaOperationsProvider, EnsureSchemaOperationsProvider>();
             Services.AddSingleton<ISqlGenActionProvider, EnsureSchemaSqlGenActionProvider>();
 
@@ -80,13 +79,7 @@ namespace SqlG
                                       .UseCommandText(cmd.Command.CommandText)
                                       .UseTargetFiles(fi)
                                       .Build();
-            }
-
-
+            }  
         }
-    }
-
-
-
-
+    } 
 }

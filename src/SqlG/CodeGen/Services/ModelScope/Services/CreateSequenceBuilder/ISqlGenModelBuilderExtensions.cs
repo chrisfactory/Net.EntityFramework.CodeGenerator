@@ -6,7 +6,7 @@ namespace SqlG
 {
     public static partial class ISqlGenModelBuilderExtensions
     {
-        public static ISqlGenModelBuilder AllSequences(this ISqlGenModelBuilder genBuilder)
+        public static ISqlGenModelBuilder Sequences(this ISqlGenModelBuilder genBuilder)
         { 
             return genBuilder.AddGenActionBuilder<ICreateSequenceBuilder, CreateSequenceBuilder>();
         }
@@ -23,8 +23,7 @@ namespace SqlG
     {
 
         public override ISqlGenActionProvider Build()
-        {
-            Services.AddSingleton<ISqlFileInfoFactory, GetSqlFileInfoFactory>();
+        { 
             Services.AddSingleton<ICreateSequenceOperationsProvider, CreateSequenceOperationsProvider>();
             Services.AddSingleton<ISqlGenActionProvider, CreateSequenceSqlGenActionProvider>();
 

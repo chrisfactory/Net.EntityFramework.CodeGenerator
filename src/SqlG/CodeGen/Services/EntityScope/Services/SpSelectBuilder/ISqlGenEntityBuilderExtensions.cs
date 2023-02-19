@@ -1,10 +1,18 @@
-﻿namespace SqlG
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace SqlG
 {
     public static partial class ISqlGenEntityBuilderExtensions
     {
-        public static ISqlGenEntityBuilder Select(this ISqlGenEntityBuilder genBuilder, string name, Action<ISpSelectBuilder>? builder = null)
+        public static ISqlGenEntityBuilder SpSelect(this ISqlGenEntityBuilder genBuilder, string? name = null)
         {
-            return genBuilder.AddGenActionBuilder<ISpSelectBuilder, SpSelectBuilder>(builder);
+            return genBuilder.AddGenActionBuilder<ISpSelectBuilder, SpSelectBuilder>(b =>
+            {
+                if(!string.IsNullOrEmpty(name))
+                {
+                    b.Services.AddSingleton<ISpNameProvider>(new FixedSpSelectNameProvider(name));
+                }
+            });
         }
     }
 }

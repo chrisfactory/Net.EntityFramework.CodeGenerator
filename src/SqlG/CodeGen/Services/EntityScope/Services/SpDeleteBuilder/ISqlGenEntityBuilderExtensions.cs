@@ -1,10 +1,18 @@
-﻿namespace SqlG
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace SqlG
 {
     public static partial class ISqlGenEntityBuilderExtensions
     {
-        public static ISqlGenEntityBuilder Delete(this ISqlGenEntityBuilder genBuilder, string name, Action<ISpDeleteBuilder>? builder = null)
+        public static ISqlGenEntityBuilder SpDelete(this ISqlGenEntityBuilder genBuilder, string name = null)
         {
-            return genBuilder.AddGenActionBuilder<ISpDeleteBuilder, SpDeleteBuilder>(builder);
-        }
+            return genBuilder.AddGenActionBuilder<ISpDeleteBuilder, SpDeleteBuilder>(b =>
+            {
+                if (!string.IsNullOrEmpty(name))
+                {
+                    b.Services.AddSingleton<ISpNameProvider>(new FixedSpDeleteNameProvider(name));
+                }
+            });
+        } 
     }
 }

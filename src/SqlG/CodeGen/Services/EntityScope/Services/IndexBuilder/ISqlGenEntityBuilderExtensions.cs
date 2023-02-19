@@ -20,8 +20,7 @@ namespace SqlG
     {
 
         public override ISqlGenActionProvider Build()
-        {
-            Services.AddSingleton<ISqlFileInfoFactory, GetSqlFileInfoFactory>();
+        { 
             Services.AddSingleton<ICreateIndexOperationsProvider, CreateIndexOperationsProvider>();
             Services.AddSingleton<ISqlGenActionProvider, CreateIndexSqlGenActionProvider>();
 

@@ -4,7 +4,7 @@ namespace SqlG
 {
     public static partial class ISqlGenModelBuilderExtensions
     {
-        public static ISqlGenModelBuilder AllTables(this ISqlGenModelBuilder genBuilder)
+        public static ISqlGenModelBuilder Tables(this ISqlGenModelBuilder genBuilder)
         {
             return genBuilder.AddGenActionBuilder<ICreateTablesBuilder, CreateTablesBuilder>();
         }

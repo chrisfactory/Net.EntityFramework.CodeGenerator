@@ -8,7 +8,7 @@ namespace SqlG
     {
         private readonly string _spName;
         private readonly IEntityTypeTable _entity;
-        public SpDelete(string spName, IEntityTypeTable entity)
+        public SpDelete(IEntityTypeTable entity, string spName)
         {
             _entity = entity;
             _spName = spName;

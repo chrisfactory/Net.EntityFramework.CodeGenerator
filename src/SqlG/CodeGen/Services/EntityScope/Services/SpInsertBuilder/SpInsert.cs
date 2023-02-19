@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations.Operations;
-using System.Text;
-using System.Xml.Linq;
-using static Azure.Core.HttpHeader;
+﻿using System.Text;
 
 namespace SqlG
 {
@@ -9,7 +6,7 @@ namespace SqlG
     {
         private readonly IEntityTypeTable _entity;
         private readonly string _spName;
-        public SpInsert(string spName, IEntityTypeTable entity)
+        public SpInsert(IEntityTypeTable entity, string spName)
         {
             _entity = entity;
             _spName = spName;
@@ -52,7 +49,7 @@ namespace SqlG
             }
             builder.AppendLine(")");
 
-            builder.AppendLine(); 
+            builder.AppendLine();
             builder.AppendLine();
 
 
@@ -67,7 +64,7 @@ namespace SqlG
                 builder.AppendLine($"                    [{param.ColumnName}]{end}");
 
             }
-            builder.AppendLine("                 )"); 
+            builder.AppendLine("                 )");
 
             var strColumns = string.Empty;
             foreach (var param in _entity.AllColumns)
@@ -92,7 +89,7 @@ namespace SqlG
             builder.AppendLine("                 )");
             builder.AppendLine("");
 
-            builder.AppendLine("SELECT * FROM @OutputTable"); 
+            builder.AppendLine("SELECT * FROM @OutputTable");
             builder.AppendLine("END");
 
         }

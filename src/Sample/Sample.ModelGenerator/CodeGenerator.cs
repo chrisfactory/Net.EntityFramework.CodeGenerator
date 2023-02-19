@@ -11,8 +11,6 @@ namespace Sample.ModelGenerator
     {
         static void Main(string[] args)
         {
-
-
             var services = new ServiceCollection();
             services.AddSqlServerFileGenerator(
                         modelBuilder =>
@@ -20,13 +18,16 @@ namespace Sample.ModelGenerator
                             modelBuilder.HasDefaultSqlTargetOutput(@"..\..\..\..\Sample.DbProj");
                             modelBuilder.HasDefaultCsTargetOutput(@"..\..\..\..\Sample.App");
 
-                           // modelBuilder.HasDefaultSchema("dbo");
+                            modelBuilder.HasDefaultSchema("dbo");
 
                             modelBuilder.Entity<Animal>()
                                  .UseTpcMappingStrategy()
                                  .Generate(b =>
                                  {
-
+                                     b.SpSelect();
+                                     b.SpDelete();
+                                     b.SpInsert();
+                                     b.SpUpdate();
                                  });
 
                             modelBuilder.Entity<Food>().Property(typeof(string), "test");
@@ -37,15 +38,15 @@ namespace Sample.ModelGenerator
                             modelBuilder.Entity<Dog>();
                             modelBuilder.Entity<Human>();
 
-                         
+
 
 
                             modelBuilder.Generate(b =>
                             {
-                                b.AllTables();
-                                b.AllIndexs();
-                                b.AllSequences();
-                                b.AllSchema();
+                                b.Tables();
+                                b.Indexs();
+                                b.Sequences();
+                                b.Schemas();
                             });
                         });
 

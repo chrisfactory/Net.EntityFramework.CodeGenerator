@@ -101,12 +101,7 @@ namespace SqlG
             {
 
                 var entity = _ModelExtractor.Entities.Where(e => e.EntityType.GetTableName() == item.Operation.Name).SingleOrDefault();
-
-                // yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
-                //.UseCommandText(item.Command.CommandText)
-                //.UseTargetFiles(GetSqlFileInfo(rootSqlPath, _ModelExtractor.DefaultSqlTargetOutput.TablesPatternPath, item.Operation.Schema, item.Operation.Name))
-                //.Build();
-
+ 
 
                 // var spSelect = $"Select{item.Operation.Name}";
                 // yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
@@ -155,20 +150,7 @@ namespace SqlG
 
 
             }
-            foreach (var item in _ModelExtractor.CreateSequenceIntents)
-            {
-                //yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
-                //    .UseCommandText(item.Command.CommandText)
-                //    .UseTargetFiles(GetSqlFileInfo(rootSqlPath, _ModelExtractor.DefaultSqlTargetOutput.SequencesPatternPath, item.Operation.Schema, item.Operation.Name))
-                //    .Build();
-            }
-            foreach (var item in _ModelExtractor.EnsureSchemaIntents)
-            {
-                //yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
-                //    .UseCommandText(item.Command.CommandText)
-                //    .UseTargetFiles(GetSqlFileInfo(rootSqlPath, _ModelExtractor.DefaultSqlTargetOutput.SchemasPatternPath, string.Empty, item.Operation.Name))
-                //    .Build();
-            }
+            
         }
 
         private FileInfo GetSqlFileInfo(string rootPath, string pattern, string? schema, string operationName, string spName = null)

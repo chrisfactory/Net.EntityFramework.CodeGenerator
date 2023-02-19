@@ -4,7 +4,7 @@ namespace SqlG
 {
     public static partial class ISqlGenModelBuilderExtensions
     {
-        public static ISqlGenModelBuilder AllIndexs(this ISqlGenModelBuilder genBuilder) 
+        public static ISqlGenModelBuilder Indexs(this ISqlGenModelBuilder genBuilder) 
         {
             return genBuilder.AddGenActionBuilder<ICreateIndexsBuilder, CreateIndexsBuilder>();
         }

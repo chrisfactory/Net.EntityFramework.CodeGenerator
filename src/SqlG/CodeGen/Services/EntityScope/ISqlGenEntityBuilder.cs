@@ -40,7 +40,13 @@ namespace SqlG
             RequiredDependencies = dependencies?.ToList() ?? new List<IRequiredDependencyService>();
             Services = new ServiceCollection();
             Services.AddTransient<ICreateFileActionBuilder, CreateFileActionBuilder>();
+            Services.AddSingleton<ISqlFileInfoFactory, GetSqlFileInfoFactory>(); 
+            LoadDefaultServices();
         }
+        protected virtual void LoadDefaultServices() { }
+
+
+
         public IReadOnlyCollection<IRequiredDependencyService> RequiredDependencies { get; }
         public IServiceCollection Services { get; }
         public abstract ISqlGenActionProvider Build();
@@ -51,7 +57,7 @@ namespace SqlG
 
     }
 
-    
+
 
 
 
