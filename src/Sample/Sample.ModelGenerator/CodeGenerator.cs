@@ -35,7 +35,14 @@ namespace Sample.ModelGenerator
 
                             modelBuilder.Entity<FarmAnimal>();
                             modelBuilder.Entity<Cat>();
-                            modelBuilder.Entity<Dog>();
+                            modelBuilder.Entity<Dog>()
+                            .Generate(b =>
+                            {
+                                b.SpSelect();
+                                b.SpDelete();
+                                b.SpInsert();
+                                b.SpUpdate();
+                            }); ;
                             modelBuilder.Entity<Human>();
 
 
