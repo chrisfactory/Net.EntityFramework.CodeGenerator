@@ -7,8 +7,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\SqlG\SqlG.csproj" />
+  <ItemGroup> 
     <ProjectReference Include="..\Sample.ModelGenerator\Sample.ModelGenerator.csproj" />
   </ItemGroup>
 

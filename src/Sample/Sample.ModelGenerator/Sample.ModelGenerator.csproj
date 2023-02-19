@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\SqlG\SqlG.csproj" />
+    <ProjectReference Include="..\..\EntityFramework.CodeGenerator\EntityFramework.CodeGenerator.csproj" />
   </ItemGroup>
 
 </Project>

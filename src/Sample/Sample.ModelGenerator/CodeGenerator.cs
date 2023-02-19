@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Sample.App;
-using SqlG;
+using EntityFramework.CodeGenerator;
 
 namespace Sample.ModelGenerator
 {
