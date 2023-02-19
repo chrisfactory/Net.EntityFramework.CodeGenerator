@@ -25,18 +25,11 @@ namespace EntityFramework.CodeGenerator
 
             string relatedSchemaExt = string.IsNullOrWhiteSpace(_entity.Table.Schema) ? "" : $"[{_entity.Table.Schema}].";
 
-            builder.AppendLine($"CREATE PROCEDURE {relatedSchemaExt}[{_spName}]");
-            builder.AppendLine("(");
+            builder.BuildCreateProcedure(_entity.Table.Schema, _spName, _entity.PrimaryKeys);
+            builder.AppendLine();
+            builder.AppendLine();
 
-            foreach (var column in _entity.PrimaryKeys)
-            {
-                string end = column != lastPk ? "," : "";
-                builder.AppendLine($"     @{column.ColumnName} {column.SqlType.ToUpper()}{end}");
-
-            }
-            builder.AppendLine(")");
-            builder.AppendLine("AS BEGIN");
-            builder.AppendLine("");
+             
             builder.AppendLine($"    DELETE FROM {relatedSchemaExt}[{_entity.Table.Name}]");
             builder.AppendLine($"    WHERE");
 

@@ -6,6 +6,5 @@
         {
             return System.Text.Json.JsonNamingPolicy.CamelCase.ConvertName(str);
         }
-
     }
 }

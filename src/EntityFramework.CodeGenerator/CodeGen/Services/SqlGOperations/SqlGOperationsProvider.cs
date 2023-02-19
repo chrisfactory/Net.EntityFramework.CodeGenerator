@@ -1,18 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EntityFramework.CodeGenerator
 {
     internal class SqlGOperationsProvider : ISqlGOperationsProvider
     {
-        private readonly IServiceProvider _provider;
         private readonly IDbContextModelExtractor _ModelExtractor;
-        public SqlGOperationsProvider(IServiceProvider provider, IDbContextModelExtractor model)
+        public SqlGOperationsProvider(IDbContextModelExtractor model)
         {
-            _provider = provider;
             _ModelExtractor = model;
             GetOperations();
         }
@@ -82,7 +77,7 @@ namespace EntityFramework.CodeGenerator
                         secondLevelBuilder.Add(builder);
                     else
                         firstLevelBuilder.Add(builder);
-                }  
+                }
             }
 
 
@@ -101,42 +96,7 @@ namespace EntityFramework.CodeGenerator
             {
 
                 var entity = _ModelExtractor.Entities.Where(e => e.EntityType.GetTableName() == item.Operation.Name).SingleOrDefault();
- 
 
-                // var spSelect = $"Select{item.Operation.Name}";
-                // yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
-                //   .UseFileAction(new SpSelect(item.Operation, spSelect))
-                //   .UseTargetFiles(GetSqlFileInfo(rootSqlPath, _ModelExtractor.DefaultSqlTargetOutput.StoredProceduresPatternPath, item.Operation.Schema, item.Operation.Name, spSelect))
-                //   .Build();
-
-
-                // var spUpdate = $"Update{item.Operation.Name}";
-                // yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
-                //   .UseFileAction(new SpUpdate(item.Operation, spUpdate))
-                //   .UseTargetFiles(GetSqlFileInfo(rootSqlPath, _ModelExtractor.DefaultSqlTargetOutput.StoredProceduresPatternPath, item.Operation.Schema, item.Operation.Name, spUpdate))
-                //   .Build();
-
-                // var spDelete = $"Delete{item.Operation.Name}";
-                // yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
-                //   .UseFileAction(new SpDelete(spDelete, entity))
-                //   .UseTargetFiles(GetSqlFileInfo(rootSqlPath, _ModelExtractor.DefaultSqlTargetOutput.StoredProceduresPatternPath, item.Operation.Schema, item.Operation.Name, spDelete))
-                // .Build();
-
-
-                // var mapDr = new MapDataReader(entity);
-                // var mapParam = new MapParameters(entity);
-                // string mapExtName = $"{item.Operation.Name}MapExtensions";
-                // yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
-                //   .UseFileAction(new CsMapExt(mapExtName, entity, mapDr, mapParam))
-                //   .UseTargetFiles(GetCsFileInfo(rootCsPath, _ModelExtractor.DefaultCsTargetOutput.MapExtensionsPatternPath, item.Operation.Schema, item.Operation.Name, mapExtName))
-                // .Build();
-
-
-                // var spInsert = $"Insert{item.Operation.Name}";
-                // yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
-                //   .UseFileAction(new SpInsert(spInsert, entity))
-                //   .UseTargetFiles(GetSqlFileInfo(rootSqlPath, _ModelExtractor.DefaultSqlTargetOutput.StoredProceduresPatternPath, item.Operation.Schema, item.Operation.Name, spInsert))
-                //   .Build();
 
                 // var insertMap = new CsCallInsertPs(spInsert, entity);
                 // var selectMap = new CsCallSelectPs(spSelect, entity);
@@ -150,53 +110,16 @@ namespace EntityFramework.CodeGenerator
 
 
             }
-            
-        }
 
-        private FileInfo GetSqlFileInfo(string rootPath, string pattern, string? schema, string operationName, string spName = null)
-        {
-            var str = new StringFormatter(pattern);
-            str.Add("{schema}", schema);
-            str.Add("{schemaExt}", string.IsNullOrWhiteSpace(schema) ? "" : $"{schema}.");
-            str.Add("{name}", operationName);
-            str.Add("{spname}", spName);
-            var subPath = str.ToString().TrimStart('\\');
-            return new FileInfo(Path.Combine(rootPath, subPath));
         }
-
 
         private FileInfo GetCsFileInfo(string rootPath, string pattern, string? schema, string operationName, string classname)
         {
             var str = new StringFormatter(pattern);
             str.Add("{schema}", schema);
             str.Add("{name}", operationName);
-            str.Add("{classname}", classname);            var subPath = str.ToString().TrimStart('\\');
+            str.Add("{classname}", classname); var subPath = str.ToString().TrimStart('\\');
             return new FileInfo(Path.Combine(rootPath, subPath));
         }
     }
-    internal class StringFormatter
-    {
-
-        public string Str { get; set; }
-
-        public Dictionary<string, object> Parameters { get; set; }
-
-        public StringFormatter(string p_str)
-        {
-            Str = p_str;
-            Parameters = new Dictionary<string, object>();
-        }
-
-        public void Add(string key, object val)
-        {
-            Parameters.Add(key, val);
-        }
-
-        public override string ToString()
-        {
-            return Parameters.Aggregate(Str, (current, parameter) => current.Replace(parameter.Key, parameter.Value?.ToString()));
-        }
-
-    }
-
 }

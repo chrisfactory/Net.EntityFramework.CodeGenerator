@@ -16,18 +16,10 @@ namespace EntityFramework.CodeGenerator
         {
 
             string relatedSchemaExt = string.IsNullOrWhiteSpace(_entity.Table.Schema) ? "" : $"[{_entity.Table.Schema}].";
-
-            builder.AppendLine($"CREATE PROCEDURE {relatedSchemaExt}[{_spName}]");
-            builder.AppendLine("(");
-            var lastColumn = _entity.AllColumns.Last();
-            foreach (var param in _entity.AllColumns)
-            { 
-                string end = param != lastColumn ? "," : "";
-                builder.AppendLine($"     @{param.ColumnName} {param.SqlType?.ToUpper()}{end}");
-            }
-            builder.AppendLine(")");
-            builder.AppendLine("AS BEGIN");
-            builder.AppendLine("");
+             
+            builder.BuildCreateProcedure(_entity.Table.Schema, _spName, _entity.AllColumns);
+            builder.AppendLine();
+            builder.AppendLine();
             builder.AppendLine($"    UPDATE {relatedSchemaExt}[{_entity.Table.Name}]");
             builder.AppendLine($"    SET");
 

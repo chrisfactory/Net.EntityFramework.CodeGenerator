@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Sample.App;
 using EntityFramework.CodeGenerator;
+using System.Text;
 
 namespace Sample.ModelGenerator
 {
@@ -36,13 +37,13 @@ namespace Sample.ModelGenerator
                             modelBuilder.Entity<FarmAnimal>();
                             modelBuilder.Entity<Cat>();
                             modelBuilder.Entity<Dog>()
-                            .Generate(b =>
-                            {
-                                b.SpSelect();
-                                b.SpDelete();
-                                b.SpInsert();
-                                b.SpUpdate();
-                            }); ;
+                                    .Generate(b =>
+                                    {
+                                        b.SpSelect();
+                                        b.SpDelete();
+                                        b.SpInsert();
+                                        b.SpUpdate();
+                                    }); 
                             modelBuilder.Entity<Human>();
 
 

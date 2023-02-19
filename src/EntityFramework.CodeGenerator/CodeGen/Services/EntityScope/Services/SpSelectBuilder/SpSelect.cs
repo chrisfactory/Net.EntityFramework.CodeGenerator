@@ -16,18 +16,12 @@ namespace EntityFramework.CodeGenerator
         {
             string relatedSchemaExt = string.IsNullOrWhiteSpace(_entity.Table.Schema) ? "" : $"[{_entity.Table.Schema}].";
 
-            builder.AppendLine($"CREATE PROCEDURE {relatedSchemaExt}[{_spName}]");
-            builder.AppendLine("(");
-            var lastPk = _entity.PrimaryKeys.Last();
-            foreach (var param in _entity.PrimaryKeys)
-            {
-                string end = param != lastPk ? "," : "";
-                builder.AppendLine($"     @{param.ColumnName} {param.SqlType.ToUpper()}{end}");
+           
+            builder.BuildCreateProcedure(_entity.Table.Schema, _spName, _entity.PrimaryKeys);
+            builder.AppendLine();
+            builder.AppendLine();
 
-            }
-            builder.AppendLine(")");
-            builder.AppendLine("AS BEGIN");
-            builder.AppendLine("");
+             
             builder.AppendLine($"    SELECT DATA_RESULT.* FROM {relatedSchemaExt}[{_entity.Table.Name}] AS DATA_RESULT");
             builder.AppendLine($"    WHERE");
             var first = _entity.PrimaryKeys.First();
