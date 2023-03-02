@@ -14,7 +14,8 @@ namespace EntityFramework.CodeGenerator.Core
         public ICodeGenerator Build()
         {
             Services.AddSingleton<IDbContextModelExtractor, DbContextModelExtractor>();
-            //Services.AddSingleton<ISqlGOperationsProvider, SqlGOperationsProvider>();
+            Services.AddSingleton<IPackageModuleBuilderProvider, PackageModuleBuilderProvider>();
+            Services.AddSingleton<IPackageModuleIntentsProvider, PackageModuleIntentsProvider>();
             Services.AddSingleton<ICodeGenerator, CodeGenerator>();
             var provider = Services.BuildServiceProvider();
             return provider.GetRequiredService<ICodeGenerator>();
@@ -29,9 +30,9 @@ namespace EntityFramework.CodeGenerator.Core
 
     internal class CodeGenerator : ICodeGenerator
     {
-        public CodeGenerator(IDbContextModelExtractor ext)
+        public CodeGenerator(IDbContextModelExtractor ext, IPackageModuleIntentsProvider explorer)
         {
-
+            var builders = explorer.Get().ToList();
         }
         //public CodeGenerator(ISqlGOperationsProvider provider)
         //{

@@ -2,16 +2,16 @@
 {
     public interface IPackageTarget
     {
-        ITargetInfos? TargetInfos { get; } 
+        //ITargetInfos? TargetInfos { get; } 
     }
 
-    public interface ITargetInfos
-    {
-        string? ProjectName { get; }
-        string? Folder { get; }
-        string? FileName { get; }
+    //public interface ITargetInfos
+    //{
+    //    string? ProjectName { get; }
+    //    string? Folder { get; }
+    //    string? FileName { get; }
 
-    }
+    //}
     public interface IServiceProjectTarget : IPackageTarget
     {
 

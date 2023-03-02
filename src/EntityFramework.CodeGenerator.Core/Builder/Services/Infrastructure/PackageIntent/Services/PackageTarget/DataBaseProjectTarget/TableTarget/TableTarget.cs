@@ -2,11 +2,11 @@
 {
     internal class TableTarget : ITableTarget
     {
-        public TableTarget(ITargetInfos? targetInfos)
-        {
-            TargetInfos = targetInfos;
-        }
+        //public TableTarget(ITargetInfos? targetInfos)
+        //{
+        //    TargetInfos = targetInfos;
+        //}
 
-        public ITargetInfos? TargetInfos { get; } 
+        //public ITargetInfos? TargetInfos { get; } 
     }
 }

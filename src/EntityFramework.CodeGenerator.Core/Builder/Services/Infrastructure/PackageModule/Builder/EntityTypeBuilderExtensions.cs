@@ -7,9 +7,9 @@ namespace EntityFramework.CodeGenerator.Core
         internal const string EntityGenerateAnnotationKey = nameof(EntityGenerateAnnotationKey);
         public static EntityTypeBuilder Generate(this EntityTypeBuilder entityBuilder, Action<IEntityModuleBuilder> builder)
         {
-            var b = new EntityModuleBuilder(entityBuilder.Metadata);
+            IEntityModuleBuilder b = new EntityModuleBuilder(entityBuilder.Metadata);
             builder?.Invoke(b);
-            entityBuilder.HasAnnotation(EntityGenerateAnnotationKey, b.Build());
+            entityBuilder.HasAnnotation(EntityGenerateAnnotationKey, b);
             return entityBuilder;
         }
     }

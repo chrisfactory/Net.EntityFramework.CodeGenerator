@@ -1,9 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EntityFramework.CodeGenerator;
+using EntityFramework.CodeGenerator.Core;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Sample.App;
-using EntityFramework.CodeGenerator;
-using System.Text;
-using EntityFramework.CodeGenerator.Core;
 
 namespace Sample.ModelGenerator
 {
@@ -23,18 +22,18 @@ namespace Sample.ModelGenerator
                             modelBuilder.HasDefaultSchema("dbo");
 
                             modelBuilder.Entity<Animal>()
-                                 .UseTpcMappingStrategy()
-                                 .Generate(b =>
-                                 {
-                                     b.CreateTable();
-                                    // b.SpSelect();
-                                     //b.SpDelete();
-                                     //b.SpInsert();
-                                     //b.SpUpdate();
-                                 })
-                                 ;
+                                 .UseTpcMappingStrategy();
+                                
 
-                            modelBuilder.Entity<Food>().Property(typeof(string), "test");
+                            modelBuilder.Entity<Food>()
+                            .Generate(b =>
+                            {
+                                b.CreateTable();
+                                // b.SpSelect();
+                                //b.SpDelete();
+                                //b.SpInsert();
+                                //b.SpUpdate();
+                            }).Property(typeof(string), "test");
 
 
                             modelBuilder.Entity<FarmAnimal>();

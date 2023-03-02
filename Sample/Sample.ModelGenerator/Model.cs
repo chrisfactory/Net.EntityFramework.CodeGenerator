@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Sample.App
 {
+    [Table("CustomFood")]
     public class Food
     {
         [Column("FoodId")]
@@ -10,7 +11,7 @@ namespace Sample.App
         [Column("NameAlias")]
         public string Name { get; set; }
     }
-
+   
     public class Animal
     {
         public int Id { get; set; }

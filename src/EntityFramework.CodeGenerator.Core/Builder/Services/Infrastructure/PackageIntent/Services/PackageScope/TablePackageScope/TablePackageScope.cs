@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace EntityFramework.CodeGenerator.Core
 {
     internal class TablePackageScope : ITablePackageScope
     {
-        public TablePackageScope(IMutableEntityType metaData)
+        public TablePackageScope(IMutableEntityType metaData, IDbContextModelExtractor model)
         {
             MetaData = metaData;
         }
@@ -13,7 +14,7 @@ namespace EntityFramework.CodeGenerator.Core
 
         public string GetDisplayName()
         {
-            return $"{MetaData.DisplayName()}";
+            return $"{MetaData.DisplayName()} => {MetaData.GetTableName()}";
         }
     }
 }

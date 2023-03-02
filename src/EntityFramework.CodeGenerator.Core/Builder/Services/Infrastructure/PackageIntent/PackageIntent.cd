@@ -73,8 +73,8 @@
       <Path>
         <Point X="10.75" Y="7.438" />
         <Point X="11.125" Y="7.438" />
-        <Point X="11.125" Y="7.437" />
-        <Point X="28.75" Y="7.437" />
+        <Point X="11.125" Y="7.29" />
+        <Point X="28.75" Y="7.29" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="Content" Type="EntityFramework.CodeGenerator.Core.IPackageContent" FixedFromPoint="true" FixedToPoint="true">
@@ -96,7 +96,7 @@
     </ShowAsAssociation>
   </Interface>
   <Interface Name="EntityFramework.CodeGenerator.Core.IDbServiceTarget" Collapsed="true">
-    <Position X="25" Y="10.25" Width="1.5" />
+    <Position X="25.75" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageTarget\IPackageTarget.cs</FileName>
@@ -182,7 +182,7 @@
   <Interface Name="EntityFramework.CodeGenerator.Core.IPackageTarget">
     <Position X="28.75" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageTarget\IPackageTarget.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -211,13 +211,6 @@
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageTarget\DataBaseProjectTarget\IDataBaseProjectTarget.cs</FileName>
       <NewMemberFileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageModuleIntent\PackageIntent\PackageTarget\IDataBaseProjectTarget.cs</NewMemberFileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="EntityFramework.CodeGenerator.Core.IContentFileSegment">
-    <Position X="11.5" Y="9.25" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContent\IPackageContent.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="EntityFramework.CodeGenerator.Core.IPackageContent" Collapsed="true">
@@ -310,6 +303,20 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageIntentFactory\IPackageIntentFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="EntityFramework.CodeGenerator.Core.IPackageContentProvider" Collapsed="true">
+    <Position X="10" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContentProvider\IPackageContentProvider.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="EntityFramework.CodeGenerator.Core.IContentFileSegment">
+    <Position X="11.5" Y="9.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContent\ContentFileSegment\IContentFileSegment.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />

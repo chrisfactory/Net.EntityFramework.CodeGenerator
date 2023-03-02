@@ -1,5 +1,8 @@
-﻿namespace EntityFramework.CodeGenerator.Core
+﻿using System.Diagnostics;
+
+namespace EntityFramework.CodeGenerator.Core
 {
+    [DebuggerDisplay("{Identity}")]
     internal class PackageIntent : IPackageIntent
     {
         public PackageIntent(IPackageIdentity identity, IPackageContentSource source, IPackageTarget target, IPackageContent content)

@@ -1,41 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="EntityFramework.CodeGenerator.Core.EntityModuleBuilder" Collapsed="true">
-    <Position X="4.5" Y="2.75" Width="2.25" />
+    <Position X="1" Y="3" Width="2.25" />
     <TypeIdentifier>
       <HashCode>gAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
-      <FileName>PackageModule\Builder\EntityModule\EntityModuleBuilder.cs</FileName>
+      <FileName>Builder\Services\Infrastructure\PackageModule\Builder\EntityModule\EntityModuleBuilder.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="EntityFramework.CodeGenerator.Core.ModelModuleBuilder" Collapsed="true">
-    <Position X="1.25" Y="2.75" Width="2" />
+  <Class Name="EntityFramework.CodeGenerator.Core.PackageIntentBuilder&lt;TScope, TContentSource, TTarget, TContentProvider&gt;" Collapsed="true">
+    <Position X="4.5" Y="2" Width="4.25" />
     <TypeIdentifier>
       <HashCode>gAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
-      <FileName>PackageModule\Builder\ModelModule\ModelModuleBuilder.cs</FileName>
+      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\Builder\PackageIntentBuilder.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Interface Name="EntityFramework.CodeGenerator.Core.IPackageModuleBuilder" Collapsed="true">
-    <Position X="2.5" Y="0.5" Width="2.5" />
+    <Position X="0.75" Y="0.5" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>PackageModule\Builder\IPackageModuleBuilder.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="EntityFramework.CodeGenerator.Core.IModelModuleBuilder" Collapsed="true">
-    <Position X="4.5" Y="1.75" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>PackageModule\Builder\ModelModule\IModelModuleBuilder.cs</FileName>
-      <NewMemberFileName>PackageModule\Builder\IEntityModuleBuilder.cs</NewMemberFileName>
+      <FileName>Builder\Services\Infrastructure\PackageModule\Builder\IPackageModuleBuilder.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="EntityFramework.CodeGenerator.Core.IEntityModuleBuilder" Collapsed="true">
     <Position X="1.25" Y="1.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>PackageModule\Builder\EntityModule\IEntityModuleBuilder.cs</FileName>
+      <FileName>Builder\Services\Infrastructure\PackageModule\Builder\EntityModule\IEntityModuleBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="EntityFramework.CodeGenerator.Core.IPackageIntentBuilder" Collapsed="true">
+    <Position X="4.5" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\Builder\IPackageIntentBuilder.cs</FileName>
+      <NewMemberFileName>Builder\Services\Infrastructure\PackageIntent\IPackageIntentBuilder.cs</NewMemberFileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />
