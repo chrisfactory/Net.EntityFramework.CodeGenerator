@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using EntityFramework.CodeGenerator.Core;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using EntityFramework.CodeGenerator.CodeGen.Tools;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 
@@ -9,7 +9,7 @@ namespace EntityFramework.CodeGenerator
     internal class EntityTypeTable : IEntityTypeTable
     {
         public EntityTypeTable(
-            IReadOnlyCollection<ISqlGenActionBuilder> actionBuilders,
+            IReadOnlyCollection<IActionBuilder> actionBuilders,
             IModel model,
             IEntityType entityType,
             ITable table)
@@ -26,7 +26,7 @@ namespace EntityFramework.CodeGenerator
         public ITable Table { get; }
         public string TableFullName { get; }
 
-        public IReadOnlyCollection<ISqlGenActionBuilder> ActionBuilders { get; }
+        public IReadOnlyCollection<IActionBuilder> ActionBuilders { get; }
 
 
         public override string ToString() => $"{EntityType.Name} => {Table.Name}";

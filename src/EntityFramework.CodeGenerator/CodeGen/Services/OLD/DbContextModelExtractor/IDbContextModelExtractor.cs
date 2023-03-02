@@ -10,7 +10,7 @@ namespace EntityFramework.CodeGenerator
         IReadOnlyCollection<IEntityTypeTable> Entities { get; }
         ISqlTargetOutput DefaultSqlTargetOutput { get; }
         ICsTargetOutput DefaultCsTargetOutput { get; }
-        IReadOnlyCollection<ISqlGenActionBuilder> ActionBuilders { get; }
+        IReadOnlyCollection<IActionBuilder> ActionBuilders { get; }
 
         IReadOnlyCollection<IOperationCommand<CreateTableOperation, MigrationCommand>> CreateTableIntents { get; }
         IReadOnlyCollection<IOperationCommand<CreateIndexOperation, MigrationCommand>> CreateIndexIntents { get; }

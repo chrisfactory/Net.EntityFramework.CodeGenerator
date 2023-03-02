@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using EntityFramework.CodeGenerator.Core;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EntityFramework.CodeGenerator
 {

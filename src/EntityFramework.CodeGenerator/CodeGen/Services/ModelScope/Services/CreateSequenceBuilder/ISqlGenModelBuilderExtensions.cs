@@ -7,7 +7,7 @@ namespace EntityFramework.CodeGenerator
     public static partial class ISqlGenModelBuilderExtensions
     {
         public static ISqlGenModelBuilder Sequences(this ISqlGenModelBuilder genBuilder)
-        { 
+        {
             return genBuilder.AddGenActionBuilder<ICreateSequenceBuilder, CreateSequenceBuilder>();
         }
     }
@@ -15,20 +15,20 @@ namespace EntityFramework.CodeGenerator
 
 
 
-    public interface ICreateSequenceBuilder : ISqlGenActionBuilder
+    public interface ICreateSequenceBuilder : IActionBuilder
     {
     }
 
-    internal class CreateSequenceBuilder : SqlGenActionBuilder, ICreateSequenceBuilder
+    internal class CreateSequenceBuilder : ActionBuilder, ICreateSequenceBuilder
     {
 
-        public override ISqlGenActionProvider Build()
-        { 
+        public override IActionProvider Build()
+        {
             Services.AddSingleton<ICreateSequenceOperationsProvider, CreateSequenceOperationsProvider>();
-            Services.AddSingleton<ISqlGenActionProvider, CreateSequenceSqlGenActionProvider>();
+            Services.AddSingleton<IActionProvider, CreateSequenceSqlGenActionProvider>();
 
             var provider = Services.BuildServiceProvider();
-            return provider.GetRequiredService<ISqlGenActionProvider>();
+            return provider.GetRequiredService<IActionProvider>();
         }
     }
 
@@ -49,15 +49,15 @@ namespace EntityFramework.CodeGenerator
         }
     }
 
-    internal class CreateSequenceSqlGenActionProvider : ISqlGenActionProvider
+    internal class CreateSequenceSqlGenActionProvider : IActionProvider
     {
         private readonly IServiceProvider _provider;
-        private readonly ISqlFileInfoFactory _fileInfoProvider;
+        private readonly IFileInfoFactory _fileInfoProvider;
         private readonly ICreateSequenceOperationsProvider _commandProvider;
         private readonly IDbContextModelExtractor _modelExtractor;
         public CreateSequenceSqlGenActionProvider(
             IServiceProvider provider,
-            ISqlFileInfoFactory fileInfoProvider,
+            IFileInfoFactory fileInfoProvider,
             ICreateSequenceOperationsProvider commandProvider,
             IDbContextModelExtractor modelExtractor)
         {
@@ -66,7 +66,7 @@ namespace EntityFramework.CodeGenerator
             _commandProvider = commandProvider;
             _modelExtractor = modelExtractor;
         }
-        public IEnumerable<ISqlGenAction> Get()
+        public IEnumerable<IAction> Get()
         {
             foreach (var cmd in _commandProvider.Get())
             {
@@ -74,12 +74,15 @@ namespace EntityFramework.CodeGenerator
                 var tablePattern = _modelExtractor.DefaultSqlTargetOutput.SequencesPatternPath;
                 var schema = cmd.Operation.Schema;
                 var name = cmd.Operation.Name;
-                var fi = _fileInfoProvider.CreateFileInfo(rootSqlPath, tablePattern, schema, name);
+                var fi = _fileInfoProvider.CreateSqlFileInfo(rootSqlPath, tablePattern, schema, name);
 
-                yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
-                                      .UseCommandText(cmd.Command.CommandText)
-                                      .UseTargetFiles(fi)
-                                      .Build();
+                var fileProvider = _provider.GetRequiredService<ICreateFileActionBuilder>()
+                                       .UseCommandText(cmd.Command.CommandText)
+                                       .UseTargetFiles(fi)
+                                       .Build();
+
+                foreach (var fileAction in fileProvider.Get())
+                    yield return fileAction;
             }
 
 

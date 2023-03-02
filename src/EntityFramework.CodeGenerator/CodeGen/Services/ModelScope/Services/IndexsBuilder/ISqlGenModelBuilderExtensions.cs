@@ -10,24 +10,24 @@ namespace EntityFramework.CodeGenerator
         }
     }
 
-    public interface ICreateIndexsBuilder : ISqlGenActionBuilder
+    public interface ICreateIndexsBuilder : IActionBuilder
     {
     }
 
-    internal class CreateIndexsBuilder : SqlGenActionBuilder, ICreateIndexsBuilder
+    internal class CreateIndexsBuilder : ActionBuilder, ICreateIndexsBuilder
     {
 
-        public override ISqlGenActionProvider Build()
+        public override IActionProvider Build()
         {
             Services.AddTransient<ICreateIndexBuilder, CreateIndexBuilder>();
-            Services.AddSingleton<ISqlGenActionProvider, CreateIndexsSqlGenActionProvider>();
+            Services.AddSingleton<IActionProvider, CreateIndexsSqlGenActionProvider>();
 
             var provider = Services.BuildServiceProvider();
-            return provider.GetRequiredService<ISqlGenActionProvider>();
+            return provider.GetRequiredService<IActionProvider>();
         }
     }
 
-    public interface ICreateIndexSqlGenActionProvider : ISqlGenActionProvider
+    public interface ICreateIndexSqlGenActionProvider : IActionProvider
     {
         ICreateIndexBuilder GetIndexBuilder();
     }
@@ -38,9 +38,9 @@ namespace EntityFramework.CodeGenerator
         {
             _provider = provider;
         }
-        public IEnumerable<ISqlGenAction> Get()
+        public IEnumerable<IAction> Get()
         {
-            return new List<ISqlGenAction>();
+            return new List<IAction>();
         }
 
         public ICreateIndexBuilder GetIndexBuilder()

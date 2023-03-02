@@ -15,9 +15,9 @@ namespace EntityFramework.CodeGenerator
         }
 
         public static ISqlGenModelBuilder AddGenAction<TAction>(this ISqlGenModelBuilder builder, TAction action)
-            where TAction : ISqlGenActionProvider
+            where TAction : IActionProvider
         {
-            builder.Services.AddSingleton<ISqlGenActionProvider>(action);
+            builder.Services.AddSingleton<IActionProvider>(action);
             return builder;
         }
     }

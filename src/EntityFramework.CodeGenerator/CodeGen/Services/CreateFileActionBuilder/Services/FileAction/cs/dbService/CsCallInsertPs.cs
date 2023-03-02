@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using EntityFramework.CodeGenerator.Core;
+using System.Text;
 
 namespace EntityFramework.CodeGenerator
 {

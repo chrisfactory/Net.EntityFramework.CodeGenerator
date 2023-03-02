@@ -2,15 +2,15 @@
 
 namespace EntityFramework.CodeGenerator
 {
-    internal class CreateIndexSqlGenActionProvider : ISqlGenActionProvider
+    internal class CreateIndexSqlGenActionProvider : IActionProvider
     {
         private readonly IServiceProvider _provider;
-        private readonly ISqlFileInfoFactory _fileInfoProvider;
+        private readonly IFileInfoFactory _fileInfoProvider;
         private readonly ICreateIndexOperationsProvider _commandProvider;
         private readonly IDbContextModelExtractor _modelExtractor;
         public CreateIndexSqlGenActionProvider(
             IServiceProvider provider,
-            ISqlFileInfoFactory fileInfoProvider,
+            IFileInfoFactory fileInfoProvider,
             ICreateIndexOperationsProvider commandProvider,
             IDbContextModelExtractor modelExtractor)
         {
@@ -19,7 +19,7 @@ namespace EntityFramework.CodeGenerator
             _commandProvider = commandProvider;
             _modelExtractor = modelExtractor;
         }
-        public IEnumerable<ISqlGenAction> Get()
+        public IEnumerable<IAction> Get()
         {
             foreach (var cmd in _commandProvider.Get())
             {
@@ -27,15 +27,18 @@ namespace EntityFramework.CodeGenerator
                 var tablePattern = _modelExtractor.DefaultSqlTargetOutput.IndexsPatternPath;
                 var schema = cmd.Operation.Schema;
                 var name = cmd.Operation.Name;
-                var fi = _fileInfoProvider.CreateFileInfo(rootSqlPath, tablePattern, schema, name);
+                var fi = _fileInfoProvider.CreateSqlFileInfo(rootSqlPath, tablePattern, schema, name);
 
-                yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
+                var fileProvider = _provider.GetRequiredService<ICreateFileActionBuilder>()
                                       .UseCommandText(cmd.Command.CommandText)
                                       .UseTargetFiles(fi)
                                       .Build();
+
+                foreach (var fileAction in fileProvider.Get())
+                    yield return fileAction;
             }
-           
-          
+
+
         }
     }
 }

@@ -13,20 +13,20 @@ namespace EntityFramework.CodeGenerator
 
 
 
-    public interface ICreateTableBuilder : ISqlGenActionBuilder
+    public interface ICreateTableBuilder : IActionBuilder
     {
     }
 
-    internal class CreateTableBuilder : SqlGenActionBuilder, ICreateTableBuilder
+    internal class CreateTableBuilder : ActionBuilder, ICreateTableBuilder
     {
 
-        public override ISqlGenActionProvider Build()
+        public override IActionProvider Build()
         { 
             Services.AddSingleton<ICreateTableOperationProvider, CreateTableOperationProvider>();
-            Services.AddSingleton<ISqlGenActionProvider, CreateTableSqlGenActionProvider>();
+            Services.AddSingleton<IActionProvider, CreateTableSqlGenActionProvider>();
 
             var provider = Services.BuildServiceProvider();
-            return provider.GetRequiredService<ISqlGenActionProvider>();
+            return provider.GetRequiredService<IActionProvider>();
         }
     }
 

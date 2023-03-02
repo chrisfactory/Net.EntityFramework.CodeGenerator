@@ -1,5 +1,5 @@
 ﻿using System.Text;
-
+using EntityFramework.CodeGenerator.Core;
 namespace EntityFramework.CodeGenerator
 {
     public class CommandTextSegment : IContentFileSegment

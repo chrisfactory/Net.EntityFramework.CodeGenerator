@@ -2,6 +2,6 @@
 {
     public interface ISqlGOperationsProvider
     {
-        IEnumerable<ISqlGenAction> GetOperations();
+        IEnumerable<IAction> GetOperations();
     }
 }

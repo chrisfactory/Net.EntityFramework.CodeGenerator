@@ -1,7 +1,7 @@
 ﻿using DataBaseAccess;
 using System.Data;
 using System.Text;
-
+using EntityFramework.CodeGenerator.Core;
 namespace EntityFramework.CodeGenerator
 {
     internal class CsMapExt : IContentFileSegment

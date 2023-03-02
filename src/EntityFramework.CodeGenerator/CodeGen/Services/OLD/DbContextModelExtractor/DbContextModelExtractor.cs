@@ -14,6 +14,7 @@ namespace EntityFramework.CodeGenerator
         private readonly IRelationalModel _relationModel;
         public DbContextModelExtractor(DbContext dbContext)
         {
+
             _context = dbContext;
             var designTimeMode = dbContext.GetService<IDesignTimeModel>();
             var diff = dbContext.GetService<IMigrationsModelDiffer>();
@@ -45,7 +46,7 @@ namespace EntityFramework.CodeGenerator
             Entities = ExtractEntities();
 
             var builderProvider = model.FindAnnotation(ISqlGenEntityBuilderExtensions.ModelGenerateAnnotationKey)?.Value as ISqlGenActionBuilderProvider;
-            ActionBuilders = builderProvider?.Get() ?? new List<ISqlGenActionBuilder>();
+            ActionBuilders = builderProvider?.Get() ?? new List<IActionBuilder>();
         }
 
 
@@ -56,7 +57,7 @@ namespace EntityFramework.CodeGenerator
         public ISqlTargetOutput DefaultSqlTargetOutput { get; }
         public ICsTargetOutput DefaultCsTargetOutput { get; }
 
-        public IReadOnlyCollection<ISqlGenActionBuilder> ActionBuilders { get; }
+        public IReadOnlyCollection<IActionBuilder> ActionBuilders { get; }
 
         public IReadOnlyCollection<IOperationCommand<CreateTableOperation, MigrationCommand>> CreateTableIntents { get; }
         public IReadOnlyCollection<IOperationCommand<CreateIndexOperation, MigrationCommand>> CreateIndexIntents { get; }
@@ -76,7 +77,7 @@ namespace EntityFramework.CodeGenerator
                 {
                     var table = tables[tableName];
                     var builder = entityType.FindAnnotation(ISqlGenEntityBuilderExtensions.EntityGenerateAnnotationKey)?.Value as ISqlGenActionBuilderProvider;
-                    result.Add(new EntityTypeTable(builder?.Get() ?? new List<ISqlGenActionBuilder>(), Model, entityType, table));
+                    result.Add(new EntityTypeTable(builder?.Get() ?? new List<IActionBuilder>(), Model, entityType, table));
 
                 }
             }

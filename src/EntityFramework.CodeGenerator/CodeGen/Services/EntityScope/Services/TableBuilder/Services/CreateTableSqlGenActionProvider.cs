@@ -2,15 +2,15 @@
 
 namespace EntityFramework.CodeGenerator
 {
-    internal class CreateTableSqlGenActionProvider : ISqlGenActionProvider
+    internal class CreateTableSqlGenActionProvider : IActionProvider
     {
         private readonly IServiceProvider _provider;
-        private readonly ISqlFileInfoFactory _fileInfoProvider;
+        private readonly IFileInfoFactory _fileInfoProvider;
         private readonly ICreateTableOperationProvider _commandProvider;
         private readonly IDbContextModelExtractor _modelExtractor;
         public CreateTableSqlGenActionProvider(
             IServiceProvider provider,
-            ISqlFileInfoFactory fileInfoProvider,
+            IFileInfoFactory fileInfoProvider,
             ICreateTableOperationProvider commandProvider,
             IDbContextModelExtractor modelExtractor)
         {
@@ -19,7 +19,7 @@ namespace EntityFramework.CodeGenerator
             _commandProvider = commandProvider;
             _modelExtractor = modelExtractor;
         }
-        public IEnumerable<ISqlGenAction> Get()
+        public IEnumerable<IAction> Get()
         {
             var cmd = _commandProvider.Get();
 
@@ -27,12 +27,16 @@ namespace EntityFramework.CodeGenerator
             var tablePattern = _modelExtractor.DefaultSqlTargetOutput.TablesPatternPath;
             var schema = cmd.Operation.Schema;
             var name = cmd.Operation.Name;
-            var fi = _fileInfoProvider.CreateFileInfo(rootSqlPath, tablePattern, schema, name);
+            var fi = _fileInfoProvider.CreateSqlFileInfo(rootSqlPath, tablePattern, schema, name);
 
-            yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
-                                  .UseCommandText(cmd.Command.CommandText)
-                                  .UseTargetFiles(fi)
-                                  .Build();
+            var fileProvider = _provider.GetRequiredService<ICreateFileActionBuilder>()
+                                   .UseCommandText(cmd.Command.CommandText)
+                                   .UseTargetFiles(fi)
+                                   .Build();
+
+
+            foreach (var fileAction in fileProvider.Get())
+                yield return fileAction;
         }
     }
 }

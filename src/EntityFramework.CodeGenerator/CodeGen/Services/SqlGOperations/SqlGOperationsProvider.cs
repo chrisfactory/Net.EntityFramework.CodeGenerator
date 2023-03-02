@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace EntityFramework.CodeGenerator
 {
@@ -14,14 +13,12 @@ namespace EntityFramework.CodeGenerator
 
 
 
-        public IEnumerable<ISqlGenAction> GetOperations()
+        public IEnumerable<IAction> GetOperations()
         {
-            var rootSqlPath = _ModelExtractor.DefaultSqlTargetOutput.RootPath;
-            var rootCsPath = _ModelExtractor.DefaultCsTargetOutput.RootPath;
-
-            var providers = new List<ISqlGenActionProvider>();
-            var firstLevelBuilder = new List<ISqlGenActionBuilder>();
-            var secondLevelBuilder = new List<ISqlGenActionBuilder>();
+         
+            var providers = new List<IActionProvider>();
+            var firstLevelBuilder = new List<IActionBuilder>();
+            var secondLevelBuilder = new List<IActionBuilder>();
 
             ICreateTablesSqlGenActionProvider? tablesBuilderProvider = null;
             ICreateIndexSqlGenActionProvider? indexsBuilderProvider = null;
@@ -48,7 +45,7 @@ namespace EntityFramework.CodeGenerator
             {
                 bool table = false;
                 bool index = false;
-                var builders = new List<ISqlGenActionBuilder>();
+                var builders = new List<IActionBuilder>();
                 foreach (var builder in entity.ActionBuilders)
                 {
                     builders.Add(builder);
@@ -89,37 +86,6 @@ namespace EntityFramework.CodeGenerator
             foreach (var provider in providers)
                 foreach (var action in provider.Get())
                     yield return action;
-
-
-
-            foreach (var item in _ModelExtractor.CreateTableIntents)
-            {
-
-                var entity = _ModelExtractor.Entities.Where(e => e.EntityType.GetTableName() == item.Operation.Name).SingleOrDefault();
-
-
-                // var insertMap = new CsCallInsertPs(spInsert, entity);
-                // var selectMap = new CsCallSelectPs(spSelect, entity);
-                // var updateMap = new CsCallUpdatetPs(spUpdate, entity);
-                // var deleteMap = new CsCallDeletePs(spDelete, entity);
-                // string className = $"{item.Operation.Name}DbService";
-                // yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
-                //   .UseFileAction(new CsDbAccess(className, entity, insertMap, selectMap, updateMap, deleteMap))
-                //   .UseTargetFiles(GetCsFileInfo(rootCsPath, _ModelExtractor.DefaultCsTargetOutput.DbServicePatternPath, item.Operation.Schema, item.Operation.Name, className))
-                // .Build();
-
-
-            }
-
-        }
-
-        private FileInfo GetCsFileInfo(string rootPath, string pattern, string? schema, string operationName, string classname)
-        {
-            var str = new StringFormatter(pattern);
-            str.Add("{schema}", schema);
-            str.Add("{name}", operationName);
-            str.Add("{classname}", classname); var subPath = str.ToString().TrimStart('\\');
-            return new FileInfo(Path.Combine(rootPath, subPath));
         }
     }
 }

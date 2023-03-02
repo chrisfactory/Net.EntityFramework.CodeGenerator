@@ -1,6 +1,6 @@
 ﻿using System.Data;
 using System.Text;
-
+using EntityFramework.CodeGenerator.Core;
 namespace EntityFramework.CodeGenerator
 {
     internal class MapParameters : IContentFileSegment

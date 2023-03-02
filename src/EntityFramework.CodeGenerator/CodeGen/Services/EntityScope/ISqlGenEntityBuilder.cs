@@ -26,21 +26,21 @@ namespace EntityFramework.CodeGenerator
     }
 
 
-    public interface ISqlGenActionBuilder
+    public interface IActionBuilder
     {
         IReadOnlyCollection<IRequiredDependencyService> RequiredDependencies { get; }
         IServiceCollection Services { get; }
-        ISqlGenActionProvider Build();
+        IActionProvider Build();
     }
 
-    internal abstract class SqlGenActionBuilder : ISqlGenActionBuilder
+    internal abstract class ActionBuilder : IActionBuilder
     {
-        public SqlGenActionBuilder(params IRequiredDependencyService[] dependencies)
+        public ActionBuilder(params IRequiredDependencyService[] dependencies)
         {
             RequiredDependencies = dependencies?.ToList() ?? new List<IRequiredDependencyService>();
             Services = new ServiceCollection();
             Services.AddTransient<ICreateFileActionBuilder, CreateFileActionBuilder>();
-            Services.AddSingleton<ISqlFileInfoFactory, GetSqlFileInfoFactory>(); 
+            Services.AddSingleton<IFileInfoFactory, FileInfoFactory>(); 
             LoadDefaultServices();
         }
         protected virtual void LoadDefaultServices() { }
@@ -49,7 +49,7 @@ namespace EntityFramework.CodeGenerator
 
         public IReadOnlyCollection<IRequiredDependencyService> RequiredDependencies { get; }
         public IServiceCollection Services { get; }
-        public abstract ISqlGenActionProvider Build();
+        public abstract IActionProvider Build();
     }
 
     public interface IRequiredDependencyService
@@ -59,19 +59,9 @@ namespace EntityFramework.CodeGenerator
 
 
 
-
-
-
-
-
-
-
-
-
-
     public interface ISqlGenActionBuilderProvider
     {
-        IReadOnlyCollection<ISqlGenActionBuilder> Get();
+        IReadOnlyCollection<IActionBuilder> Get();
     }
     internal class SqlGenActionBuilderProvider : ISqlGenActionBuilderProvider
     {
@@ -80,9 +70,9 @@ namespace EntityFramework.CodeGenerator
         {
             _provider = provider;
         }
-        public IReadOnlyCollection<ISqlGenActionBuilder> Get()
+        public IReadOnlyCollection<IActionBuilder> Get()
         {
-            return new List<ISqlGenActionBuilder>(_provider.GetServices<ISqlGenActionBuilder>());
+            return new List<IActionBuilder>(_provider.GetServices<IActionBuilder>());
         }
     }
 }

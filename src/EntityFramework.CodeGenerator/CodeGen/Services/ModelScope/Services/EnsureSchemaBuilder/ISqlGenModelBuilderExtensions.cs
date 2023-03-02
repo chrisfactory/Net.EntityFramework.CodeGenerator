@@ -15,20 +15,20 @@ namespace EntityFramework.CodeGenerator
 
 
 
-    public interface IEnsureSchemaBuilder : ISqlGenActionBuilder
+    public interface IEnsureSchemaBuilder : IActionBuilder
     {
     }
 
-    internal class EnsureSchemaBuilder : SqlGenActionBuilder, IEnsureSchemaBuilder
+    internal class EnsureSchemaBuilder : ActionBuilder, IEnsureSchemaBuilder
     {
 
-        public override ISqlGenActionProvider Build()
-        { 
+        public override IActionProvider Build()
+        {
             Services.AddSingleton<IEnsureSchemaOperationsProvider, EnsureSchemaOperationsProvider>();
-            Services.AddSingleton<ISqlGenActionProvider, EnsureSchemaSqlGenActionProvider>();
+            Services.AddSingleton<IActionProvider, EnsureSchemaSqlGenActionProvider>();
 
             var provider = Services.BuildServiceProvider();
-            return provider.GetRequiredService<ISqlGenActionProvider>();
+            return provider.GetRequiredService<IActionProvider>();
         }
     }
 
@@ -49,15 +49,15 @@ namespace EntityFramework.CodeGenerator
         }
     }
 
-    internal class EnsureSchemaSqlGenActionProvider : ISqlGenActionProvider
+    internal class EnsureSchemaSqlGenActionProvider : IActionProvider
     {
         private readonly IServiceProvider _provider;
-        private readonly ISqlFileInfoFactory _fileInfoProvider;
+        private readonly IFileInfoFactory _fileInfoProvider;
         private readonly IEnsureSchemaOperationsProvider _commandProvider;
         private readonly IDbContextModelExtractor _modelExtractor;
         public EnsureSchemaSqlGenActionProvider(
             IServiceProvider provider,
-            ISqlFileInfoFactory fileInfoProvider,
+            IFileInfoFactory fileInfoProvider,
             IEnsureSchemaOperationsProvider commandProvider,
             IDbContextModelExtractor modelExtractor)
         {
@@ -66,20 +66,23 @@ namespace EntityFramework.CodeGenerator
             _commandProvider = commandProvider;
             _modelExtractor = modelExtractor;
         }
-        public IEnumerable<ISqlGenAction> Get()
+        public IEnumerable<IAction> Get()
         {
             foreach (var cmd in _commandProvider.Get())
             {
                 var rootSqlPath = _modelExtractor.DefaultSqlTargetOutput.RootPath;
                 var tablePattern = _modelExtractor.DefaultSqlTargetOutput.SchemasPatternPath;
                 var name = cmd.Operation.Name;
-                var fi = _fileInfoProvider.CreateFileInfo(rootSqlPath, tablePattern, null, name);
+                var fi = _fileInfoProvider.CreateSqlFileInfo(rootSqlPath, tablePattern, null, name);
 
-                yield return _provider.GetRequiredService<ICreateFileActionBuilder>()
+                var fileProvider = _provider.GetRequiredService<ICreateFileActionBuilder>()
                                       .UseCommandText(cmd.Command.CommandText)
                                       .UseTargetFiles(fi)
                                       .Build();
-            }  
+
+                foreach (var fileAction in fileProvider.Get())
+                    yield return fileAction;
+            }
         }
-    } 
+    }
 }

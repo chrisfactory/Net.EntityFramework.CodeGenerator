@@ -11,25 +11,25 @@ namespace EntityFramework.CodeGenerator
     }
 
 
-    public interface ICreateTablesBuilder : ISqlGenActionBuilder
+    public interface ICreateTablesBuilder : IActionBuilder
     {
     }
 
-    internal class CreateTablesBuilder : SqlGenActionBuilder, ICreateTablesBuilder
+    internal class CreateTablesBuilder : ActionBuilder, ICreateTablesBuilder
     {
 
-        public override ISqlGenActionProvider Build()
+        public override IActionProvider Build()
         {
             Services.AddTransient<ICreateTableBuilder, CreateTableBuilder>();
-            Services.AddSingleton<ISqlGenActionProvider, CreateTablesSqlGenActionProvider>();
+            Services.AddSingleton<IActionProvider, CreateTablesSqlGenActionProvider>();
 
             var provider = Services.BuildServiceProvider();
-            return provider.GetRequiredService<ISqlGenActionProvider>();
+            return provider.GetRequiredService<IActionProvider>();
         }
     }
 
 
-    public interface ICreateTablesSqlGenActionProvider : ISqlGenActionProvider
+    public interface ICreateTablesSqlGenActionProvider : IActionProvider
     {
         ICreateTableBuilder GetTableBuilder();
     }
@@ -40,9 +40,9 @@ namespace EntityFramework.CodeGenerator
         {
             _provider = provider;
         }
-        public IEnumerable<ISqlGenAction> Get()
+        public IEnumerable<IAction> Get()
         {
-            return new List<ISqlGenAction>();
+            return new List<IAction>();
         }
 
         public ICreateTableBuilder GetTableBuilder()

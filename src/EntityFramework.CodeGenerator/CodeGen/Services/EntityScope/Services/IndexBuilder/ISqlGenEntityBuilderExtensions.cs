@@ -12,20 +12,20 @@ namespace EntityFramework.CodeGenerator
 
 
 
-    public interface ICreateIndexBuilder : ISqlGenActionBuilder
+    public interface ICreateIndexBuilder : IActionBuilder
     {
     }
 
-    internal class CreateIndexBuilder : SqlGenActionBuilder, ICreateIndexBuilder
+    internal class CreateIndexBuilder : ActionBuilder, ICreateIndexBuilder
     {
 
-        public override ISqlGenActionProvider Build()
+        public override IActionProvider Build()
         { 
             Services.AddSingleton<ICreateIndexOperationsProvider, CreateIndexOperationsProvider>();
-            Services.AddSingleton<ISqlGenActionProvider, CreateIndexSqlGenActionProvider>();
+            Services.AddSingleton<IActionProvider, CreateIndexSqlGenActionProvider>();
 
             var provider = Services.BuildServiceProvider();
-            return provider.GetRequiredService<ISqlGenActionProvider>();
+            return provider.GetRequiredService<IActionProvider>();
         }
     }
 
