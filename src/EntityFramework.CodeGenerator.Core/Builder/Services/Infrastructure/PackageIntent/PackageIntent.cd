@@ -24,6 +24,22 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
+  <Class Name="EntityFramework.CodeGenerator.Core.CommandTextSegment" Collapsed="true">
+    <Position X="13.75" Y="10.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContent\ContentStringSegment\CommandTextSegment.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EntityFramework.CodeGenerator.Core.ContentStringSegmentCollections" Collapsed="true">
+    <Position X="10" Y="11" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContent\ContentStringSegmentCollections\ContentStringSegmentCollections.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
   <Interface Name="EntityFramework.CodeGenerator.Core.IPackageModuleIntentProvider">
     <Position X="0.5" Y="0.5" Width="2.5" />
     <TypeIdentifier>
@@ -273,19 +289,34 @@
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContentProvider\IPackageContentProvider.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="EntityFramework.CodeGenerator.Core.IContentFileSegment">
-    <Position X="11.5" Y="9.25" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContent\ContentFileSegment\IContentFileSegment.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Interface Name="EntityFramework.CodeGenerator.Core.ICreateTableSource">
     <Position X="14.25" Y="16.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContentSource\IPackageContentSource.cs</FileName>
     </TypeIdentifier>
+  </Interface>
+  <Interface Name="EntityFramework.CodeGenerator.Core.IContentStringSegment" Collapsed="true">
+    <Position X="13.75" Y="9.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContent\ContentStringSegment\IContentStringSegment.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="EntityFramework.CodeGenerator.Core.IContentStringSegmentCollections">
+    <Position X="10" Y="9.5" Width="2.5" />
+    <AssociationLine Name="Segments" Type="EntityFramework.CodeGenerator.Core.IContentStringSegment">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.175" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContent\ContentStringSegmentCollections\IContentStringSegmentCollections.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Segments" />
+    </ShowAsCollectionAssociation>
   </Interface>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

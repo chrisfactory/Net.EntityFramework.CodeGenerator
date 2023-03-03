@@ -4,7 +4,7 @@ using System.Text;
 namespace EntityFramework.CodeGenerator.Core
 {
     [DebuggerDisplay("{_text}")]
-    public class CommandTextSegment : IContentFileSegment
+    public class CommandTextSegment : IContentStringSegment
     {
         private readonly string _text;
         public CommandTextSegment(string text)

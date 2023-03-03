@@ -19,7 +19,7 @@ namespace Sample.ModelGenerator
                             //modelBuilder.HasDefaultSqlTargetOutput(@"..\..\..\..\Sample.DbProj");
                             //modelBuilder.HasDefaultCsTargetOutput(@"..\..\..\..\Sample.App");
 
-                            modelBuilder.HasDefaultSchema("dbo");
+                           // modelBuilder.HasDefaultSchema("dbo");
 
                             modelBuilder.Entity<Animal>()
                                  .UseTpcMappingStrategy();
@@ -28,13 +28,14 @@ namespace Sample.ModelGenerator
                             modelBuilder.Entity<Food>()
                             .Generate(b =>
                             {
+                                b.CreateIndex();
                                 b.CreateTable();
                                 // b.SpSelect();
                                 //b.SpDelete();
                                 //b.SpInsert();
                                 //b.SpUpdate();
                             }).Property(typeof(string), "test");
-
+                            modelBuilder.Entity<Food2>();
 
                             modelBuilder.Entity<FarmAnimal>();
                             modelBuilder.Entity<Cat>();

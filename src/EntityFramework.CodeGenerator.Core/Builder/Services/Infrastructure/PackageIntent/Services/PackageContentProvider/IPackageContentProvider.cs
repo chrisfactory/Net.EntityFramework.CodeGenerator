@@ -2,6 +2,6 @@
 {
     public interface IPackageContentProvider
     {
-        IPackageContent Get();
+        IEnumerable<IPackageContent> Get();
     }
 }

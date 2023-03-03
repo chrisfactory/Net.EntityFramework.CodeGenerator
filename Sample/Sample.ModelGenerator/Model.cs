@@ -10,8 +10,18 @@ namespace Sample.App
         public int Id { get; set; }
         [Column("NameAlias")]
         public string Name { get; set; }
+        public int? Food2lId { get; set; }
+        public Food2? Food2 { get; set; }
     }
-   
+    [Table("CustomFood2")]
+    public class Food2
+    {
+        [Column("FoodId")]
+        public int Id { get; set; }
+        
+        public Animal? Animal { get; set; }
+    }
+
     public class Animal
     {
         public int Id { get; set; }

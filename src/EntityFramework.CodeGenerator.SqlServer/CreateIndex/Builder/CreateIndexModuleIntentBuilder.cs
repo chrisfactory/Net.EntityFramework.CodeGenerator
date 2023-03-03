@@ -1,16 +1,17 @@
 ﻿using EntityFramework.CodeGenerator.Core;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EntityFramework.CodeGenerator.SqlServer
 {
-    internal class CreateTableModuleIntentBuilder : ICreateTableModuleIntentBuilder
+    internal class CreateIndexModuleIntentBuilder : ICreateIndexModuleIntentBuilder
     {
-        public CreateTableModuleIntentBuilder(IServiceCollection stack)
+        public CreateIndexModuleIntentBuilder(IServiceCollection stack)
         {
             Services = stack;
             Services.AddSingleton<IPackageScope, TablePackageScope>();
-            Services.AddSingleton<IPackageContentSource, CreateTableSource>();
-            Services.AddSingleton<IPackageIntentBuilder, PackageIntentBuilder<TableTarget, CreateTablePackageContentProvider>>();
+            Services.AddSingleton<IPackageContentSource, CreateIndexSource>();
+            Services.AddSingleton<IPackageIntentBuilder, PackageIntentBuilder<IndexTarget, CreateIndexPackageContentProvider>>();
         }
 
         public IServiceCollection Services { get; }
@@ -20,5 +21,5 @@ namespace EntityFramework.CodeGenerator.SqlServer
             var provider = Services.BuildServiceProvider();
             return provider.GetRequiredService<IPackageModuleIntent>();
         }
-    }
+    } 
 }

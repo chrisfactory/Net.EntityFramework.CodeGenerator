@@ -10,7 +10,8 @@
         public IEnumerable<IPackageIntent> Create()
         {
             foreach (var builder in _builders)
-                yield return builder.Build();
+                foreach (var intent in builder.Build())
+                    yield return intent;
         }
     }
 }

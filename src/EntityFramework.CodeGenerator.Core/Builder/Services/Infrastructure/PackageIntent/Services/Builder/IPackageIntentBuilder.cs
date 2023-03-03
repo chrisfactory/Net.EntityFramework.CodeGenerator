@@ -1,6 +1,6 @@
 ﻿namespace EntityFramework.CodeGenerator.Core
 {
-    public interface IPackageIntentBuilder : IBuilder<IPackageIntent>
+    public interface IPackageIntentBuilder : IBuilder<IEnumerable<IPackageIntent>>
     {
 
     }
