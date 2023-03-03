@@ -2,10 +2,10 @@
 
 namespace EntityFramework.CodeGenerator.Core
 {
-    internal class ModuleIntentBaseStackFactory : IModuleIntentBaseStackFactory
+    internal class EntityModuleIntentBaseStackFactory : IEntityModuleIntentBaseStackFactory
     {
         private readonly INodeSnapshotPoint _ModuleBaseStack;
-        public ModuleIntentBaseStackFactory(IServiceProvider provider, IDbContextModelExtractor model)
+        public EntityModuleIntentBaseStackFactory(IServiceProvider provider, IDbContextModelExtractor model)
         {
             var services = provider.GetNode("entity.modules.base.stack").CreateBranch();
             services.AddSingleton(model);

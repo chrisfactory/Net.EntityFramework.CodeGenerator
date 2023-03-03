@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using EntityFramework.CodeGenerator.Core;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace EntityFramework.CodeGenerator.Core
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class EntityTypeBuilderExtensions
     {

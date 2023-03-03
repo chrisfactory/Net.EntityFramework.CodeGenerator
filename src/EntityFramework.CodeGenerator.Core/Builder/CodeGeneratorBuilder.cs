@@ -38,13 +38,5 @@ namespace EntityFramework.CodeGenerator.Core
                 var intents = module.Intents.ToList();
             }
         }
-        //public CodeGenerator(ISqlGOperationsProvider provider)
-        //{
-        //    var actions = provider.GetOperations().ToList();
-        //    foreach (var action in actions)
-        //    {
-        //        action.ExecuteAsync(CancellationToken.None);
-        //    } 
-        //} 
     }
 }

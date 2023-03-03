@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using EntityFramework.CodeGenerator.Core;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EntityFramework.CodeGenerator.Core
+namespace EntityFramework.CodeGenerator.SqlServer
 {
     internal class CreateTableModuleIntentBuilder : ICreateTableModuleIntentBuilder
     {
@@ -10,13 +10,13 @@ namespace EntityFramework.CodeGenerator.Core
         {
             Services = stack;
             Services.AddSingleton<IPackageScope, TablePackageScope>();
-            Services.AddSingleton<IPackageIntentBuilder, PackageIntentBuilder<TablePackageScope, CreateTableSource, TableTarget, CreateTablePackageContentProvider>>();
+            Services.AddSingleton<IPackageIntentBuilder, PackageIntentBuilder<CreateTableSource, TableTarget, CreateTablePackageContentProvider>>();
         }
 
         public IServiceCollection Services { get; }
 
         public IPackageModuleIntent Build()
-        { 
+        {
             var provider = Services.BuildServiceProvider();
             return provider.GetRequiredService<IPackageModuleIntent>();
         }

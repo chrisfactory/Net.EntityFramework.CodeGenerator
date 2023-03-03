@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EntityFramework.CodeGenerator.Core;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace EntityFramework.CodeGenerator.Core
+namespace EntityFramework.CodeGenerator.SqlServer
 {
     internal class TablePackageScope : ITablePackageScope
     {

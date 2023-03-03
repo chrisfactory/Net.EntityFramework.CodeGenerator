@@ -1,8 +1,7 @@
 ﻿using EntityFramework.CodeGenerator.Core;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace EntityFramework.CodeGenerator
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class IServiceCollectionExtensions
     {

@@ -8,11 +8,9 @@ namespace EntityFramework.CodeGenerator.Core
         public EntityModuleBuilder(IMutableEntityType metadata)
         { 
             Services = CreateBaseNode(metadata).CreateBranch();
-            Services.AddSingleton<IModuleIntentBaseStackFactory, ModuleIntentBaseStackFactory>();
-            Services.AddTransient(p => p.GetRequiredService<IModuleIntentBaseStackFactory>().Create());
-
-
-            Services.AddTransient<ICreateTableModuleIntentBuilder, CreateTableModuleIntentBuilder>();
+            Services.AddSingleton<IEntityModuleIntentBaseStackFactory, EntityModuleIntentBaseStackFactory>();
+            Services.AddTransient(p => p.GetRequiredService<IEntityModuleIntentBaseStackFactory>().Create()); 
+        
         }
         public IServiceCollection Services { get; }
 

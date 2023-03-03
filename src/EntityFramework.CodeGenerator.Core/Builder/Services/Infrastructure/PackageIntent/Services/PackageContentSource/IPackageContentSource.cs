@@ -10,7 +10,10 @@
     {
     }
 
+    public interface ICreateTableSource : IEntityFrameworkSource
+    {
 
+    }
     public interface ICreateIndexSource : IEntityFrameworkSource
     {
 

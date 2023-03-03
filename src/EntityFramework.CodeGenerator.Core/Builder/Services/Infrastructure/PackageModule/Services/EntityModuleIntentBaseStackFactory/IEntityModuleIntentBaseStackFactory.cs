@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EntityFramework.CodeGenerator.Core
 {
-    public interface IModuleIntentBaseStackFactory
+    public interface IEntityModuleIntentBaseStackFactory
     {
         IServiceCollection Create();
     }

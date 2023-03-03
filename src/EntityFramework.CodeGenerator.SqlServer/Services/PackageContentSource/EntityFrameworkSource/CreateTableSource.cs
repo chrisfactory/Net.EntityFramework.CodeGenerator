@@ -1,6 +1,8 @@
-﻿namespace EntityFramework.CodeGenerator.Core
+﻿using EntityFramework.CodeGenerator.Core;
+
+namespace EntityFramework.CodeGenerator.SqlServer
 {
-    internal class CreateTableSource : ICreateSequenceSource
+    internal class CreateTableSource : ICreateTableSource
     {
         public CreateTableSource(IPackageScope scope)
         {
@@ -8,7 +10,5 @@
         }
         public string Name { get; } = "Create Table";
         public IPackageScope Scope { get; }
-
-
     }
 }
