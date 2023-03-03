@@ -32,7 +32,11 @@ namespace EntityFramework.CodeGenerator.Core
     {
         public CodeGenerator(IDbContextModelExtractor ext, IPackageModuleIntentsProvider explorer)
         {
-            var builders = explorer.Get().ToList();
+            var modules = explorer.Get().ToList();
+            foreach (var module in modules)
+            {
+                var intents = module.Intents.ToList();
+            }
         }
         //public CodeGenerator(ISqlGOperationsProvider provider)
         //{

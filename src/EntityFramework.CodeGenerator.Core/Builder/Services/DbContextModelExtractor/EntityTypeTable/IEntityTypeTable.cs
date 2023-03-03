@@ -9,7 +9,6 @@ namespace EntityFramework.CodeGenerator.Core
         ITable Table { get; }
         string TableFullName { get; }
 
-        //IReadOnlyCollection<IActionBuilder> ActionBuilders { get; }
 
         IReadOnlyCollection<IEntityColumn> PrimaryKeys { get; }
         IReadOnlyCollection<IEntityColumn> InsertColumns { get; }
