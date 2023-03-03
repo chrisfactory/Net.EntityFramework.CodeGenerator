@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
 
 namespace EntityFramework.CodeGenerator.Core
 {
@@ -8,15 +7,13 @@ namespace EntityFramework.CodeGenerator.Core
         where TTarget : class, IPackageTarget
         where TContentProvider : class, IPackageContentProvider
     {
-        public PackageIntentBuilder(IPackageContentSource source, IPackageScope scope, IMutableEntityType metadata, IDbContextModelExtractor model)
+        public PackageIntentBuilder(IPackageScope scope, IMutableEntityType metadata, IDbContextModelExtractor model)
         {
             var services = new ServiceCollection();
             services.AddSingleton(metadata);
             services.AddSingleton(model);
-            services.AddSingleton(source);
             services.AddSingleton(scope);
             services.AddSingleton<IPackageTarget, TTarget>();
-            services.AddSingleton<IPackageIdentity, PackageIdentity>();
 
             var intentBaseNode = services.CreateNode();
 

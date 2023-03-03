@@ -14,9 +14,11 @@ namespace EntityFramework.CodeGenerator.Core
         public IServiceCollection Create()
         {
             var services = _ModuleBaseStack.CreateBranch();
+            services.AddSingleton<IPackageIdentity, PackageIdentity>();
             services.AddSingleton<IPackageIntentFactory, PackageIntentFactory>();
             services.AddSingleton(p => p.GetRequiredService<IPackageIntentFactory>().Create());
-            services.AddSingleton<IPackageModuleIntent, PackageModuleIntent>();
+            services.AddSingleton<IPackageModuleIntent, PackageModuleIntent>(); 
+           
             return services;
         }
     }

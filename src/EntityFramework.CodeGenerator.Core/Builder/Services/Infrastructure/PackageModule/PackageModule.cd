@@ -8,7 +8,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="EntityFramework.CodeGenerator.Core.PackageIntentBuilder&lt;TContentSource, TTarget, TContentProvider&gt;" Collapsed="true">
+  <Class Name="EntityFramework.CodeGenerator.Core.PackageIntentBuilder&lt;TTarget, TContentProvider&gt;" Collapsed="true">
     <Position X="4.5" Y="2" Width="4.25" />
     <TypeIdentifier>
       <HashCode>gAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
@@ -31,7 +31,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="EntityFramework.CodeGenerator.Core.IPackageIntentBuilder" Collapsed="true">
-    <Position X="4.75" Y="0.5" Width="3" />
+    <Position X="5" Y="0.5" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\Builder\IPackageIntentBuilder.cs</FileName>
