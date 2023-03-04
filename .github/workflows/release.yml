@@ -1,0 +1,50 @@
+name: publish-nuget
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix: 
+        dotnet: ['7.0']
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ matrix.dotnet }}
+        include-prerelease: True
+
+    - name: Create NuGet Package
+      run: dotnet pack -c Release 
+                    /p:ContinuousIntegrationBuild=true 
+                    /p:Version=${{ github.event.release.tag_name }} 
+                    /p:PackageReleaseNotes="See https://github.com/chrisfactory/EntityFramework.CodeGenerator/releases/tag/${{ github.event.release.tag_name }}"
+      working-directory: ./src
+
+    - name: Archive EntityFramework.CodeGenerator.Core NuGet Package
+      uses: actions/upload-artifact@v1
+      with:
+        name: EntityFramework.CodeGenerator.Core
+        path: ./src/EntityFramework.CodeGenerator.Core/bin/Release/EntityFramework.CodeGenerator.Core.${{ github.event.release.tag_name }}.symbols.nupkg
+
+    - name: Archive SignalR.Proximity NuGet Package
+      uses: actions/upload-artifact@v1
+      with:
+        name: SignalR.Proximity
+        path: ./src/SignalR.Proximity/bin/Release/SignalR.Proximity.${{ github.event.release.tag_name }}.symbols.nupkg
+
+    - name: Archive SignalR.Proximity.Hosting NuGet Package
+      uses: actions/upload-artifact@v1
+      with:
+        name: SignalR.Proximity.Hosting
+        path: ./src/SignalR.Proximity.Hosting/bin/Release/SignalR.Proximity.Hosting.${{ github.event.release.tag_name }}.symbols.nupkg
+
+    - name: Publish Nuget Package
+      run: dotnet nuget push **/*.symbols.nupkg --api-key ${{ secrets.SIGNALR_PROXIMITY_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json 
+
+      
