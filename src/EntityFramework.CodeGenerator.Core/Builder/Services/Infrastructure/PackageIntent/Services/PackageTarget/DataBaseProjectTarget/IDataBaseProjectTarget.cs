@@ -22,7 +22,7 @@
 
     }
 
-    public interface ISchemaTarget : IDataBaseProjectTarget
+    public interface IEnsureSchemaTarget : IDataBaseProjectTarget
     {
 
     }

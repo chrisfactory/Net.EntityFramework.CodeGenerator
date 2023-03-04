@@ -29,6 +29,10 @@
                         {
 
                         }
+                        else if (intent.Target is IEnsureSchemaTarget ensureSchemaTarget)
+                        {
+
+                        }
                     }
                     else if (intent.Target is IServiceProjectTarget serviceProjTarget)
                     {

@@ -6,13 +6,13 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class IEntityModuleBuilderExtensions
     {
-        public static IModelModuleBuilder CreateSequences(this IModelModuleBuilder module)
+        public static IModelModuleBuilder EnsureSchemas(this IModelModuleBuilder module)
         {
-            module.Services.TryAddTransient<ISequencesModuleIntentBuilder, SequencesModuleIntentBuilder>();
+            module.Services.TryAddTransient<IEnsureSchemaModuleIntentBuilder, EnsureSchemaModuleIntentBuilder>();
 
             module.Services.AddSingleton(p =>
             {
-                var builder = p.GetRequiredService<ISequencesModuleIntentBuilder>();
+                var builder = p.GetRequiredService<IEnsureSchemaModuleIntentBuilder>();
                 return builder.Build();
             });
             return module;

@@ -14,7 +14,7 @@ namespace EntityFramework.CodeGenerator.Core
 
         public string GetDisplayName()
         {
-            return $"{Model}";
+            return string.Empty;
         }
     }
 }

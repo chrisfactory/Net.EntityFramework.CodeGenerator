@@ -107,15 +107,15 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="EntityFramework.CodeGenerator.Core.ISequenceTarget" Collapsed="true">
-    <Position X="26" Y="10.25" Width="1.5" />
+    <Position X="26.5" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageTarget\DataBaseProjectTarget\IDataBaseProjectTarget.cs</FileName>
       <NewMemberFileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageIntentProvider\IPackageIntentProvider.cs</NewMemberFileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="EntityFramework.CodeGenerator.Core.ISchemaTarget" Collapsed="true">
-    <Position X="24" Y="10.25" Width="1.5" />
+  <Interface Name="EntityFramework.CodeGenerator.Core.IEnsureSchemaTarget" Collapsed="true">
+    <Position X="24" Y="10.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageTarget\DataBaseProjectTarget\IDataBaseProjectTarget.cs</FileName>
