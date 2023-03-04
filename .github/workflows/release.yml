@@ -23,20 +23,20 @@ jobs:
       run: dotnet pack -c Release 
                     /p:ContinuousIntegrationBuild=true 
                     /p:Version=${{ github.event.release.tag_name }} 
-                    /p:PackageReleaseNotes="See https://github.com/chrisfactory/EntityFramework.CodeGenerator/releases/tag/${{ github.event.release.tag_name }}"
+                    /p:PackageReleaseNotes="See https://github.com/chrisfactory/Net.EntityFramework.CodeGenerator/releases/tag/${{ github.event.release.tag_name }}"
       working-directory: ./src
 
-    - name: Archive EntityFramework.CodeGenerator.Core NuGet Package
+    - name: Archive Net.EntityFramework.CodeGenerator.Core NuGet Package
       uses: actions/upload-artifact@v1
       with:
-        name: EntityFramework.CodeGenerator.Core
-        path: ./src/EntityFramework.CodeGenerator.Core/bin/Release/EntityFramework.CodeGenerator.Core.${{ github.event.release.tag_name }}.symbols.nupkg
+        name: Net.EntityFramework.CodeGenerator.Core
+        path: ./src/Net.EntityFramework.CodeGenerator.Core/bin/Release/Net.EntityFramework.CodeGenerator.Core.${{ github.event.release.tag_name }}.symbols.nupkg
 
-    - name: Archive EntityFramework.CodeGenerator.SqlServer NuGet Package
+    - name: Archive Net.EntityFramework.CodeGenerator.SqlServer NuGet Package
       uses: actions/upload-artifact@v1
       with:
-        name: EntityFramework.CodeGenerator.SqlServer
-        path: ./src/EntityFramework.CodeGenerator.SqlServer/bin/Release/EntityFramework.CodeGenerator.SqlServer.${{ github.event.release.tag_name }}.symbols.nupkg
+        name: Net.EntityFramework.CodeGenerator.SqlServer
+        path: ./src/Net.EntityFramework.CodeGenerator.SqlServer/bin/Release/Net.EntityFramework.CodeGenerator.SqlServer.${{ github.event.release.tag_name }}.symbols.nupkg
 
 
     - name: Publish Nuget Package

@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\EntityFramework.CodeGenerator.Core\EntityFramework.CodeGenerator.Core.csproj" />
-    <ProjectReference Include="..\..\src\EntityFramework.CodeGenerator.SqlServer\EntityFramework.CodeGenerator.SqlServer.csproj" />
+    <ProjectReference Include="..\..\src\Net.EntityFramework.CodeGenerator.Core\Net.EntityFramework.CodeGenerator.Core.csproj" />
+    <ProjectReference Include="..\..\src\Net.EntityFramework.CodeGenerator.SqlServer\Net.EntityFramework.CodeGenerator.SqlServer.csproj" />
   </ItemGroup>
 
 </Project>

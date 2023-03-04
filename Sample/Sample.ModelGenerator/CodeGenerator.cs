@@ -1,7 +1,6 @@
-﻿using EntityFramework.CodeGenerator;
-using EntityFramework.CodeGenerator.Core;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Net.EntityFramework.CodeGenerator.Core;
 using Sample.App;
 
 namespace Sample.ModelGenerator
