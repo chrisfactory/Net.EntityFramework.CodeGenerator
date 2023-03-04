@@ -16,8 +16,10 @@ jobs:
     permissions:
       actions: read
       contents: read
-      security-events: write
-
+      security-events: write 
+    defaults:
+      run:
+        working-directory: src
     strategy:
       fail-fast: false
       matrix:
