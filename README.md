@@ -4,7 +4,6 @@
 
 ## Usage 
  
-```
 Go to [samples](https://github.com/chrisfactory/EntityFramework.CodeGenerator/tree/main/Sample) for more details..
 ## Contributing
 Working progress..
