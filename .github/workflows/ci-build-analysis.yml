@@ -21,7 +21,7 @@ jobs:
       fail-fast: false
       matrix:
         language: [ 'csharp' ]
-        dotnet: [ '2.0', '7.0']
+        dotnet: ['7.0']
     steps:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
@@ -42,7 +42,7 @@ jobs:
 
 
     - name: Install dependencies 
-      run: dotnet build  
+      run: dotnet build  ./src
     - name: Test
       run: dotnet test --no-build --no-restore --verbosity normal
     - name: Perform CodeQL Analysis
