@@ -15,8 +15,8 @@ namespace EntityFramework.CodeGenerator.SqlServer
 
         public IEnumerable<IPackageContent> Get()
         {
-            var schema = _scope.MetaData.GetSchema();
-            var tableName = _scope.MetaData.GetTableName();
+            var schema = _scope.EntityModel.GetSchema();
+            var tableName = _scope.EntityModel.GetTableName();
             foreach (var cmd in _model.CreateTableIntents)
             {
                 if (cmd.Operation.Schema == schema && cmd.Operation.Name == tableName)

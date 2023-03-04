@@ -1,5 +1,4 @@
 ﻿using EntityFramework.CodeGenerator.Core;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EntityFramework.CodeGenerator.SqlServer
@@ -9,7 +8,6 @@ namespace EntityFramework.CodeGenerator.SqlServer
         public CreateIndexModuleIntentBuilder(IServiceCollection stack)
         {
             Services = stack;
-            Services.AddSingleton<IPackageScope, TablePackageScope>();
             Services.AddSingleton<IPackageContentSource, CreateIndexSource>();
             Services.AddSingleton<IPackageIntentBuilder, PackageIntentBuilder<IndexTarget, CreateIndexPackageContentProvider>>();
         }
@@ -21,5 +19,5 @@ namespace EntityFramework.CodeGenerator.SqlServer
             var provider = Services.BuildServiceProvider();
             return provider.GetRequiredService<IPackageModuleIntent>();
         }
-    } 
+    }
 }

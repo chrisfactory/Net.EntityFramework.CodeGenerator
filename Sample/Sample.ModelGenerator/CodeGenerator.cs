@@ -45,13 +45,13 @@ namespace Sample.ModelGenerator
 
 
 
-                            //modelBuilder.Generate(b =>
-                            //{
-                            //    b.Tables();
-                            //    b.Indexs();
-                            //    b.Sequences();
-                            //    b.Schemas();
-                            //});
+                            modelBuilder.Generate(b =>
+                            {
+                                //    b.Tables();
+                                //    b.Indexs();
+                                //    b.Sequences();
+                                //    b.Schemas();
+                            });
                         });
 
 

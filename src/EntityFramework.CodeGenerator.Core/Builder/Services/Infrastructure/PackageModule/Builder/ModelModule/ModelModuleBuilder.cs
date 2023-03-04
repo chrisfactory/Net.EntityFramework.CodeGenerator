@@ -3,18 +3,18 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EntityFramework.CodeGenerator.Core
 {
-    internal class EntityModuleBuilder : IEntityModuleBuilder
-    {
-        public EntityModuleBuilder(IMutableEntityType metadata)
-        {
+    internal class ModelModuleBuilder : IModelModuleBuilder
+    { 
+        public ModelModuleBuilder(IMutableModel metadata)
+        { 
             Services = CreateBaseNode(metadata).CreateBranch();
-            Services.AddSingleton<IModuleIntentBaseStackFactory, ModuleIntentBaseStackFactory<TablePackageScope>>();
+            Services.AddSingleton<IModuleIntentBaseStackFactory, ModuleIntentBaseStackFactory<ModelPackageScope>>();
             Services.AddTransient(p => p.GetRequiredService<IModuleIntentBaseStackFactory>().Create());
 
         }
         public IServiceCollection Services { get; }
 
-        private INodeSnapshotPoint CreateBaseNode(IMutableEntityType metadata)
+        private INodeSnapshotPoint CreateBaseNode(IMutableModel metadata)
         {
             var services = new ServiceCollection();
             services.AddSingleton(metadata);

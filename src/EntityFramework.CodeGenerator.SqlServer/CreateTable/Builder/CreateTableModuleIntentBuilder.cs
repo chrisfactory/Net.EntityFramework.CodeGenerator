@@ -7,8 +7,7 @@ namespace EntityFramework.CodeGenerator.SqlServer
     {
         public CreateTableModuleIntentBuilder(IServiceCollection stack)
         {
-            Services = stack;
-            Services.AddSingleton<IPackageScope, TablePackageScope>();
+            Services = stack; 
             Services.AddSingleton<IPackageContentSource, CreateTableSource>();
             Services.AddSingleton<IPackageIntentBuilder, PackageIntentBuilder<TableTarget, CreateTablePackageContentProvider>>();
         }
