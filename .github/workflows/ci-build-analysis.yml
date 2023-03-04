@@ -40,7 +40,8 @@ jobs:
 
     - name: Autobuild
       uses: github/codeql-action/autobuild@v2
-
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
       with:
