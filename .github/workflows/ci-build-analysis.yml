@@ -38,9 +38,6 @@ jobs:
         languages: ${{ matrix.language }}
         config-file: ./.github/codeql-config.yml
 
-    #- name: Autobuild
-    #  uses: github/codeql-action/autobuild@v2
-
 
     - name: Install dependencies
       run: dotnet restore
