@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="EntityFramework.CodeGenerator.Core.PackageModuleIntent" Collapsed="true">
-    <Position X="4.25" Y="8.75" Width="2" />
+    <Position X="4.5" Y="8.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAAAAAQAEAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageModuleIntent\PackageModuleIntentProvider.cs</FileName>
@@ -33,7 +33,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="EntityFramework.CodeGenerator.Core.PackageIntent" Collapsed="true">
-    <Position X="10.25" Y="8.5" Width="2.75" />
+    <Position X="10.25" Y="8" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageIntent\PackageIntent.cs</FileName>
@@ -76,8 +76,7 @@
     <AssociationLine Name="Content" Type="EntityFramework.CodeGenerator.Core.IPackageContent" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="13.25" Y="7.562" />
-        <Point X="13.625" Y="7.562" />
-        <Point X="13.625" Y="8.281" />
+        <Point X="13.25" Y="8.281" />
         <Point X="15" Y="8.281" />
       </Path>
     </AssociationLine>

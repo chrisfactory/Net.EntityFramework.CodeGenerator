@@ -19,11 +19,11 @@ namespace Sample.ModelGenerator
                             //modelBuilder.HasDefaultSqlTargetOutput(@"..\..\..\..\Sample.DbProj");
                             //modelBuilder.HasDefaultCsTargetOutput(@"..\..\..\..\Sample.App");
 
-                             modelBuilder.HasDefaultSchema("test");
+                            modelBuilder.HasDefaultSchema("test");
 
                             modelBuilder.Entity<Animal>()
                                  .UseTpcMappingStrategy();
-                                
+
 
                             modelBuilder.Entity<Food>()
                             .Generate(b =>
@@ -49,8 +49,8 @@ namespace Sample.ModelGenerator
                             {
                                 //    b.Tables();
                                 //    b.Indexs();
-                                    b.CreateSequences();
-                                    b.EnsureSchemas();
+                                b.CreateSequences();
+                                b.EnsureSchemas();
                             });
                         });
 
