@@ -32,19 +32,14 @@ jobs:
         name: EntityFramework.CodeGenerator.Core
         path: ./src/EntityFramework.CodeGenerator.Core/bin/Release/EntityFramework.CodeGenerator.Core.${{ github.event.release.tag_name }}.symbols.nupkg
 
-    - name: Archive SignalR.Proximity NuGet Package
+    - name: Archive EntityFramework.CodeGenerator.SqlServer NuGet Package
       uses: actions/upload-artifact@v1
       with:
-        name: SignalR.Proximity
-        path: ./src/SignalR.Proximity/bin/Release/SignalR.Proximity.${{ github.event.release.tag_name }}.symbols.nupkg
+        name: EntityFramework.CodeGenerator.SqlServer
+        path: ./src/EntityFramework.CodeGenerator.SqlServer/bin/Release/EntityFramework.CodeGenerator.SqlServer.${{ github.event.release.tag_name }}.symbols.nupkg
 
-    - name: Archive SignalR.Proximity.Hosting NuGet Package
-      uses: actions/upload-artifact@v1
-      with:
-        name: SignalR.Proximity.Hosting
-        path: ./src/SignalR.Proximity.Hosting/bin/Release/SignalR.Proximity.Hosting.${{ github.event.release.tag_name }}.symbols.nupkg
 
     - name: Publish Nuget Package
-      run: dotnet nuget push **/*.symbols.nupkg --api-key ${{ secrets.SIGNALR_PROXIMITY_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json 
+      run: dotnet nuget push **/*.symbols.nupkg --api-key ${{ secrets.ENTITYFRAMEWORK_CODEGENERATOR_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json 
 
       
