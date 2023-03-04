@@ -17,9 +17,6 @@ jobs:
       actions: read
       contents: read
       security-events: write 
-    defaults:
-      run:
-        working-directory: ./src
     strategy:
       fail-fast: false
       matrix:
@@ -40,9 +37,15 @@ jobs:
         languages: ${{ matrix.language }}
         config-file: ./.github/codeql-config.yml
 
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
+    #- name: Autobuild
+    #  uses: github/codeql-action/autobuild@v2
+
+
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore 
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --no-restore --verbosity normal
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
