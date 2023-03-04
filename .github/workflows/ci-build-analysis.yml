@@ -22,6 +22,7 @@ jobs:
       matrix:
         language: [ 'csharp' ]
         dotnet: ['7.0']
+
     steps:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
@@ -41,8 +42,10 @@ jobs:
     #  uses: github/codeql-action/autobuild@v2
 
 
-    - name: Install dependencies 
-      run: dotnet build  ./src
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore ./src
     - name: Test
       run: dotnet test --no-build --no-restore --verbosity normal
     - name: Perform CodeQL Analysis
