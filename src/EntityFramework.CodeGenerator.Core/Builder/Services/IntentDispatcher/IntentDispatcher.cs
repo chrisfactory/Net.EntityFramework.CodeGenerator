@@ -25,10 +25,15 @@
                         {
 
                         }
+                        else if (intent.Target is ISequenceTarget sequenceTarget)
+                        {
+
+                        }
                     }
                     else if (intent.Target is IServiceProjectTarget serviceProjTarget)
                     {
-
+                       
+                      
                     }
                 }
             }

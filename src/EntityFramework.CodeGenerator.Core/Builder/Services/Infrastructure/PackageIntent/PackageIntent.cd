@@ -25,15 +25,15 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="EntityFramework.CodeGenerator.Core.CommandTextSegment" Collapsed="true">
-    <Position X="14.25" Y="10.75" Width="2.75" />
+    <Position X="14.75" Y="10.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAIAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContent\ContentStringSegment\CommandTextSegment.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="EntityFramework.CodeGenerator.Core.PackageIntent">
-    <Position X="10.25" Y="9" Width="2.75" />
+  <Class Name="EntityFramework.CodeGenerator.Core.PackageIntent" Collapsed="true">
+    <Position X="10.25" Y="8.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageIntent\PackageIntent.cs</FileName>
@@ -63,21 +63,22 @@
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageModuleIntentProvider\IPackageModuleIntentProvider.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="EntityFramework.CodeGenerator.Core.IPackageIntent">
+  <Interface Name="EntityFramework.CodeGenerator.Core.IPackageIntent" Collapsed="true">
     <Position X="10.25" Y="7" Width="3" />
     <AssociationLine Name="Target" Type="EntityFramework.CodeGenerator.Core.IPackageTarget" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="13.25" Y="7.438" />
-        <Point X="13.625" Y="7.438" />
+        <Point X="13.25" Y="7.283" />
+        <Point X="13.625" Y="7.283" />
         <Point X="13.625" Y="7.29" />
-        <Point X="31.25" Y="7.29" />
+        <Point X="24.75" Y="7.29" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="Content" Type="EntityFramework.CodeGenerator.Core.IPackageContent" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="12.875" Y="7.868" />
-        <Point X="12.875" Y="8.531" />
-        <Point X="14.5" Y="8.531" />
+        <Point X="13.25" Y="7.562" />
+        <Point X="13.625" Y="7.562" />
+        <Point X="13.625" Y="8.281" />
+        <Point X="15" Y="8.281" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -90,7 +91,7 @@
     </ShowAsAssociation>
   </Interface>
   <Interface Name="EntityFramework.CodeGenerator.Core.IStoredProcedureTarget" Collapsed="true">
-    <Position X="40.75" Y="10.25" Width="2" />
+    <Position X="34.25" Y="10.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageTarget\DataBaseProjectTarget\IDataBaseProjectTarget.cs</FileName>
@@ -98,7 +99,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="EntityFramework.CodeGenerator.Core.IIndexTarget" Collapsed="true">
-    <Position X="38.25" Y="10.25" Width="1.5" />
+    <Position X="31.75" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageTarget\DataBaseProjectTarget\IDataBaseProjectTarget.cs</FileName>
@@ -106,7 +107,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="EntityFramework.CodeGenerator.Core.ISequenceTarget" Collapsed="true">
-    <Position X="32.5" Y="10.25" Width="1.5" />
+    <Position X="26" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageTarget\DataBaseProjectTarget\IDataBaseProjectTarget.cs</FileName>
@@ -114,7 +115,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="EntityFramework.CodeGenerator.Core.ISchemaTarget" Collapsed="true">
-    <Position X="30.5" Y="10.25" Width="1.5" />
+    <Position X="24" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageTarget\DataBaseProjectTarget\IDataBaseProjectTarget.cs</FileName>
@@ -151,7 +152,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="EntityFramework.CodeGenerator.Core.IPackageTarget">
-    <Position X="31.25" Y="6.75" Width="1.5" />
+    <Position X="24.75" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageTarget\IPackageTarget.cs</FileName>
@@ -171,8 +172,8 @@
     </AssociationLine>
     <AssociationLine Name="Intents" Type="EntityFramework.CodeGenerator.Core.IPackageIntent" FixedToPoint="true">
       <Path>
-        <Point X="6.5" Y="7.5" />
-        <Point X="10.25" Y="7.5" />
+        <Point X="6.5" Y="7.324" />
+        <Point X="10.25" Y="7.324" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.633" Y="0.097" />
@@ -191,7 +192,7 @@
     </ShowAsCollectionAssociation>
   </Interface>
   <Interface Name="EntityFramework.CodeGenerator.Core.IDataBaseProjectTarget" Collapsed="true">
-    <Position X="34.25" Y="9" Width="2.25" />
+    <Position X="27.75" Y="9" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageTarget\DataBaseProjectTarget\IDataBaseProjectTarget.cs</FileName>
@@ -199,7 +200,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="EntityFramework.CodeGenerator.Core.IPackageContent" Collapsed="true">
-    <Position X="14.5" Y="8.25" Width="1.75" />
+    <Position X="15" Y="8" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContent\IPackageContent.cs</FileName>
@@ -270,7 +271,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="EntityFramework.CodeGenerator.Core.ITableTarget" Collapsed="true">
-    <Position X="36.5" Y="10.25" Width="1.5" />
+    <Position X="30" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageTarget\DataBaseProjectTarget\TableTarget\ITableTarget.cs</FileName>
@@ -297,7 +298,7 @@
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContentProvider\IPackageContentProvider.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="EntityFramework.CodeGenerator.Core.ICreateTableSource">
+  <Interface Name="EntityFramework.CodeGenerator.Core.ICreateTableSource" Collapsed="true">
     <Position X="5.25" Y="16.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -305,21 +306,21 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="EntityFramework.CodeGenerator.Core.IContentStringSegment" Collapsed="true">
-    <Position X="14.25" Y="9.5" Width="2.25" />
+    <Position X="14.75" Y="9" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContent\ContentStringSegment\IContentStringSegment.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="EntityFramework.CodeGenerator.Core.IServiceProjectTarget" Collapsed="true">
-    <Position X="28" Y="9" Width="2" />
+    <Position X="21.5" Y="9" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageTarget\ServiceProjectTarget\IServiceProjectTarget.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="EntityFramework.CodeGenerator.Core.IDbServiceTarget" Collapsed="true">
-    <Position X="28.25" Y="10.25" Width="1.5" />
+    <Position X="21.75" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageTarget\ServiceProjectTarget\IServiceProjectTarget.cs</FileName>

@@ -7,11 +7,9 @@ namespace EntityFramework.CodeGenerator.Core
         where TTarget : class, IPackageTarget
         where TContentProvider : class, IPackageContentProvider
     {
-        public PackageIntentBuilder(IPackageScope scope, IMutableEntityType metadata, IDbContextModelExtractor model)
+        public PackageIntentBuilder(IPackageScope scope)
         {
-            var services = new ServiceCollection();
-            services.AddSingleton(metadata);
-            services.AddSingleton(model);
+            var services = new ServiceCollection(); 
             services.AddSingleton(scope);
             services.AddSingleton<IPackageTarget, TTarget>();
 

@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using EntityFramework.CodeGenerator.Core.Tools;
 
 namespace EntityFramework.CodeGenerator.Core
 {
@@ -14,14 +14,18 @@ namespace EntityFramework.CodeGenerator.Core
         {
             foreach (var entity in _ModelExtractor.Entities)
             {
-                var entityBuilderAnnotation = entity.EntityType.FindAnnotation(EntityTypeBuilderExtensions.EntityGenerateAnnotationKey);
-                var tableBuilderAnnotation = entity.Table.FindAnnotation(EntityTypeBuilderExtensions.EntityGenerateAnnotationKey);
+                var tableBuilderAnnotation = entity.Table.FindAnnotation(Constants.EntityGenerateAnnotationKey);
 
-                if (entityBuilderAnnotation != null && entityBuilderAnnotation.Value != null)
-                    yield return ((IPackageModuleBuilder)entityBuilderAnnotation.Value);
-                else if (tableBuilderAnnotation != null && tableBuilderAnnotation.Value != null)
-                    yield return ((IPackageModuleBuilder)tableBuilderAnnotation.Value);
+                if (entity.EntityType.TryGetAnnotation<IPackageModuleBuilder>(Constants.EntityGenerateAnnotationKey, out var enityBuilder))
+                    yield return enityBuilder ?? throw new InvalidOperationException();
+                if (entity.EntityType.TryGetAnnotation<IPackageModuleBuilder>(Constants.EntityGenerateAnnotationKey, out var tableBuilder))
+                    yield return tableBuilder ?? throw new InvalidOperationException();
             }
+
+
+            if (_ModelExtractor.Model.TryGetAnnotation<IPackageModuleBuilder>(Constants.ModelGenerateAnnotationKey, out var modelBuilder))
+                yield return modelBuilder ?? throw new InvalidOperationException();
+
         }
     }
 }

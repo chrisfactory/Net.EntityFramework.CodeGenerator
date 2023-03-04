@@ -49,7 +49,7 @@ namespace Sample.ModelGenerator
                             {
                                 //    b.Tables();
                                 //    b.Indexs();
-                                //    b.Sequences();
+                                    b.Sequences();
                                 //    b.Schemas();
                             });
                         });
