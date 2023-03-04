@@ -19,7 +19,7 @@ namespace Sample.ModelGenerator
                             //modelBuilder.HasDefaultSqlTargetOutput(@"..\..\..\..\Sample.DbProj");
                             //modelBuilder.HasDefaultCsTargetOutput(@"..\..\..\..\Sample.App");
 
-                            modelBuilder.HasDefaultSchema("test");
+                            modelBuilder.HasDefaultSchema("dbo");
 
                             modelBuilder.Entity<Animal>()
                                  .UseTpcMappingStrategy();

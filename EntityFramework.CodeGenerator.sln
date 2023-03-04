@@ -5,8 +5,6 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{9094A10A-6E58-43EE-AB0E-65C9291B9171}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFramework.CodeGenerator", "src\EntityFramework.CodeGenerator\EntityFramework.CodeGenerator.csproj", "{EE15AE47-EAFD-4AC7-8FB7-2905DA130E80}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.App", "Sample\Sample.App\Sample.App.csproj", "{CD9D9337-8C8C-45A7-B0D7-A5BA8FF8B599}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.DbProj", "Sample\Sample.DbProj\Sample.DbProj.csproj", "{59FA3091-C9E6-42B5-8FDF-51580D49F038}"
@@ -23,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EE15AE47-EAFD-4AC7-8FB7-2905DA130E80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EE15AE47-EAFD-4AC7-8FB7-2905DA130E80}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EE15AE47-EAFD-4AC7-8FB7-2905DA130E80}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EE15AE47-EAFD-4AC7-8FB7-2905DA130E80}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CD9D9337-8C8C-45A7-B0D7-A5BA8FF8B599}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD9D9337-8C8C-45A7-B0D7-A5BA8FF8B599}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD9D9337-8C8C-45A7-B0D7-A5BA8FF8B599}.Release|Any CPU.ActiveCfg = Release|Any CPU
