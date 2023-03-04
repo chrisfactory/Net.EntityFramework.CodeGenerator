@@ -64,10 +64,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
             foreach (var item in Table.Columns)
             {
                 PropertyInfo? pi = null;
-                if (dictionaryProps.ContainsKey(item.Name))
-                    pi = dictionaryProps[item.Name];
-
-
+                dictionaryProps.TryGetValue(item.Name, out pi);
                 var column = new EntityColumn(item, pks.Contains(item), pi);
                 if (column.IsPrimaryKey)
                     primaryKeys.Add(column);
@@ -87,5 +84,5 @@ namespace Net.EntityFramework.CodeGenerator.Core
             var s = string.IsNullOrEmpty(schema) ? "" : $"{schema}.";
             return $"{s}{tableName}";
         }
-    } 
+    }
 }
