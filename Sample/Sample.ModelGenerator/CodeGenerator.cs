@@ -29,7 +29,7 @@ namespace Sample.ModelGenerator
                             {
                                 b.CreateIndex();
                                 b.CreateTable();
-                                // b.SpSelect();
+                                b.SpSelect();
                                 //b.SpDelete();
                                 //b.SpInsert();
                                 //b.SpUpdate();
