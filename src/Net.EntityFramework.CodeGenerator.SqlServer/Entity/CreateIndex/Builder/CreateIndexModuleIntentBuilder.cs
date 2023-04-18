@@ -5,9 +5,9 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
     internal class CreateIndexModuleIntentBuilder : ICreateIndexModuleIntentBuilder
     {
-        public CreateIndexModuleIntentBuilder(IServiceCollection stack)
+        public CreateIndexModuleIntentBuilder(IModuleStack moduleStack)
         {
-            Services = stack;
+            Services = moduleStack.BaseStack;
             Services.AddSingleton<IPackageContentSource, CreateIndexSource>();
             Services.AddSingleton<IPackageIntentBuilder, PackageIntentBuilder<IndexTarget, CreateIndexPackageContentProvider>>();
         }

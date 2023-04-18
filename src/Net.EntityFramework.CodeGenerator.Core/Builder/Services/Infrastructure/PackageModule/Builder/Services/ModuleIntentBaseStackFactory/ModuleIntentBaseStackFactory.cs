@@ -13,7 +13,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
             services.AddSingleton(model);
             _ModuleBaseStack = services.CreateNode(Constants.ModuleIntentBaseStackKey);
         }
-        public IServiceCollection Create()
+        public IModuleStack Create()
         {
             var services = _ModuleBaseStack.CreateBranch();
             services.AddSingleton<IPackageScope, TPackageScope>();
@@ -21,7 +21,16 @@ namespace Net.EntityFramework.CodeGenerator.Core
             services.AddSingleton<IPackageIntentFactory, PackageIntentFactory>();
             services.AddSingleton(p => p.GetRequiredService<IPackageIntentFactory>().Create());
             services.AddSingleton<IPackageModuleIntent, PackageModuleIntent>();
-            return services;
+            return new ModuleIntentBaseStack(services);
+        }
+
+        private class ModuleIntentBaseStack : IModuleStack
+        {
+            public ModuleIntentBaseStack(IServiceCollection services)
+            {
+                BaseStack = services;
+            }
+            public IServiceCollection BaseStack { get; }
         }
     }
 }

@@ -5,9 +5,9 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
     internal class CreateTableModuleIntentBuilder : ICreateTableModuleIntentBuilder
     {
-        public CreateTableModuleIntentBuilder(IServiceCollection stack)
+        public CreateTableModuleIntentBuilder(IModuleStack moduleStack)
         {
-            Services = stack; 
+            Services = moduleStack.BaseStack; 
             Services.AddSingleton<IPackageContentSource, CreateTableSource>();
             Services.AddSingleton<IPackageIntentBuilder, PackageIntentBuilder<TableTarget, CreateTablePackageContentProvider>>();
         }
