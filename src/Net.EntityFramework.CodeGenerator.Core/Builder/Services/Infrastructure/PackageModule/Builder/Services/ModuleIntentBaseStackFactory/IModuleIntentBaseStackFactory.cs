@@ -7,8 +7,13 @@ using System.Threading.Tasks;
 
 namespace Net.EntityFramework.CodeGenerator.Core
 {
+
+    public interface IModuleStack
+    {
+        IServiceCollection BaseStack { get; }
+    }
     public interface IModuleIntentBaseStackFactory
     {
-        IServiceCollection Create();
+        IModuleStack Create();
     }
 }

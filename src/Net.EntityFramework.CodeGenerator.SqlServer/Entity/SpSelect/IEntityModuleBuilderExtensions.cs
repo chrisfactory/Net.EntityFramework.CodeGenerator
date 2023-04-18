@@ -8,11 +8,11 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IEntityModuleBuilder SpSelect(this IEntityModuleBuilder module)
         {
-            module.Services.TryAddTransient<ICreateTableModuleIntentBuilder, CreateTableModuleIntentBuilder>();
+            module.Services.TryAddTransient<ISpSelectModuleIntentBuilder, SpSelectModuleIntentBuilder>();
 
             module.Services.AddSingleton(p =>
             {
-                var builder = p.GetRequiredService<ICreateTableModuleIntentBuilder>();
+                var builder = p.GetRequiredService<ISpSelectModuleIntentBuilder>();
                 return builder.Build();
             });
             return module;

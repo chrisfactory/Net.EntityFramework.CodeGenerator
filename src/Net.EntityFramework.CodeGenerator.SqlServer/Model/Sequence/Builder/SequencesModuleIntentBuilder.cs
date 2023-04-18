@@ -5,9 +5,9 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
     internal class SequencesModuleIntentBuilder : ISequencesModuleIntentBuilder
     {
-        public SequencesModuleIntentBuilder(IServiceCollection stack)
+        public SequencesModuleIntentBuilder(IModuleStack moduleStack)
         {
-            Services = stack; 
+            Services = moduleStack.BaseStack;
             Services.AddSingleton<IPackageContentSource, SequencesSource>();
             Services.AddSingleton<IPackageIntentBuilder, PackageIntentBuilder<SequencesTarget, SequencesPackageContentProvider>>();
         }

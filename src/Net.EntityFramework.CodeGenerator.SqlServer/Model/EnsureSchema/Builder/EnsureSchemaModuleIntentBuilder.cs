@@ -5,9 +5,9 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
     internal class EnsureSchemaModuleIntentBuilder : IEnsureSchemaModuleIntentBuilder
     {
-        public EnsureSchemaModuleIntentBuilder(IServiceCollection stack)
+        public EnsureSchemaModuleIntentBuilder(IModuleStack moduleStack)
         {
-            Services = stack; 
+            Services = moduleStack.BaseStack;
             Services.AddSingleton<IPackageContentSource, EnsureSchemaSource>();
             Services.AddSingleton<IPackageIntentBuilder, PackageIntentBuilder<EnsureSchemaTarget, EnsureSchemaPackageContentProvider>>();
         }
