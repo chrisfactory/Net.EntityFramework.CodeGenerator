@@ -6,16 +6,18 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class IEntityModuleBuilderExtensions
     {
-        public static IEntityModuleBuilder SpSelect(this IEntityModuleBuilder module)
+        public static IPackageToken SpSelect(this IEntityModuleBuilder module)
         {
+            var token = module.PackageTokenProvider.CreateToken();
             module.Services.TryAddTransient<ISpSelectModuleIntentBuilder, SpSelectModuleIntentBuilder>();
 
             module.Services.AddSingleton(p =>
             {
                 var builder = p.GetRequiredService<ISpSelectModuleIntentBuilder>();
+                builder.Services.AddSingleton(token);
                 return builder.Build();
             });
-            return module;
+            return token;
         }
     }
 }

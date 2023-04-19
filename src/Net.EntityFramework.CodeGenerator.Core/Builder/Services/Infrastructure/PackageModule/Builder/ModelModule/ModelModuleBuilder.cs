@@ -6,13 +6,14 @@ namespace Net.EntityFramework.CodeGenerator.Core
     internal class ModelModuleBuilder : IModelModuleBuilder
     { 
         public ModelModuleBuilder(IMutableModel metadata)
-        { 
+        {
             Services = CreateBaseNode(metadata).CreateBranch();
             Services.AddSingleton<IModuleIntentBaseStackFactory, ModuleIntentBaseStackFactory<ModelPackageScope>>();
             Services.AddTransient(p => p.GetRequiredService<IModuleIntentBaseStackFactory>().Create());
 
         }
         public IServiceCollection Services { get; }
+        public IPackageTokenProvider PackageTokenProvider { get; } = new PackageTokenProvider();
 
         private INodeSnapshotPoint CreateBaseNode(IMutableModel metadata)
         {
@@ -29,5 +30,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
             var provider = Services.BuildServiceProvider();
             return provider.GetRequiredService<IPackageModuleIntentProvider>();
         }
+
+      
     }
 }

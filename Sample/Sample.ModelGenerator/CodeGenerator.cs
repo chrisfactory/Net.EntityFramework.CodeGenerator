@@ -28,25 +28,15 @@ namespace Sample.ModelGenerator
                             .Generate(b =>
                             {
                                 b.CreateIndex();
-                                b.CreateTable(); 
-                                b.SpSelect();
-                                //b.SpSelect();
-                                //b.SpDelete();
-                                //b.SpInsert();
-                                //b.SpUpdate();
-                                b.DbService();
-                            }).Property(typeof(string), "test");
-                            modelBuilder.Entity<Food2>().Generate(b =>
-                            {
-                                b.CreateIndex();
                                 b.CreateTable();
-                                b.SpSelect();
+                                var select = b.SpSelect();
                                 //b.SpSelect();
                                 //b.SpDelete();
                                 //b.SpInsert();
                                 //b.SpUpdate();
-                                //b.DbService();
-                            });
+                                b.DbService(select);
+                            }).Property(typeof(string), "test");
+                            modelBuilder.Entity<Food2>();
 
                             modelBuilder.Entity<FarmAnimal>();
                             modelBuilder.Entity<Cat>();
