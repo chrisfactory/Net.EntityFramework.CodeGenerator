@@ -6,16 +6,18 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class IEntityModuleBuilderExtensions
     {
-        public static IEntityModuleBuilder CreateTable(this IEntityModuleBuilder module)
+        public static IPackageToken CreateTable(this IEntityModuleBuilder module)
         {
+            var token = module.PackageTokenProvider.CreateToken();
             module.Services.TryAddTransient<ICreateTableModuleIntentBuilder, CreateTableModuleIntentBuilder>();
 
             module.Services.AddSingleton(p =>
             {
                 var builder = p.GetRequiredService<ICreateTableModuleIntentBuilder>();
+                builder.Services.AddSingleton(token);
                 return builder.Build();
             });
-            return module;
+            return token;
         }
     }
 }

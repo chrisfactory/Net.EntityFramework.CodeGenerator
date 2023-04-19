@@ -6,16 +6,18 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class IEntityModuleBuilderExtensions
     {
-        public static IEntityModuleBuilder DbService(this IEntityModuleBuilder module)
+        public static IPackageToken DbService(this IEntityModuleBuilder module, params IPackageToken[] with)
         {
+            var token = module.PackageTokenProvider.CreateToken();
             module.Services.TryAddSingleton<IDbServiceModuleIntentBuilder, DbServiceModuleIntentBuilder>();
 
             module.Services.AddSingleton(p =>
             {
                 var builder = p.GetRequiredService<IDbServiceModuleIntentBuilder>();
+                builder.Services.AddSingleton(token);
                 return (IBuilder<IPostBuildPackageModuleIntent>)builder;
             });
-            return module;
+            return token;
         }
     }
 }
