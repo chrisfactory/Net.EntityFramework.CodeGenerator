@@ -23,7 +23,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
 
 
         public IPackageModuleIntentProvider Build()
-        {
+        { 
             Services.AddSingleton<IPackageModuleIntentProvider, PackageModuleIntentProvider>();
 
             var provider = Services.BuildServiceProvider();

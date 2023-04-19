@@ -10,7 +10,7 @@
         }
 
         private void Dispatch()
-        {
+        { 
             foreach (var module in _intentProvider.Get())
             {
                 foreach (var intent in module.Intents)
@@ -33,11 +33,22 @@
                         {
 
                         }
+                        else if (intent.Target is IDbProjSpSelectTarget spSelect)
+                        {
+
+                        }
                     }
                     else if (intent.Target is IServiceProjectTarget serviceProjTarget)
                     {
                        
-                      
+
+                    }
+                    else if (intent.Target is IDbServiceBuilderTarget serviceBuilderTarget)
+                    {
+                        if (intent.Target is IDbServiceSpSelectTarget spSelect)
+                        {
+
+                        }
                     }
                 }
             }

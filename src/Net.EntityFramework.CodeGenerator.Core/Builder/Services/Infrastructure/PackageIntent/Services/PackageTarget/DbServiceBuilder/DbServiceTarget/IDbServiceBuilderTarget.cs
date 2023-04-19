@@ -1,6 +1,7 @@
 ﻿namespace Net.EntityFramework.CodeGenerator.Core
 {
-    public interface IDbServiceSpSelectTarget : IDbServiceTarget
+    public interface IDbServiceBuilderTarget : IPackageTarget
     {
+
     }
 }

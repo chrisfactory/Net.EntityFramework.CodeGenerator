@@ -3,7 +3,7 @@
 namespace Net.EntityFramework.CodeGenerator.Core
 {
     [DebuggerDisplay("{Identity}")]
-    internal class PackageModuleIntent : IPackageModuleIntent
+    internal class PackageModuleIntent : IPostBuildPackageModuleIntent
     {
         public PackageModuleIntent(IPackageContentSource source, IPackageIdentity identity, IEnumerable<IPackageIntent> intents)
         {

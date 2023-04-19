@@ -28,13 +28,25 @@ namespace Sample.ModelGenerator
                             .Generate(b =>
                             {
                                 b.CreateIndex();
-                                b.CreateTable();
+                                b.CreateTable(); 
                                 b.SpSelect();
+                                //b.SpSelect();
                                 //b.SpDelete();
                                 //b.SpInsert();
                                 //b.SpUpdate();
+                                b.DbService();
                             }).Property(typeof(string), "test");
-                            modelBuilder.Entity<Food2>();
+                            modelBuilder.Entity<Food2>().Generate(b =>
+                            {
+                                b.CreateIndex();
+                                b.CreateTable();
+                                b.SpSelect();
+                                //b.SpSelect();
+                                //b.SpDelete();
+                                //b.SpInsert();
+                                //b.SpUpdate();
+                                //b.DbService();
+                            });
 
                             modelBuilder.Entity<FarmAnimal>();
                             modelBuilder.Entity<Cat>();
@@ -46,8 +58,6 @@ namespace Sample.ModelGenerator
 
                             modelBuilder.Generate(b =>
                             {
-                                //    b.Tables();
-                                //    b.Indexs();
                                 b.CreateSequences();
                                 b.EnsureSchemas();
                             });

@@ -14,7 +14,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 
         public IEnumerable<IPackageContent> Get()
         {
-            throw new NotImplementedException();
+            yield return new CommandTextSegment("Sql Select");
         }
     }
 }

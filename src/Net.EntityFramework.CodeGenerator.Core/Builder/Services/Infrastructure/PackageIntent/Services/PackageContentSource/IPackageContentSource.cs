@@ -39,4 +39,9 @@
     {
 
     }
+
+
+    public interface IDbServiceCodeGeneratorSource : ICodeGeneratorSource
+    {
+    }
 }
