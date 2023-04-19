@@ -20,7 +20,8 @@ namespace Net.EntityFramework.CodeGenerator.Core
             services.AddSingleton<IPackageIdentity, PackageIdentity>();
             services.AddSingleton<IPackageIntentFactory, PackageIntentFactory>();
             services.AddSingleton(p => p.GetRequiredService<IPackageIntentFactory>().Create());
-            services.AddSingleton<IPackageModuleIntent, PackageModuleIntent>();
+            services.AddSingleton<IPostBuildPackageModuleIntent, PackageModuleIntent>();
+            services.AddSingleton<IPackageModuleIntent>(p => p.GetRequiredService<IPostBuildPackageModuleIntent>());
             return new ModuleIntentBaseStack(services);
         }
 

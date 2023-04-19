@@ -13,7 +13,17 @@ namespace Net.EntityFramework.CodeGenerator.Core
 
         public IEnumerable<IPackageModuleIntent> Get()
         {
-            return _provider.GetServices<IPackageModuleIntent>();
+            var packages = _provider.GetServices<IPackageModuleIntent>().ToList();
+            var postBuilders = _provider.GetServices<IBuilder<IPostBuildPackageModuleIntent>>().ToList();
+         
+            foreach (var postBuilder in postBuilders) 
+                foreach (var package in packages) 
+                    postBuilder.Services.AddSingleton(package); 
+          
+
+            foreach (var postBuilder in postBuilders) 
+                packages.Add(postBuilder.Build());
+            return packages;
         }
     }
 }

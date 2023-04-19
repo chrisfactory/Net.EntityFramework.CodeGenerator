@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using System.Reflection.Emit;
 
 namespace Net.EntityFramework.CodeGenerator.Core
 {
@@ -14,13 +15,19 @@ namespace Net.EntityFramework.CodeGenerator.Core
 
         public IEnumerable<IPackageModuleIntent> Get()
         {
-            foreach (var moduleBuilder in _moduleBuilderProvider.Get())
-            {
+            var builders = _moduleBuilderProvider.Get().ToList();
+
+            foreach (var moduleBuilder in builders) 
                 moduleBuilder.Services.AddSingleton(_ModelExtractor);
-                var moduleProvider = moduleBuilder.Build();
-                foreach (var module in moduleProvider.Get())
+
+
+            foreach (var moduleBuilder in builders)
+            {
+                foreach (var module in moduleBuilder.Build().Get())
                     yield return module;
+
             }
+                
         }
     }
 }

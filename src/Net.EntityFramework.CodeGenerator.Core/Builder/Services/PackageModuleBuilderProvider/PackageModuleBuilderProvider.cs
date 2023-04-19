@@ -18,7 +18,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
 
                 if (entity.EntityType.TryGetAnnotation<IPackageModuleBuilder>(Constants.EntityGenerateAnnotationKey, out var enityBuilder))
                     yield return enityBuilder ?? throw new InvalidOperationException();
-                if (entity.EntityType.TryGetAnnotation<IPackageModuleBuilder>(Constants.EntityGenerateAnnotationKey, out var tableBuilder))
+                if (entity.Table.TryGetAnnotation<IPackageModuleBuilder>(Constants.EntityGenerateAnnotationKey, out var tableBuilder))
                     yield return tableBuilder ?? throw new InvalidOperationException();
             }
 
