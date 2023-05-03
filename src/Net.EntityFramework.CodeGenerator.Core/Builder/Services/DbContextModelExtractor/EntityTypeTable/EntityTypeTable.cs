@@ -5,6 +5,8 @@ using System.Reflection;
 
 namespace Net.EntityFramework.CodeGenerator.Core
 {
+
+ 
     internal class EntityTypeTable : IEntityTypeTable
     {
         public EntityTypeTable(
@@ -15,7 +17,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
             Model = model;
             EntityType = entityType;
             Table = table;
-            TableFullName = GetTableFullName(table.Schema, table.Name);
+            TableFullName = table.GetTableFullName();
             LoadColumns();
         }
         public IModel Model { get; }
@@ -40,11 +42,11 @@ namespace Net.EntityFramework.CodeGenerator.Core
             var insertColumns = new List<IEntityColumn>();
             var allColumns = new List<IEntityColumn>();
             var pks = new HashSet<IColumn>();
+
             if (Table.PrimaryKey != null)
             {
                 foreach (var pk in Table.PrimaryKey.Columns.ToList())
                     pks.Add(pk);
-
             }
 
 
@@ -79,10 +81,6 @@ namespace Net.EntityFramework.CodeGenerator.Core
             AllColumns = allColumns;
         }
 
-        public static string GetTableFullName(string? schema, string tableName)
-        {
-            var s = string.IsNullOrEmpty(schema) ? "" : $"{schema}.";
-            return $"{s}{tableName}";
-        }
+
     }
 }

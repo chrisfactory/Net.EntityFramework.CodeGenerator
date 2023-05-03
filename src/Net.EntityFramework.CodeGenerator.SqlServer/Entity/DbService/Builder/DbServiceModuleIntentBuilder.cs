@@ -1,20 +1,15 @@
-﻿using Net.EntityFramework.CodeGenerator.Core;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Net.EntityFramework.CodeGenerator.Core;
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    internal class DbServiceModuleIntentBuilder : IDbServiceModuleIntentBuilder
+    internal class DbServiceModuleIntentBuilder : PackageModuleIntentBuilder<IDbServiceCodeGeneratorSource, DbServiceSource>, IDbServiceModuleIntentBuilder
     {
-        public DbServiceModuleIntentBuilder(IModuleStack moduleStack)
+        public DbServiceModuleIntentBuilder(IModuleStack moduleStack) : base(moduleStack)
         {
-            Services = moduleStack.BaseStack; 
-            Services.AddSingleton<IPackageContentSource, DbServiceSource>();
-            Services.AddSingleton<IPackageIntentBuilder, PackageIntentBuilder<DbServiceTarget, DbServicePackageContentProvider>>();
+            Services.AddSingleton<IPackageIntentBuilder, PackageIntentBuilder<IDbServiceCodeGeneratorSource, DbServiceTarget, DbServicePackageContentProvider>>();
         }
-
-        public IServiceCollection Services { get; }
-
-        public IPostBuildPackageModuleIntent Build()
+        public override IPostBuildPackageModuleIntent Build()
         {
             var provider = Services.BuildServiceProvider();
             return provider.GetRequiredService<IPostBuildPackageModuleIntent>();
