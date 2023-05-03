@@ -2,8 +2,9 @@
 
 namespace Net.EntityFramework.CodeGenerator.Core
 {
-    public interface IContentSpCall : IPackageContent
+    public interface IContentStoredProcedureInfos : IPackageContent
     {
+        string StoredProcedureName { get; }
        
     }
 }

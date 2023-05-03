@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Net.EntityFramework.CodeGenerator.Core.PackageModuleIntent" Collapsed="true">
+  <Class Name="Net.EntityFramework.CodeGenerator.Core.PackageModuleIntent">
     <Position X="5.75" Y="12.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAAAAAQAEAAAAAAAAA=</HashCode>
@@ -327,10 +327,10 @@
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContentSource\IPackageContentSource.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Net.EntityFramework.CodeGenerator.Core.IContentSpCall" Collapsed="true">
+  <Interface Name="Net.EntityFramework.CodeGenerator.Core.IContentStoredProcedureInfos" Collapsed="true">
     <Position X="16.25" Y="12" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContent\SpCall\IContentSpCall.cs</FileName>
     </TypeIdentifier>
   </Interface>

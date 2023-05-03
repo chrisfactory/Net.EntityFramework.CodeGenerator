@@ -1,20 +1,16 @@
-﻿using Net.EntityFramework.CodeGenerator.Core;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Net.EntityFramework.CodeGenerator.Core;
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    internal class CreateTableModuleIntentBuilder : ICreateTableModuleIntentBuilder
+    internal class CreateTableModuleIntentBuilder : PackageModuleIntentBuilder<ICreateTableSource, CreateTableSource>, ICreateTableModuleIntentBuilder
     {
-        public CreateTableModuleIntentBuilder(IModuleStack moduleStack)
+        public CreateTableModuleIntentBuilder(IModuleStack moduleStack) : base(moduleStack)
         {
-            Services = moduleStack.BaseStack; 
-            Services.AddSingleton<IPackageContentSource, CreateTableSource>();
-            Services.AddSingleton<IPackageIntentBuilder, PackageIntentBuilder<TableTarget, CreateTablePackageContentProvider>>();
+            Services.AddSingleton<IPackageIntentBuilder, PackageIntentBuilder<ICreateTableSource, TableTarget, CreateTablePackageContentProvider>>();
         }
 
-        public IServiceCollection Services { get; }
-
-        public IPackageModuleIntent Build()
+        public override IPackageModuleIntent Build()
         {
             var provider = Services.BuildServiceProvider();
             return provider.GetRequiredService<IPackageModuleIntent>();

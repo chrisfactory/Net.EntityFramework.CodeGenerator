@@ -1,18 +1,37 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using Net.EntityFramework.CodeGenerator.Core;
 
-namespace Net.EntityFramework.CodeGenerator.Core
+namespace Net.EntityFramework.CodeGenerator
 {
-    internal static class IOperationCommandExtensions
+    public static class IOperationCommandExtensions
     {
-        public static string GetTableFullName(this IOperationCommand<CreateTableOperation, MigrationCommand> cmd)
+
+        public static string GetTableFullName(this IMutableEntityType entity)
         {
-            return EntityTypeTable.GetTableFullName(cmd.Operation.Schema, cmd.Operation.Name);
+            return GetTableFullName(entity.GetSchema(), entity.GetTableName());
+        } 
+
+        public static string GetTableFullName(this ITable table)
+        {
+            return GetTableFullName(table.Schema, table.Name);
         }
 
-        public static string GetTableFullName(this IOperationCommand<CreateIndexOperation, MigrationCommand> cmd)
+        private static string GetTableFullName(string? schema, string? tableName)
         {
-            return EntityTypeTable.GetTableFullName(cmd.Operation.Schema, cmd.Operation.Table);
+            var s = string.IsNullOrEmpty(schema) ? "" : $"[{schema}].";
+            return $"{s}[{tableName}]";
         }
+        //public static string GetTableFullName(this IOperationCommand<CreateTableOperation, MigrationCommand> cmd)
+        //{
+        //    return GetTableFullName(cmd.Operation.Schema, cmd.Operation.Name);
+        //}
+
+        //public static string GetTableFullName(this IOperationCommand<CreateIndexOperation, MigrationCommand> cmd)
+        //{
+        //    return GetTableFullName(cmd.Operation.Schema, cmd.Operation.Table);
+        //}
     }
 }

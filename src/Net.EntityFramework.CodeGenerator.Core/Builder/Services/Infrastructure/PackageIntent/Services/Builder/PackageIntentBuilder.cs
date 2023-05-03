@@ -1,22 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace Net.EntityFramework.CodeGenerator.Core
 {
-    public class PackageIntentBuilder<TTarget, TContentProvider> : IPackageIntentBuilder
+
+    public class PackageIntentBuilder<TSource, TTarget, TContentProvider> : IPackageIntentBuilder
+        where TSource : class, IPackageContentSource
         where TTarget : class, IPackageTarget
         where TContentProvider : class, IPackageContentProvider
     {
-        public PackageIntentBuilder(IPackageScope scope)
+        public PackageIntentBuilder(TSource source, IModule module, IPackageScope scope)
         {
             var services = new ServiceCollection(); 
+            services.AddSingleton(source);
+            services.AddSingleton(module);
             services.AddSingleton(scope);
             services.AddSingleton<IPackageTarget, TTarget>();
 
             var intentBaseNode = services.CreateNode();
 
             Services = intentBaseNode.CreateBranch();
-
 
             Services.AddSingleton<IPackageContentProvider, TContentProvider>();
             Services.AddSingleton(p =>

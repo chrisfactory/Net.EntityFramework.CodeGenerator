@@ -2,6 +2,18 @@
 
 namespace Net.EntityFramework.CodeGenerator.Core
 {
+    public interface IModule
+    {
+        IServiceProvider Provider { get; }
+    }
+    internal class Module : IModule
+    {
+        public Module(IServiceProvider provider)
+        {
+            Provider = provider;
+        }
+        public IServiceProvider Provider { get; }
+    }
     internal class ModuleIntentBaseStackFactory<TPackageScope> : IModuleIntentBaseStackFactory
         where TPackageScope : class, IPackageScope
     {
@@ -16,6 +28,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
         public IModuleStack Create()
         {
             var services = _ModuleBaseStack.CreateBranch();
+            services.AddSingleton<IModule, Module>();
             services.AddSingleton<IPackageScope, TPackageScope>();
             services.AddSingleton<IPackageIdentity, PackageIdentity>();
             services.AddSingleton<IPackageIntentFactory, PackageIntentFactory>();

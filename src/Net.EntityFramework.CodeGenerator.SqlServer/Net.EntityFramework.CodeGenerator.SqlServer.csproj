@@ -42,7 +42,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Net.EntityFramework.CodeGenerator.Core\Net.EntityFramework.CodeGenerator.Core.csproj" />
 	</ItemGroup>
-
+ 
 
 
 </Project>

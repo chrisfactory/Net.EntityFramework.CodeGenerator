@@ -13,8 +13,9 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
         }
 
         public IEnumerable<IPackageContent> Get()
-        {
-            yield return new CommandTextSegment("Db Service Select infos");
+        { 
+
+            yield return new CommandTextSegment("DbService ");
         }
     }
 }

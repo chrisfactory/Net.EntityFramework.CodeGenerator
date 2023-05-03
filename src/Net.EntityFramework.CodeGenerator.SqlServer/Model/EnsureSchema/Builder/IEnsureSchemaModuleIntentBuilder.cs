@@ -1,4 +1,6 @@
-﻿namespace Net.EntityFramework.CodeGenerator.Core
+﻿using Net.EntityFramework.CodeGenerator.Core;
+
+namespace Net.EntityFramework.CodeGenerator
 {
     public interface IEnsureSchemaModuleIntentBuilder : IBuilder<IPackageModuleIntent>
     {

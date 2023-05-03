@@ -6,15 +6,17 @@ using Sample.App;
 namespace Sample.ModelGenerator
 {
 
-
     partial class CodeGenerator
     {
         static void Main(string[] args)
         {
+
             var services = new ServiceCollection();
             services.AddSqlServerCodeGenerator(
                         modelBuilder =>
                         {
+
+
                             //modelBuilder.HasDefaultSqlTargetOutput(@"..\..\..\..\Sample.DbProj");
                             //modelBuilder.HasDefaultCsTargetOutput(@"..\..\..\..\Sample.App");
 

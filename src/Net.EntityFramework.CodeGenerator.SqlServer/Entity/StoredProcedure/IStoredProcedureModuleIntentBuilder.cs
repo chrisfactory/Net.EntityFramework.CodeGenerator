@@ -2,7 +2,7 @@
 
 namespace Net.EntityFramework.CodeGenerator
 {
-    public interface IDbServiceModuleIntentBuilder : IBuilder<IPostBuildPackageModuleIntent>
+    public interface IStoredProcedureModuleIntentBuilder : IBuilder<IPackageModuleIntent>
     {
     }
 }
