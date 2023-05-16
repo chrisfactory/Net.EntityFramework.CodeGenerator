@@ -1,6 +1,6 @@
 ﻿namespace Net.EntityFramework.CodeGenerator.Core
 {
-    public interface IPostBuildPackage : IPackage
+    public interface IPackageBuilder : IBuilder<IPackage>
     {
     }
 }

@@ -3,9 +3,10 @@ using Net.EntityFramework.CodeGenerator.Core;
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    internal class SqlSpSelectTarget : IDbProjSpSelectTarget
+    internal class SqlSpSelectTarget : Target, IDbProjSpSelectTarget
     {
-        public SqlSpSelectTarget(IStoredProcedureNameProvider n, ISpSelectCodeGeneratorSource src) { 
+        public SqlSpSelectTarget(IPackageToken token) : base(token)
+        {
         }
     }
 }

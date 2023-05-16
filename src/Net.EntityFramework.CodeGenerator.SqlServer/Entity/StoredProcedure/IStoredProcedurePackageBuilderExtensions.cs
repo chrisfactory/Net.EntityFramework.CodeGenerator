@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Net.EntityFramework.CodeGenerator;
-using Net.EntityFramework.CodeGenerator.Core;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

@@ -2,7 +2,10 @@
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    internal class DbServiceSpSelectTarget : IDbServiceSpSelectTarget
+    internal class DbServiceSpSelectTarget : Target, IDbServiceSpSelectTarget
     {
+        public DbServiceSpSelectTarget(IPackageToken token) : base(token)
+        {
+        }
     }
 }

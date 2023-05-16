@@ -2,8 +2,10 @@
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    internal class SequencesTarget : ISequenceTarget
+    internal class SequencesTarget : Target, ISequenceTarget
     {
-     
+        public SequencesTarget(IPackageToken token) : base(token)
+        {
+        }
     }
 }

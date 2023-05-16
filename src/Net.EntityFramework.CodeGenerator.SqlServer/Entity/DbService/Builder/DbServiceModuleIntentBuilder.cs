@@ -12,10 +12,5 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
         {
             intentBuilder.DefineIntent<DbServiceTarget, DbServicePackageContentProvider>();
         }
-
-        //public IPostBuildPackage Build()
-        //{
-        //    return Services.BuildServiceProvider().GetRequiredService<IPostBuildPackage>();
-        //} 
     }
 }

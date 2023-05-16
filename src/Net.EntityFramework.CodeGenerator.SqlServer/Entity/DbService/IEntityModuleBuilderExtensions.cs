@@ -7,7 +7,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class IEntityModuleBuilderExtensions
     {
-        public static IPackageToken DbService(this IEntityModuleBuilder module, params IPackageToken[] with)
+        public static IPackageToken DbService(this IEntityModuleBuilder module, params IPackageToken[] correlateWith)
         {
             var token = module.PackageTokenProvider.CreateToken();
             module.Services.TryAddSingleton<IDbServiceModuleIntentBuilder, DbServiceModuleIntentBuilder>();
@@ -15,8 +15,9 @@ namespace Microsoft.Extensions.DependencyInjection
             module.Services.AddSingleton(p =>
             {
                 var builder = p.GetRequiredService<IDbServiceModuleIntentBuilder>();
+                builder.CorrelateWith(correlateWith);
                 builder.Services.AddSingleton(token);
-                return (IBuilder<IPostBuildPackage>)builder;
+                return (IPackageBuilder)builder;
             });
             return token;
         }
