@@ -16,15 +16,15 @@ namespace Net.EntityFramework.CodeGenerator.Core
             {
                 var tableBuilderAnnotation = entity.Table.FindAnnotation(Constants.EntityGenerateAnnotationKey);
 
-                if (entity.EntityType.TryGetAnnotation<IPackageModuleBuilder>(Constants.EntityGenerateAnnotationKey, out var enityBuilder))
-                    yield return enityBuilder ?? throw new InvalidOperationException();
-                if (entity.Table.TryGetAnnotation<IPackageModuleBuilder>(Constants.EntityGenerateAnnotationKey, out var tableBuilder))
-                    yield return tableBuilder ?? throw new InvalidOperationException();
+                if (entity.EntityType.TryGetAnnotation<Func<IEntityModuleBuilder>>(Constants.EntityGenerateAnnotationKey, out var enityBuilder))
+                    yield return enityBuilder() ?? throw new InvalidOperationException();
+                if (entity.Table.TryGetAnnotation<Func<IEntityModuleBuilder>>(Constants.EntityGenerateAnnotationKey, out var tableBuilder))
+                    yield return tableBuilder() ?? throw new InvalidOperationException();
             }
 
 
-            if (_ModelExtractor.Model.TryGetAnnotation<IPackageModuleBuilder>(Constants.ModelGenerateAnnotationKey, out var modelBuilder))
-                yield return modelBuilder ?? throw new InvalidOperationException();
+            if (_ModelExtractor.Model.TryGetAnnotation<Func<IModelModuleBuilder>>(Constants.ModelGenerateAnnotationKey, out var modelBuilder))
+                yield return modelBuilder() ?? throw new InvalidOperationException();
 
         }
     }

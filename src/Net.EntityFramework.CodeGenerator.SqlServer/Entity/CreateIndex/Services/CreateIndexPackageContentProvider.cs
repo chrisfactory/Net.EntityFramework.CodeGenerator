@@ -1,23 +1,24 @@
 ﻿using Net.EntityFramework.CodeGenerator.Core;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    internal class CreateIndexPackageContentProvider : IPackageContentProvider
+    internal class CreateIndexPackageContentProvider : IIntentContentProvider
     {
-        private readonly ITablePackageScope _scope;
-        private readonly IDbContextModelExtractor _model;
-        public CreateIndexPackageContentProvider(IPackageScope scope)
+        private readonly IMutableEntityType _entity;
+        private readonly IDbContextModelExtractor _context;
+        public CreateIndexPackageContentProvider(IMutableEntityType entity, IDbContextModelExtractor context)
         {
-            _scope = (ITablePackageScope)scope;
-            _model = _scope.DbContextModel;
+            _entity = entity;
+            _context = context;
         }
 
-        public IEnumerable<IPackageContent> Get()
+        public IEnumerable<IContent> Get()
         {
-            var schema = _scope.EntityModel.GetSchema();
-            var tableName = _scope.EntityModel.GetTableName();
-            foreach (var cmd in _model.CreateIndexIntents)
+            var schema = _entity.GetSchema();
+            var tableName = _entity.GetTableName();
+            foreach (var cmd in _context.CreateIndexIntents)
             {
                 if (cmd.Operation.Schema == schema && cmd.Operation.Table == tableName)
                     yield return new CommandTextSegment(cmd.Command.CommandText);

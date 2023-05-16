@@ -10,11 +10,11 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IPackageToken CreateTable(this IEntityModuleBuilder module)
         {
             var token = module.PackageTokenProvider.CreateToken();
-            module.Services.TryAddTransient<ICreateTableModuleIntentBuilder, CreateTableModuleIntentBuilder>();
+            module.Services.TryAddTransient<ICreateTablePackageBuilder, CreateTablePackageBuilder>();
 
             module.Services.AddSingleton(p =>
             {
-                var builder = p.GetRequiredService<ICreateTableModuleIntentBuilder>();
+                var builder = p.GetRequiredService<ICreateTablePackageBuilder>();
                 builder.Services.AddSingleton(token);
                 return builder.Build();
             });

@@ -16,7 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 var builder = p.GetRequiredService<IDbServiceModuleIntentBuilder>();
                 builder.Services.AddSingleton(token);
-                return (IBuilder<IPostBuildPackageModuleIntent>)builder;
+                return (IBuilder<IPostBuildPackage>)builder;
             });
             return token;
         }

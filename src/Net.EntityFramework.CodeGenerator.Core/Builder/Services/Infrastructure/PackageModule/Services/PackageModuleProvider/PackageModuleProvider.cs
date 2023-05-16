@@ -9,9 +9,9 @@ namespace Net.EntityFramework.CodeGenerator.Core
         {
             _provider = provider;
         }
-        public IEnumerable<IPackageIntent> Get()
+        public IEnumerable<IIntent> Get()
         {
-            return _provider.GetServices<IPackageIntent>();
+            return _provider.GetServices<IIntent>();
         }
     }
 }

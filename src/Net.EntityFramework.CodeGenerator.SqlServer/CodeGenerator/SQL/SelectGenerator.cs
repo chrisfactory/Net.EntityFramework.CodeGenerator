@@ -6,22 +6,22 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
     internal class SelectGenerator : ISqlContent
     {
-        private readonly IEnumerable<IEntityColumn> _columnsProjection;
+        private readonly IEnumerable<IEntityColumn> _projectionColumns;
         private readonly IEnumerable<IEntityColumn> _columnsConstraint;
         private readonly string _from;
         private readonly bool _nolock;
-        public SelectGenerator(string from, bool nolock, IEnumerable<IEntityColumn> columnsProjection, IEnumerable<IEntityColumn> columnsConstraint)
+        public SelectGenerator(string from, bool nolock, IEnumerable<IEntityColumn> projectionColumns, IEnumerable<IEntityColumn> columnsConstraint)
         {
             _from = from;
             _nolock = nolock;
-            _columnsProjection = columnsProjection;
+            _projectionColumns = projectionColumns;
             _columnsConstraint = columnsConstraint;
         }
         public void Build(StringBuilder builder)
         {
             string nolock = _nolock ? " With(Nolock)" : string.Empty;
             builder.AppendLine($"   SELECT ");
-            BuildProjection(builder, _columnsProjection);
+            BuildProjection(builder, _projectionColumns);
             builder.AppendLine($"   FROM {_from} {nolock}");
             builder.AppendLine($"   WHERE ");
             BuildWhere(builder, _columnsConstraint);

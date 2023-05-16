@@ -2,17 +2,15 @@
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    internal class DbServicePackageContentProvider : IPackageContentProvider
+    internal class DbServicePackageContentProvider : IIntentContentProvider
     {
-        private readonly ITablePackageScope _scope;
-        private readonly IDbContextModelExtractor _model;
-        public DbServicePackageContentProvider(IPackageScope scope)
+        private readonly IDbContextModelExtractor _context;
+        public DbServicePackageContentProvider(IDbContextModelExtractor context)
         {
-            _scope = (ITablePackageScope)scope;
-            _model = _scope.DbContextModel;
+            _context = context;
         }
 
-        public IEnumerable<IPackageContent> Get()
+        public IEnumerable<IContent> Get()
         {
             yield return new CommandTextSegment("DbService");
         }

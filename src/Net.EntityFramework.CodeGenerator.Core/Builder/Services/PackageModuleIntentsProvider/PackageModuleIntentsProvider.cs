@@ -13,7 +13,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
             _moduleBuilderProvider = moduleBuilderProvider;
         }
 
-        public IEnumerable<IPackageModuleIntent> Get()
+        public IEnumerable<IPackage> Get()
         {
             var builders = _moduleBuilderProvider.Get().ToList();
 
@@ -23,8 +23,8 @@ namespace Net.EntityFramework.CodeGenerator.Core
 
             foreach (var moduleBuilder in builders)
             {
-                foreach (var module in moduleBuilder.Build().Get())
-                    yield return module;
+                foreach (var package in moduleBuilder.Build().Packages)
+                    yield return package;
 
             }
                 

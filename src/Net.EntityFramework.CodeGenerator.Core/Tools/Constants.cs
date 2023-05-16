@@ -2,8 +2,6 @@
 {
     internal class Constants
     {
-        public const string ModuleBaseStackKey = "modules.base.stack";
-        public const string ModuleIntentBaseStackKey = "module.intent.base.stack";
 
         public const string EntityGenerateAnnotationKey = nameof(EntityGenerateAnnotationKey);
 

@@ -1,12 +1,10 @@
 ﻿namespace Net.EntityFramework.CodeGenerator.Core
 {
-    public interface IPackageContentSource
+    public interface IPackageSource
     {
         string Name { get; }
-        IPackageScope Scope { get; }
     }
-
-    public interface IEntityFrameworkSource : IPackageContentSource
+    public interface IEntityFrameworkSource : IPackageSource
     {
     }
 
@@ -27,16 +25,23 @@
     {
 
     }
-    public interface ICodeGeneratorSource : IPackageContentSource
+    public interface ICodeGeneratorSource : IPackageSource
     {
     }
     public interface IStoredProcedureCodeGeneratorSource : ICodeGeneratorSource
     {
+        string? Schema { get; }
+
     }
 
 
     public interface ISpSelectCodeGeneratorSource : IStoredProcedureCodeGeneratorSource
     {
+        string TableName { get; }
+        string TableFullName { get; }
+        IEntityTypeTable EntityTable { get; }
+        IReadOnlyCollection<IEntityColumn> ProjectionColumns { get; }
+        IReadOnlyCollection<IEntityColumn> PrimaryKeys { get; }
 
     }
 

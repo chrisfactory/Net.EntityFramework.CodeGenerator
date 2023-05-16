@@ -1,4 +1,6 @@
-﻿namespace Net.EntityFramework.CodeGenerator.Core
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace Net.EntityFramework.CodeGenerator.Core
 {
     public interface IPackageToken
     {
@@ -30,8 +32,8 @@
     {
         IPackageToken CreateToken();
     }
-    public interface IPackageModuleBuilder : IBuilder<IPackageModuleIntentProvider>
+    public interface IPackageModuleBuilder : IBuilder<IModulePackage>
     {
-        IPackageTokenProvider PackageTokenProvider { get; }
+        IPackageTokenProvider PackageTokenProvider { get; } 
     }
 }

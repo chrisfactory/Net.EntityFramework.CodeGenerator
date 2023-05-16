@@ -5,31 +5,56 @@ namespace Net.EntityFramework.CodeGenerator.Core
 {
     internal class EntityModuleBuilder : IEntityModuleBuilder
     {
-
-        public EntityModuleBuilder(IMutableEntityType metadata)
+        private readonly Action<IEntityModuleBuilder>? _configure;
+        public EntityModuleBuilder(IMutableEntityType metadata, Action<IEntityModuleBuilder>? configure)
         {
-            Services = CreateBaseNode(metadata).CreateBranch();
-            Services.AddSingleton<IModuleIntentBaseStackFactory, ModuleIntentBaseStackFactory<TablePackageScope>>();
-            Services.AddTransient(p => p.GetRequiredService<IModuleIntentBaseStackFactory>().Create());
+            _configure = configure;
 
+            Services = new ServiceCollection();
+            Services.AddSingleton(metadata);
         }
-        public IServiceCollection Services { get; } 
+        public IServiceCollection Services { get; }
         public IPackageTokenProvider PackageTokenProvider { get; } = new PackageTokenProvider();
 
-        private INodeSnapshotPoint CreateBaseNode(IMutableEntityType metadata)
+        public IModulePackage Build()
         {
-            var services = new ServiceCollection();
-            services.AddSingleton(metadata);
-            return services.CreateNode(Constants.ModuleBaseStackKey);
+            var packageNode = Services.CreateNode();
+            Services.AddTransient<IPackageStack>(p => new PackageStack(packageNode));
+            _configure?.Invoke(this);
+
+            var finalNode = Services.CreateNode();
+
+            var finalServices = finalNode.CreateBranch();
+            finalServices.AddSingleton<IPackageModuleIntentProvider, PackageModuleIntentProvider>();
+            finalServices.AddSingleton<IPackageModuleBuilder>(this);
+            finalServices.AddSingleton<IModulePackage, Module>();
+            var provider = finalServices.BuildServiceProvider();
+            return provider.GetRequiredService<IModulePackage>();
+        }
+    }
+    public interface IPackageStack
+    {
+        IServiceCollection GetNewStack<TSource, TSourceImplementation>()
+            where TSource : class, IPackageSource
+            where TSourceImplementation : class, TSource;
+    }
+    internal class PackageStack : IPackageStack
+    {
+        private readonly IServiceCollection _stack;
+        public PackageStack(INodeSnapshotPoint moduleSnapshot)
+        {
+            _stack = moduleSnapshot.CreateBranch();
         }
 
 
-        public IPackageModuleIntentProvider Build()
-        {
-            Services.AddSingleton<IPackageModuleIntentProvider, PackageModuleIntentProvider>();
 
-            var provider = Services.BuildServiceProvider();
-            return provider.GetRequiredService<IPackageModuleIntentProvider>();
+        public IServiceCollection GetNewStack<TSource, TSourceImplementation>()
+            where TSource : class, IPackageSource
+            where TSourceImplementation : class, TSource
+        {
+            _stack.AddSingleton<TSource, TSourceImplementation>();
+            _stack.AddSingleton<IPackageSource>(p => p.GetRequiredService<TSource>());
+            return _stack;
         }
     }
 }
