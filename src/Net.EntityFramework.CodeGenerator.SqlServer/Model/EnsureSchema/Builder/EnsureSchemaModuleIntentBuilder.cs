@@ -3,17 +3,23 @@ using Net.EntityFramework.CodeGenerator.Core;
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    internal class EnsureSchemaModuleIntentBuilder : PackageModuleIntentBuilder<IEnsureSchemaSource, EnsureSchemaSource>, IEnsureSchemaModuleIntentBuilder
+    internal class EnsureSchemaModuleIntentBuilder : IEnsureSchemaModuleIntentBuilder
     {
-        public EnsureSchemaModuleIntentBuilder(IModuleStack moduleStack) : base(moduleStack)
+        public EnsureSchemaModuleIntentBuilder(IPackageStack packageStack)
         {
-            Services.AddSingleton<IPackageIntentBuilder, PackageIntentBuilder<IEnsureSchemaSource, EnsureSchemaTarget, EnsureSchemaPackageContentProvider>>();
-        }
+            Services = packageStack.GetNewStack<IEnsureSchemaSource, EnsureSchemaSource>();
 
-        public override IPackageModuleIntent Build()
+
+        }
+        //protected override void Prepare(IPackageIntentBuilderFactory preBuilder)
+        //{
+        //    preBuilder.DefineIntentBuilder<EnsureSchemaTarget, EnsureSchemaPackageContentProvider>();
+        //}
+        public IServiceCollection Services { get; }
+
+        public IPackage Build()
         {
-            var provider = Services.BuildServiceProvider();
-            return provider.GetRequiredService<IPackageModuleIntent>();
+            return Services.BuildServiceProvider().GetRequiredService<IPackage>();
         }
     }
 }

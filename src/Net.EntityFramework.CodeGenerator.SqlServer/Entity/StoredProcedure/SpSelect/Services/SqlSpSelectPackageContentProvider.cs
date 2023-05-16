@@ -1,42 +1,29 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Net.EntityFramework.CodeGenerator.Core;
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    internal class SqlSpSelectPackageContentProvider : IPackageContentProvider
+    internal class SqlSpSelectPackageContentProvider : IIntentContentProvider
     {
-        private readonly ITablePackageScope _scope;
-        private readonly IDbContextModelExtractor _model;
-        private readonly IStoredProcedureNameProvider storedProcedureNameProvider;
-        private readonly IStoredProcedureSchemaProvider storedProcedureSchemaProvider;
-        public SqlSpSelectPackageContentProvider(IModule module, IPackageScope scope, ISpSelectCodeGeneratorSource source)
+        private readonly ISpSelectCodeGeneratorSource _source;
+        public SqlSpSelectPackageContentProvider(ISpSelectCodeGeneratorSource source)
         {
-            storedProcedureNameProvider = module.Provider.GetRequiredService<IStoredProcedureNameProvider>();
-            storedProcedureSchemaProvider = module.Provider.GetRequiredService<IStoredProcedureSchemaProvider>();
-
-            _scope = (ITablePackageScope)scope;
-            _model = _scope.DbContextModel;
+            _source = source;
         }
 
-        public IEnumerable<IPackageContent> Get()
+        public IEnumerable<IContent> Get()
         {
-            var schema = storedProcedureSchemaProvider.Get();
-            var storedName = storedProcedureNameProvider.Get();
-            var fullTableName = _scope.EntityModel.GetTableFullName();
-            var entity = _model.Entities.Single(e => e.TableFullName == fullTableName);
-            var columns = entity.AllColumns.ToList();
-            var keys = entity.PrimaryKeys.ToList();
+            var spSchema = _source.Schema;
+            var spName = _source.Name;
+            var targetTableFullName = _source.TableFullName;
+            var projectionColumns = _source.ProjectionColumns;
+            var primaryKeys = _source.PrimaryKeys;
 
-             
-            var spOptions = new StoredProcedureOptions(schema, storedName);
-            var sp = new StoredProcedureGenerator(spOptions, keys, new SelectGenerator(fullTableName,false, columns, keys));
+            var spOptions = new StoredProcedureOptions(spSchema, spName);
+            var sp = new StoredProcedureGenerator(spOptions, primaryKeys, new SelectGenerator(targetTableFullName, false, projectionColumns, primaryKeys));
             var spCode = sp.Build();
             yield return new CommandTextSegment(spCode);
         }
-
-       
     }
 
 

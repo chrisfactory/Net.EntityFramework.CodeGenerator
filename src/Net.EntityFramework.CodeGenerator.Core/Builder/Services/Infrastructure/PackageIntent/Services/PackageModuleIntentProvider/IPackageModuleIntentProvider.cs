@@ -4,7 +4,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
 {
     public interface IPackageModuleIntentProvider
     {
-        IEnumerable<IPackageModuleIntent> Get();
+        IEnumerable<IPackage> Get();
     }
      
 }

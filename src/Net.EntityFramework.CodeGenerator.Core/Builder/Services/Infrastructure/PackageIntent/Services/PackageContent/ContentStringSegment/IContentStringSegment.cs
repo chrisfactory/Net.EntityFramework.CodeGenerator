@@ -2,7 +2,7 @@
 
 namespace Net.EntityFramework.CodeGenerator.Core
 {
-    public interface IContentStringSegment : IPackageContent
+    public interface IContentStringSegment : IContent
     {
         void Build(StringBuilder builder);
     }

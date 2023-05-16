@@ -2,19 +2,17 @@
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    internal class SequencesPackageContentProvider : IPackageContentProvider
+    internal class SequencesPackageContentProvider : IIntentContentProvider
     {
-        private readonly IModelPackageScope _scope;
-        private readonly IDbContextModelExtractor _model;
-        public SequencesPackageContentProvider(IPackageScope scope)
+        private readonly IDbContextModelExtractor _context;
+        public SequencesPackageContentProvider(IDbContextModelExtractor context)
         {
-            _scope = (IModelPackageScope)scope;
-            _model = _scope.DbContextModel;
+            _context = context;
         }
 
-        public IEnumerable<IPackageContent> Get()
+        public IEnumerable<IContent> Get()
         {
-            foreach (var cmd in _model.CreateSequenceIntents)
+            foreach (var cmd in _context.CreateSequenceIntents)
                 yield return new CommandTextSegment(cmd.Command.CommandText);
         }
     }

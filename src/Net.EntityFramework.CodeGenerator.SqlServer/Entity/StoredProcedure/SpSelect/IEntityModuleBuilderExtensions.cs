@@ -7,7 +7,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class IEntityModuleBuilderExtensions
     {
-        public static IPackageToken SpSelect(this IEntityModuleBuilder module, string? schema, string name, Action<ISpSelectModuleIntentBuilder>? configure = null)
+        public static IPackageToken SpSelect(this IEntityModuleBuilder module, string? schema, string name, Action<ISpSelectPackageBuilder>? configure = null)
         {
             return module.SpSelect(builder =>
             {
@@ -16,7 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 configure?.Invoke(builder);
             });
         }
-        public static IPackageToken SpSelect(this IEntityModuleBuilder module, string name, Action<ISpSelectModuleIntentBuilder>? configure = null)
+        public static IPackageToken SpSelect(this IEntityModuleBuilder module, string name, Action<ISpSelectPackageBuilder>? configure = null)
         {
             return module.SpSelect(builder =>
             {
@@ -24,14 +24,14 @@ namespace Microsoft.Extensions.DependencyInjection
                 configure?.Invoke(builder);
             });
         }
-        public static IPackageToken SpSelect(this IEntityModuleBuilder module, Action<ISpSelectModuleIntentBuilder>? configure = null)
+        public static IPackageToken SpSelect(this IEntityModuleBuilder module, Action<ISpSelectPackageBuilder>? configure = null)
         {
             var token = module.PackageTokenProvider.CreateToken();
-            module.Services.TryAddTransient<ISpSelectModuleIntentBuilder, SpSelectModuleIntentBuilder>();
+            module.Services.TryAddTransient<ISpSelectPackageBuilder, SpSelectPackageBuilder>();
 
             module.Services.AddSingleton(p =>
             {
-                var builder = p.GetRequiredService<ISpSelectModuleIntentBuilder>();
+                var builder = p.GetRequiredService<ISpSelectPackageBuilder>();
                 configure?.Invoke(builder);
                 builder.Services.AddSingleton(token);
                 return builder.Build();

@@ -36,7 +36,7 @@ namespace Sample.ModelGenerator
                                 //b.SpDelete();
                                 //b.SpInsert();
                                 //b.SpUpdate();
-                                b.DbService(select);
+                                //b.DbService(select);
                             }).Property(typeof(string), "test");
                             modelBuilder.Entity<Food2>();
 
@@ -48,11 +48,11 @@ namespace Sample.ModelGenerator
 
 
 
-                            modelBuilder.Generate(b =>
-                            {
-                                b.CreateSequences();
-                                b.EnsureSchemas();
-                            });
+                           // modelBuilder.Generate(b =>
+                            //{
+                            //    b.CreateSequences();
+                            //    b.EnsureSchemas();
+                            //});
                         });
 
 
@@ -61,7 +61,7 @@ namespace Sample.ModelGenerator
 
 
             Console.WriteLine("finished");
-            //Console.ReadLine();
+            Console.ReadLine();
         }
 
 

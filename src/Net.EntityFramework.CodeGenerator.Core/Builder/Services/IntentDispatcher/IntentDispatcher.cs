@@ -10,10 +10,10 @@
         }
 
         private void Dispatch()
-        { 
-            foreach (var module in _intentProvider.Get())
+        {
+            foreach (var package in _intentProvider.Get())
             {
-                foreach (var intent in module.Intents)
+                foreach (var intent in package.Intents)
                 {
                     if (intent.Target is IDataBaseProjectTarget dbProjTarget)
                     {
@@ -40,7 +40,7 @@
                     }
                     else if (intent.Target is IServiceProjectTarget serviceProjTarget)
                     {
-                       
+
 
                     }
                     else if (intent.Target is IDbServiceBuilderTarget serviceBuilderTarget)

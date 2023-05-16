@@ -5,7 +5,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
     internal class SqlSpSelectTarget : IDbProjSpSelectTarget
     {
-        public SqlSpSelectTarget(IStoredProcedureNameProvider n) { 
+        public SqlSpSelectTarget(IStoredProcedureNameProvider n, ISpSelectCodeGeneratorSource src) { 
         }
     }
 }

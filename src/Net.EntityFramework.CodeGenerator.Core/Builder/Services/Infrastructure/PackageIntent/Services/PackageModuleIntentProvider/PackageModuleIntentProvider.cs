@@ -11,16 +11,14 @@ namespace Net.EntityFramework.CodeGenerator.Core
         }
 
 
-        public IEnumerable<IPackageModuleIntent> Get()
+        public IEnumerable<IPackage> Get()
         {
-            var packages = _provider.GetServices<IPackageModuleIntent>().ToList();
-            var postBuilders = _provider.GetServices<IBuilder<IPostBuildPackageModuleIntent>>().ToList();
+            var packages = _provider.GetServices<IPackage>().ToList();
+            var postBuilders = _provider.GetServices<IBuilder<IPostBuildPackage>>().ToList();
          
             foreach (var postBuilder in postBuilders) 
                 foreach (var package in packages) 
-                    postBuilder.Services.AddSingleton(package); 
-          
-
+                    postBuilder.Services.AddSingleton(package);  
             foreach (var postBuilder in postBuilders) 
                 packages.Add(postBuilder.Build());
             return packages;

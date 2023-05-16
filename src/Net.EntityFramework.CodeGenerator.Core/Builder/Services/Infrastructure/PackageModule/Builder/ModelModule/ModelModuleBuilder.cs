@@ -4,33 +4,34 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Net.EntityFramework.CodeGenerator.Core
 {
     internal class ModelModuleBuilder : IModelModuleBuilder
-    { 
-        public ModelModuleBuilder(IMutableModel metadata)
+    {
+        private readonly Action<IModelModuleBuilder>? _configure;
+        public ModelModuleBuilder(IMutableModel metadata, Action<IModelModuleBuilder> configure)
         {
-            Services = CreateBaseNode(metadata).CreateBranch();
-            Services.AddSingleton<IModuleIntentBaseStackFactory, ModuleIntentBaseStackFactory<ModelPackageScope>>();
-            Services.AddTransient(p => p.GetRequiredService<IModuleIntentBaseStackFactory>().Create());
+            _configure = configure;
 
+            Services = new ServiceCollection();
+            Services.AddSingleton(metadata);
+            Services.AddSingleton<IPackageModuleBuilder>(this);
+            Services.AddSingleton<IModulePackage, Module>(); 
         }
         public IServiceCollection Services { get; }
         public IPackageTokenProvider PackageTokenProvider { get; } = new PackageTokenProvider();
 
-        private INodeSnapshotPoint CreateBaseNode(IMutableModel metadata)
-        {
-            var services = new ServiceCollection();
-            services.AddSingleton(metadata);
-            return services.CreateNode(Constants.ModuleBaseStackKey);
-        }
 
 
-        public IPackageModuleIntentProvider Build()
+        public IModulePackage Build()
         {
+            var packageNode = Services.CreateNode();
+            Services.AddTransient<IPackageStack>(p => new PackageStack(packageNode));
+            _configure?.Invoke(this);
+
             Services.AddSingleton<IPackageModuleIntentProvider, PackageModuleIntentProvider>();
 
             var provider = Services.BuildServiceProvider();
-            return provider.GetRequiredService<IPackageModuleIntentProvider>();
+            return provider.GetRequiredService<IModulePackage>();
         }
 
-      
+
     }
 }

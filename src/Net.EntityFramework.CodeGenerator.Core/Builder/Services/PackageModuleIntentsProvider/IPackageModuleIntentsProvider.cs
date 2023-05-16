@@ -2,6 +2,6 @@
 {
     public interface IPackageModuleIntentsProvider
     {
-        IEnumerable<IPackageModuleIntent> Get();
+        IEnumerable<IPackage> Get();
     }
 }
