@@ -32,11 +32,10 @@ namespace Sample.ModelGenerator
                                 b.CreateIndex();
                                 b.CreateTable();
                                 var select = b.SpSelect();
-                                //b.SpSelect();
                                 //b.SpDelete();
                                 //b.SpInsert();
                                 //b.SpUpdate();
-                                //b.DbService(select);
+                                b.DbService(select);
                             }).Property(typeof(string), "test");
                             modelBuilder.Entity<Food2>();
 

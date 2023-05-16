@@ -2,8 +2,10 @@
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    internal class TableTarget : ITableTarget
+    internal class TableTarget : Target, ITableTarget
     {
-     
+        public TableTarget(IPackageToken token) : base(token)
+        {
+        }
     }
 }

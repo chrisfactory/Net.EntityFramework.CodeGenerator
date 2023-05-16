@@ -1,8 +1,8 @@
 ﻿namespace Net.EntityFramework.CodeGenerator.Core
 {
-    public class PackageModuleIntent : IPostBuildPackage
+    public class Package : IPackage
     {
-        public PackageModuleIntent(IPackageToken token, IPackageSource source, IEnumerable<IIntent> intents)
+        public Package(IPackageToken token, IPackageSource source, IEnumerable<IIntent> intents)
         {
             Token = token;
             Source = source;

@@ -1,4 +1,4 @@
-﻿using Net.EntityFramework.CodeGenerator.SqlServer;
+﻿using Net.EntityFramework.CodeGenerator.Core;
 
 namespace Net.EntityFramework.CodeGenerator
 {

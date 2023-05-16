@@ -18,15 +18,11 @@ namespace Net.EntityFramework.CodeGenerator.Core
         public IServiceCollection Services { get; }
         public IPackageTokenProvider PackageTokenProvider { get; } = new PackageTokenProvider();
 
-
-
         public IModulePackage Build()
         {
             var packageNode = Services.CreateNode();
             Services.AddTransient<IPackageStack>(p => new PackageStack(packageNode));
             _configure?.Invoke(this);
-
-            Services.AddSingleton<IPackageModuleIntentProvider, PackageModuleIntentProvider>();
 
             var provider = Services.BuildServiceProvider();
             return provider.GetRequiredService<IModulePackage>();

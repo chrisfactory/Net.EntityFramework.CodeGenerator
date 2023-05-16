@@ -11,7 +11,7 @@
   <Class Name="Net.EntityFramework.CodeGenerator.Core.ModelModuleBuilder">
     <Position X="0.75" Y="3.25" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>gAAAAAAAABAAgAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>gAAAAAAAAJAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageModule\Builder\ModelModule\ModelModuleBuilder.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -38,19 +38,11 @@
       <FileName>Builder\Services\Infrastructure\PackageModule\Builder\EntityModule\IEntityModuleBuilder.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Net.EntityFramework.CodeGenerator.Core.IPackageIntentBuilder" Collapsed="true">
-    <Position X="8.75" Y="1.75" Width="3" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\Builder\IPackageIntentBuilder.cs</FileName>
-      <NewMemberFileName>Builder\Services\Infrastructure\PackageIntent\IPackageIntentBuilder.cs</NewMemberFileName>
-    </TypeIdentifier>
-  </Interface>
   <Interface Name="Net.EntityFramework.CodeGenerator.Core.IPackageTokenProvider" Collapsed="true">
     <Position X="5.25" Y="0.5" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Builder\Services\Infrastructure\PackageModule\Builder\IPackageModuleBuilder.cs</FileName>
+      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\Token\IPackageTokenProvider.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Net.EntityFramework.CodeGenerator.Core.IModelModuleBuilder" Collapsed="true">

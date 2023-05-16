@@ -25,7 +25,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
             var finalNode = Services.CreateNode();
 
             var finalServices = finalNode.CreateBranch();
-            finalServices.AddSingleton<IPackageModuleIntentProvider, PackageModuleIntentProvider>();
+
             finalServices.AddSingleton<IPackageModuleBuilder>(this);
             finalServices.AddSingleton<IModulePackage, Module>();
             var provider = finalServices.BuildServiceProvider();
