@@ -4,12 +4,13 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
     internal class DbServiceSource : IDbServiceCodeGeneratorSource
     {
-        public DbServiceSource(IPackageLink link, ITokenLink tokenLink)
+        public DbServiceSource(IPackageToken token, IPackageLink link)
         {
-            var keys = tokenLink.Tokens.ToHashSet();
+            var storedProcedures = new List<IStoredProcedureInfos>();
+            var keys = token.CorrelateTokens.ToHashSet();
             foreach (var package in link.Packages)
             {
-                if(keys.Contains(package.Token))
+                if (keys.Contains(package.Token))
                 {
                     foreach (var intent in package.Intents)
                     {
@@ -17,7 +18,13 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
                         {
                             if (intent.Target is IDbServiceSpSelectTarget spSelect)
                             {
-
+                                foreach (var content in intent.Contents)
+                                {
+                                    if (content is IStoredProcedureInfos storedProcedure)
+                                    {
+                                        storedProcedures.Add(storedProcedure);
+                                    }
+                                }
                             }
                         }
                     }

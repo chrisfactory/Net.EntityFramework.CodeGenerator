@@ -7,7 +7,6 @@ namespace Net.EntityFramework.CodeGenerator.Core
         public CodeGeneratorBuilder()
         {
             Services = new ServiceCollection();
-            //Services.AddSingleton<IProjectResolver, CurrentCSProjectResolver>();
         }
         public IServiceCollection Services { get; }
 

@@ -2,7 +2,5 @@
 {
     public interface IEntityModuleBuilder : IPackageModuleBuilder
     {
-    }
-
-
+    } 
 }

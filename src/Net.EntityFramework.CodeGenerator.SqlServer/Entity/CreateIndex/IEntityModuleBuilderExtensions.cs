@@ -9,16 +9,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IPackageToken CreateIndex(this IEntityModuleBuilder module)
         {
-            var token = module.PackageTokenProvider.CreateToken();
-            module.Services.TryAddTransient<ICreateIndexPackageBuilder, CreateIndexPackageBuilder>();
-
-            module.Services.AddSingleton(p =>
-            {
-                var builder = p.GetRequiredService<ICreateIndexPackageBuilder>();
-                builder.Services.AddSingleton(token);
-                return builder.Build();
-            });
-            return token;
+            return module.UsePackageBuilder<ICreateIndexPackageBuilder, CreateIndexPackageBuilder>();
         }
     }
 }
