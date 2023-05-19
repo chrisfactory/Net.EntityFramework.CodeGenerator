@@ -3,5 +3,6 @@
     public interface IPackageTokenProvider
     {
         IPackageToken CreateToken();
+        bool Checked(IPackageToken token);
     }
 }

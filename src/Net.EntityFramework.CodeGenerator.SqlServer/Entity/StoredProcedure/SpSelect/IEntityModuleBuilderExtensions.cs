@@ -26,17 +26,7 @@ namespace Microsoft.Extensions.DependencyInjection
         }
         public static IPackageToken SpSelect(this IEntityModuleBuilder module, Action<ISpSelectPackageBuilder>? configure = null)
         {
-            var token = module.PackageTokenProvider.CreateToken();
-            module.Services.TryAddTransient<ISpSelectPackageBuilder, SpSelectPackageBuilder>();
-
-            module.Services.AddSingleton(p =>
-            {
-                var builder = p.GetRequiredService<ISpSelectPackageBuilder>();
-                configure?.Invoke(builder);
-                builder.Services.AddSingleton(token);
-                return builder.Build();
-            });
-            return token;
+            return module.UsePackageBuilder<ISpSelectPackageBuilder, SpSelectPackageBuilder>(configure); 
         }
     }
 }

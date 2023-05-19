@@ -35,7 +35,7 @@ namespace Sample.ModelGenerator
                                 //b.SpDelete();
                                 //b.SpInsert();
                                 //b.SpUpdate();
-                                b.DbService(select);
+                                b.DbService().CorrelateWith(select);
                             }).Property(typeof(string), "test");
                             modelBuilder.Entity<Food2>();
 

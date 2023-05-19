@@ -1,6 +1,6 @@
 ﻿namespace EntityFramework.CodeGenerator.CodeGen.Tools
 {
-    public static class ToCSharpTypes
+    internal static class ToCSharpTypes
     {
         public static string ToCSharpString(this Type type)
         {

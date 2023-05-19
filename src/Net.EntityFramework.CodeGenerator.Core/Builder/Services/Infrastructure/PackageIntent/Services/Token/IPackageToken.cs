@@ -4,5 +4,7 @@
     {
         Guid Source { get; }
         Guid Token { get; }
+        IEnumerable<IPackageToken> CorrelateTokens { get; }
+        IPackageToken CorrelateWith(params IPackageToken[] with);
     }
 }

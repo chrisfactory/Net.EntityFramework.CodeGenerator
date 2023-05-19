@@ -4,10 +4,10 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
     internal class DbServicePackageContentProvider : IIntentContentProvider
     {
-        private readonly IDbContextModelExtractor _context;
-        public DbServicePackageContentProvider(IDbContextModelExtractor context)
+        private readonly IDbServiceCodeGeneratorSource _source;
+        public DbServicePackageContentProvider(IDbServiceCodeGeneratorSource source)
         {
-            _context = context;
+            _source = source;
         }
 
         public IEnumerable<IContent> Get()
@@ -15,4 +15,6 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
             yield return new CommandTextSegment("DbService");
         }
     }
+
+
 }

@@ -9,7 +9,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Net.EntityFramework.CodeGenerator.Core.CommandTextSegment" Collapsed="true">
-    <Position X="21" Y="14" Width="2.25" />
+    <Position X="20.5" Y="14" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAIAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContent\ContentStringSegment\CommandTextSegment.cs</FileName>
@@ -64,10 +64,10 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Net.EntityFramework.CodeGenerator.Core.IContent" Collapsed="true">
-    <Position X="21.25" Y="11.75" Width="1.75" />
+    <Position X="22" Y="11.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContent\IPackageContent.cs</FileName>
+      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContent\IContent.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Net.EntityFramework.CodeGenerator.Core.ICreateIndexSource" Collapsed="true">
@@ -133,7 +133,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Net.EntityFramework.CodeGenerator.Core.IIntentContentProvider" Collapsed="true">
-    <Position X="22.5" Y="10.75" Width="2.5" />
+    <Position X="19" Y="11" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\IntentContentProvider\IIntentContentProvider.cs</FileName>
@@ -147,7 +147,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Net.EntityFramework.CodeGenerator.Core.IContentStringSegment" Collapsed="true">
-    <Position X="21" Y="12.75" Width="2.25" />
+    <Position X="20.5" Y="12.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContent\ContentStringSegment\IContentStringSegment.cs</FileName>
@@ -308,6 +308,13 @@
     <TypeIdentifier>
       <HashCode>AQAAAAAQAgAAAAAAAAAAAAAAAAAEAAAAAAkAAAAAAAA=</HashCode>
       <FileName>Builder\Services\DbContextModelExtractor\IDbContextModelExtractor.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Net.EntityFramework.CodeGenerator.Core.IStoredProcedureInfos" Collapsed="true">
+    <Position X="23.5" Y="12.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContent\StoredProcedureInfos\IStoredProcedureInfos.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />

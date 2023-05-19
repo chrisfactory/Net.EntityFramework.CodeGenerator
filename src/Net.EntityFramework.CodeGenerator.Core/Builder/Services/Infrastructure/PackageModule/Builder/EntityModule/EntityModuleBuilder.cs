@@ -12,6 +12,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
 
             Services = new ServiceCollection();
             Services.AddSingleton(metadata);
+            Services.AddSingleton(PackageTokenProvider);
         }
         public IServiceCollection Services { get; }
         public IPackageTokenProvider PackageTokenProvider { get; } = new PackageTokenProvider();
