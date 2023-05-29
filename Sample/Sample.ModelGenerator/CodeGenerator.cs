@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Net.EntityFramework.CodeGenerator.Core;
 using Sample.App;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Sample.ModelGenerator
 {
@@ -31,11 +32,13 @@ namespace Sample.ModelGenerator
                             {
                                 b.CreateIndex();
                                 b.CreateTable();
-                                var select = b.SpSelect();
+
+                                var mapper = b.EntityMapper(); 
+                                var select = b.SpSelect().Use(mapper);
                                 //b.SpDelete();
                                 //b.SpInsert();
                                 //b.SpUpdate();
-                                b.DbService().CorrelateWith(select);
+                                var x = b.DbService().Use(mapper, select);
                             }).Property(typeof(string), "test");
                             modelBuilder.Entity<Food2>();
 
@@ -47,7 +50,7 @@ namespace Sample.ModelGenerator
 
 
 
-                           // modelBuilder.Generate(b =>
+                            // modelBuilder.Generate(b =>
                             //{
                             //    b.CreateSequences();
                             //    b.EnsureSchemas();

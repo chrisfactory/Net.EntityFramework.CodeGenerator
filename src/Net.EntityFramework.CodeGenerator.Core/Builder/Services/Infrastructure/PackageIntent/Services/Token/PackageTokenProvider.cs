@@ -3,13 +3,18 @@
     internal class PackageTokenProvider : IPackageTokenProvider
     {
         private readonly Guid SourceKey = Guid.NewGuid();
-
+        private List<PackageToken> relatedToken = new List<PackageToken>();
         public bool Checked(IPackageToken token)
         {
-          return token != null && token.Source == SourceKey;
+            return token != null && token.Source == SourceKey && relatedToken.Contains(token);
         }
 
-        public IPackageToken CreateToken() => new PackageToken(SourceKey);
+        public IPackageToken CreateToken()
+        {
+            var newToken = new PackageToken(SourceKey);
+            relatedToken.Add(newToken);
+            return newToken;
+        }
 
         internal class PackageToken : IPackageToken
         {
@@ -25,12 +30,16 @@
 
             public IEnumerable<IPackageToken> CorrelateTokens { get { return (IReadOnlyList<IPackageToken>)_CorrelateTokens; } }
 
-            public IPackageToken CorrelateWith(params IPackageToken[] with)
+            public IPackageToken Use(params IPackageToken[] with)
             {
                 lock (_CorrelateTokens)
                 {
                     if (_cw) throw new InvalidOperationException();
                     _cw = true;
+
+                    if (with.Any(t => t == this))
+                        throw new InvalidOperationException("circular");
+
                     if (with != null)
                         _CorrelateTokens = with.Distinct().ToList();
                 }
