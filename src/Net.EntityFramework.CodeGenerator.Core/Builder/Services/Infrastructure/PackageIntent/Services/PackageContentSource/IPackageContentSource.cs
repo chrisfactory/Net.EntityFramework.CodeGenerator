@@ -49,4 +49,8 @@
     public interface IDbServiceCodeGeneratorSource : ICodeGeneratorSource
     {
     }
+
+    public interface IEntityMapperCodeGeneratorSource : ICodeGeneratorSource
+    {
+    }
 }

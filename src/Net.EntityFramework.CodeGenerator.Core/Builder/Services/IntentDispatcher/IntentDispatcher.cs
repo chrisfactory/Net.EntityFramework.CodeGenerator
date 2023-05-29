@@ -15,6 +15,15 @@
             {
                 foreach (var intent in package.Intents)
                 {
+
+
+
+                    foreach (var c in intent.Contents)
+                    {
+
+                    }
+
+
                     if (intent.Target is IDataBaseProjectTarget dbProjTarget)
                     {
                         if (intent.Target is ITableTarget tableTarget)
