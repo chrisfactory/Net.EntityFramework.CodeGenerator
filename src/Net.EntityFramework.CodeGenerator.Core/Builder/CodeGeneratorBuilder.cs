@@ -32,7 +32,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
     {
         public CodeGenerator(IIntentDispatcher dispatcher)
         {
-
+            dispatcher.DispatchAsync().GetAwaiter().GetResult();
         }
     }
 }

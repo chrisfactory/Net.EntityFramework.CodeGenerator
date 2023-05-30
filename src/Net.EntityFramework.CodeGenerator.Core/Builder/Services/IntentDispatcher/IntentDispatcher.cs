@@ -8,7 +8,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
         public IntentDispatcher(IPackageModuleIntentsProvider intentProvider)
         {
             _intentProvider = intentProvider;
-            Dispatch();
+            
         }
         public async Task CreateFileAsync(IContentFile file, CancellationToken token)
         {
@@ -18,10 +18,11 @@ namespace Net.EntityFramework.CodeGenerator.Core
             var content = sb.ToString();
 
             file.FileInfo.Directory?.Create();
+            Console.WriteLine(file.FileInfo.FullName);
             await File.WriteAllTextAsync(file.FileInfo.FullName, content, token);
         }
 
-        private void Dispatch()
+        public async Task DispatchAsync()
         {
             foreach (var package in _intentProvider.Get())
             {
@@ -34,7 +35,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
                         {
                             if (content is IContentFile contentFile)
                             {
-                                CreateFileAsync(contentFile, CancellationToken.None);
+                               await CreateFileAsync(contentFile, CancellationToken.None);
                             }
                         }
 

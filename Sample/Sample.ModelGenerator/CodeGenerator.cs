@@ -9,6 +9,7 @@ namespace Sample.ModelGenerator
 
     partial class CodeGenerator
     {
+        static int idx = 0;
         static void Main(string[] args)
         {
 
@@ -40,6 +41,7 @@ namespace Sample.ModelGenerator
 
                                 //var mapper = b.EntityMapper(); 
                                 var select = b.SpSelect();//.Use(mapper);
+
                                 //b.SpDelete();
                                 //b.SpInsert();
                                 //b.SpUpdate();
@@ -51,6 +53,7 @@ namespace Sample.ModelGenerator
                             {
                                 b.CreateTable();
                                 b.CreateIndex();
+                                var select = b.SpSelect();
                             });
 
                             modelBuilder.Entity<FarmAnimal>()
@@ -58,40 +61,45 @@ namespace Sample.ModelGenerator
                              {
                                  b.CreateTable();
                                  b.CreateIndex();
+                                 var select = b.SpSelect();
                              });
                             modelBuilder.Entity<Cat>()
                              .GenerateFilesFor(b =>
                              {
                                  b.CreateTable();
                                  b.CreateIndex();
+                                 var select = b.SpSelect();
                              });
                             modelBuilder.Entity<Dog>()
                              .GenerateFilesFor(b =>
                              {
                                  b.CreateTable();
                                  b.CreateIndex();
+                                 var select = b.SpSelect();
                              });
                             modelBuilder.Entity<Human>()
                              .GenerateFilesFor(b =>
                              {
                                  b.CreateTable();
                                  b.CreateIndex();
+                                 var select = b.SpSelect();
                              });
                             modelBuilder.Entity<CustomSchemaTableExemple>()
                             .GenerateFilesFor(b =>
                             {
                                 b.CreateTable();
                                 b.CreateIndex();
+                                var select = b.SpSelect();
                             });
 
 
-                            
+
 
                             modelBuilder
                             .GenerateFilesFor(b =>
                                {
-                                  b.EnsureSchemas();
-                                  b.CreateSequences();
+                                   b.EnsureSchemas();
+                                   b.CreateSequences();
                                });
                         });
 
