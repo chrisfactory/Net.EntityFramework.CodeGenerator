@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Net.EntityFramework.CodeGenerator.Core
 {
@@ -21,6 +22,15 @@ namespace Net.EntityFramework.CodeGenerator.Core
             _relationModel = model.GetRelationalModel();
 
             Model = model;
+
+
+
+            var sqlTargetAnnotation = model.FindAnnotation(DataProjectOptions.AnnotationKey);
+            DataProjectTargetInfos = sqlTargetAnnotation?.Value as DataProjectOptions ?? new DataProjectOptions();
+
+            var csTargetAnnotation = Model.FindAnnotation(DotNetProjectOptions.AnnotationKey);
+            DotNetProjectTargetInfos = csTargetAnnotation?.Value as DotNetProjectOptions ?? new DotNetProjectOptions();
+
 
             var operations = diff.GetDifferences(null, _relationModel);
             List<IOperationCommand<CreateTableOperation, MigrationCommand>> createTables;
@@ -41,6 +51,9 @@ namespace Net.EntityFramework.CodeGenerator.Core
 
 
         public IModel Model { get; }
+        public IDotNetProjectTargetInfos DotNetProjectTargetInfos { get; }
+        public IDataProjectTargetInfos DataProjectTargetInfos { get; }
+
         public IReadOnlyCollection<IEntityTypeTable> Entities { get; }
 
 
@@ -61,7 +74,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
                 if (!string.IsNullOrEmpty(tableName))
                 {
                     var table = tables[tableName];
-                    result.Add(new EntityTypeTable( Model, entityType, table));
+                    result.Add(new EntityTypeTable(Model, entityType, table));
 
                 }
             }

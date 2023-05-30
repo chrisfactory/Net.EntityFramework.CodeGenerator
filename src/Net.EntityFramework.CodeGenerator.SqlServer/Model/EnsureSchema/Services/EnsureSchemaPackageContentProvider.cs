@@ -4,16 +4,33 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
     internal class EnsureSchemaPackageContentProvider : IIntentContentProvider
     {
+        private readonly IEnsureSchemaSource _source;
         private readonly IDbContextModelExtractor _context;
-        public EnsureSchemaPackageContentProvider(IDbContextModelExtractor context)
+        private readonly IDataProjectFileInfoFactory _fileInfoFactory;
+        public EnsureSchemaPackageContentProvider(
+               IEnsureSchemaSource source,
+               IDbContextModelExtractor context,
+               IDataProjectFileInfoFactory fiFoctory)
         {
+            _source = source;
             _context = context;
+            _fileInfoFactory = fiFoctory;
         }
 
         public IEnumerable<IContent> Get()
         {
             foreach (var cmd in _context.EnsureSchemaIntents)
-                yield return new CommandTextSegment(cmd.Command.CommandText);
+            {
+                var schema = cmd.Operation.Name;
+
+                var dbProjOptions = _context.DataProjectTargetInfos;
+                var rootPath = dbProjOptions.RootPath;
+                var pattern = dbProjOptions.SchemasPatternPath;
+                var fileName = cmd.Operation.Name;
+                var fi = _fileInfoFactory.CreateFileInfo(rootPath, fileName, pattern, schema, null, null);
+                yield return new ContentFile(fi, new CommandTextSegment(cmd.Command.CommandText));
+
+            } 
         }
     }
 }

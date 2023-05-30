@@ -348,9 +348,5 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-
-src/Sample/Sample.DbProj/dbo/
-
-src/Sample/Sample.App/DbService/
-
-src/Sample/Sample.App/MapExtensions/
+ 
+/Sample/Sample.DbProj/dbo/*

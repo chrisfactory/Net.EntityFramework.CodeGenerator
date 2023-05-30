@@ -1,25 +1,16 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Net.EntityFramework.CodeGenerator.Core;
+﻿using Net.EntityFramework.CodeGenerator.Core;
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    internal class EnsureSchemaModuleIntentBuilder : IEnsureSchemaModuleIntentBuilder
+    internal class EnsureSchemaModuleIntentBuilder : PackageBuilder<IEnsureSchemaSource, EnsureSchemaSource>, IEnsureSchemaModuleIntentBuilder
     {
-        public EnsureSchemaModuleIntentBuilder(IPackageStack packageStack)
+        public EnsureSchemaModuleIntentBuilder(IPackageStack packageStack) : base(packageStack)
         {
-            Services = packageStack.GetNewStack<IEnsureSchemaSource, EnsureSchemaSource>();
-
-
         }
-        //protected override void Prepare(IPackageIntentBuilderFactory preBuilder)
-        //{
-        //    preBuilder.DefineIntentBuilder<EnsureSchemaTarget, EnsureSchemaPackageContentProvider>();
-        //}
-        public IServiceCollection Services { get; }
 
-        public IPackage Build()
+        protected override void DefineIntents(IIntentsBuilder intentBuilder)
         {
-            return Services.BuildServiceProvider().GetRequiredService<IPackage>();
+            intentBuilder.DefineIntent<EnsureSchemaTarget, EnsureSchemaPackageContentProvider>();
         }
     }
 }

@@ -15,6 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net.EntityFramework.CodeGen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net.EntityFramework.CodeGenerator.SqlServer", "src\Net.EntityFramework.CodeGenerator.SqlServer\Net.EntityFramework.CodeGenerator.SqlServer.csproj", "{CB13F3C8-64F8-49D0-A54A-5C2BEE020778}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Éléments de solution", "Éléments de solution", "{35B9BD39-7F52-432D-AAE2-8EF8F4D9C0A6}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

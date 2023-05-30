@@ -1,25 +1,16 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Net.EntityFramework.CodeGenerator.Core;
+﻿using Net.EntityFramework.CodeGenerator.Core;
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    internal class SequencesModuleIntentBuilder : ISequencesModuleIntentBuilder
+    internal class SequencesModuleIntentBuilder : PackageBuilder<ICreateSequenceSource, SequencesSource>, ISequencesModuleIntentBuilder
     {
-        public SequencesModuleIntentBuilder(IPackageStack packageStack)
+        public SequencesModuleIntentBuilder(IPackageStack packageStack) : base(packageStack)
         {
-            Services = packageStack.GetNewStack<ICreateSequenceSource, SequencesSource>();
-            Services.AddSingleton<ICreateSequenceSource, SequencesSource>();
         }
-        //protected override void Prepare(IPackageIntentBuilderFactory preBuilder)
-        //{
-        //    preBuilder.DefineIntentBuilder<SequencesTarget, SequencesPackageContentProvider>();
-        //}
 
-        public IServiceCollection Services { get; }
-
-        public IPackage Build()
+        protected override void DefineIntents(IIntentsBuilder intentBuilder)
         {
-            return Services.BuildServiceProvider().GetRequiredService<IPackage>();
+            intentBuilder.DefineIntent<SequencesTarget, SequencesPackageContentProvider>();
         }
     }
 }

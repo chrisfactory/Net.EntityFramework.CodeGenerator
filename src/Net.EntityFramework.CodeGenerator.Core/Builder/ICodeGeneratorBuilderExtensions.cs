@@ -5,7 +5,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
 {
     public static partial class ICodeGeneratorBuilderExtensions
     {
-        public static ICodeGeneratorBuilder UseSefModeDbContext(this ICodeGeneratorBuilder builder, Action<ModelBuilder> modelBuilder, Action<DbContextOptionsBuilder>? optionsAction = null)
+        public static ICodeGeneratorBuilder UseSelfModeDbContext(this ICodeGeneratorBuilder builder, Action<ModelBuilder> modelBuilder, Action<DbContextOptionsBuilder>? optionsAction = null)
         {
             builder.Services.AddSingleton(modelBuilder);
             return builder.UseDbContext<SelfDbContext>(optionsAction);

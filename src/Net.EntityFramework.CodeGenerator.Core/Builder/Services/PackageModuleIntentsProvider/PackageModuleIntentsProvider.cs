@@ -17,7 +17,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
         public IEnumerable<IPackage> Get()
         {
             var builders = _moduleBuilderProvider.Get().ToList();
-
+             
             foreach (var moduleBuilder in builders)
                 moduleBuilder.Services.AddSingleton(_context);
 
