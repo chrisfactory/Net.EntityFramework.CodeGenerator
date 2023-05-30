@@ -24,7 +24,7 @@ namespace Sample.ModelGenerator
 
                             modelBuilder.Entity<Animal>()
                                  .UseTpcMappingStrategy()
-                                  .Generate(b =>
+                                 .GenerateFilesFor(b =>
                                   {
                                       b.CreateTable();
                                       b.CreateIndex();
@@ -32,7 +32,7 @@ namespace Sample.ModelGenerator
 
 
                             modelBuilder.Entity<Food>()
-                            .Generate(b =>
+                            .GenerateFilesFor(b =>
                             {
                                 b.CreateTable();
                                 b.CreateIndex();
@@ -47,43 +47,51 @@ namespace Sample.ModelGenerator
                             }).Property(typeof(string), "test");
 
                             modelBuilder.Entity<Food2>()
-                            .Generate(b =>
+                            .GenerateFilesFor(b =>
                             {
                                 b.CreateTable();
                                 b.CreateIndex();
                             });
 
                             modelBuilder.Entity<FarmAnimal>()
-                             .Generate(b =>
+                             .GenerateFilesFor(b =>
                              {
                                  b.CreateTable();
                                  b.CreateIndex();
                              });
                             modelBuilder.Entity<Cat>()
-                             .Generate(b =>
+                             .GenerateFilesFor(b =>
                              {
                                  b.CreateTable();
                                  b.CreateIndex();
                              });
                             modelBuilder.Entity<Dog>()
-                             .Generate(b =>
+                             .GenerateFilesFor(b =>
                              {
                                  b.CreateTable();
                                  b.CreateIndex();
                              });
                             modelBuilder.Entity<Human>()
-                             .Generate(b =>
+                             .GenerateFilesFor(b =>
                              {
                                  b.CreateTable();
                                  b.CreateIndex();
                              });
+                            modelBuilder.Entity<CustomSchemaTableExemple>()
+                            .GenerateFilesFor(b =>
+                            {
+                                b.CreateTable();
+                                b.CreateIndex();
+                            });
 
+
+                            
 
                             modelBuilder
-                            .Generate(b =>
+                            .GenerateFilesFor(b =>
                                {
                                   b.EnsureSchemas();
-                                   b.CreateSequences();
+                                  b.CreateSequences();
                                });
                         });
 
