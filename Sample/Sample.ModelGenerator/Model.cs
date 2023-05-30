@@ -18,7 +18,7 @@ namespace Sample.App
     {
         [Column("FoodId")]
         public int Id { get; set; }
-        
+
         public Animal? Animal { get; set; }
     }
 
@@ -80,15 +80,15 @@ namespace Sample.App
                $" eats {Food?.ToString() ?? "<Unknown>"}";
     }
 
-    public class Yolo
+    [Table(nameof(CustomSchemaTableExemple), Schema = "CustomSchema")]
+    public class CustomSchemaTableExemple
     {
         public int Id { get; set; }
-        public int PetsId { get; set; }
-        public Human? Human { get; set; }
-        public Pet? Pet { get; set; }
+        public string Name { get; set; }
+        public string Data { get; set; }
     }
 
 
- 
+
 }
 
