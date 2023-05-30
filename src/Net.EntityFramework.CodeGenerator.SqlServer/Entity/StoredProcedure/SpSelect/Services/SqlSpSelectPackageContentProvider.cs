@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Net.EntityFramework.CodeGenerator.Core;
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
@@ -6,23 +7,41 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
     internal class SqlSpSelectPackageContentProvider : IIntentContentProvider
     {
         private readonly ISpSelectCodeGeneratorSource _source;
-        public SqlSpSelectPackageContentProvider(ISpSelectCodeGeneratorSource source)
+        private readonly IDbContextModelExtractor _context;
+        private readonly IDataProjectFileInfoFactory _fileInfoFactory;
+        public SqlSpSelectPackageContentProvider(
+            ISpSelectCodeGeneratorSource source,
+            IDbContextModelExtractor context,
+            IDataProjectFileInfoFactory fiFoctory)
         {
             _source = source;
+            _context = context;
+            _fileInfoFactory = fiFoctory;
         }
+
 
         public IEnumerable<IContent> Get()
         {
+            var dbProjOptions = _context.DataProjectTargetInfos;
+            var rootPath = dbProjOptions.RootPath;
+            var pattern = dbProjOptions.StoredProceduresPatternPath;
             var spSchema = _source.Schema;
             var spName = _source.Name;
             var targetTableFullName = _source.TableFullName;
+            var tableName = _source.TableName;
             var projectionColumns = _source.ProjectionColumns;
             var primaryKeys = _source.PrimaryKeys;
-
+            var fileName = spName;
             var spOptions = new StoredProcedureOptions(spSchema, spName);
             var sp = new StoredProcedureGenerator(spOptions, primaryKeys, new SelectGenerator(targetTableFullName, false, projectionColumns, primaryKeys));
             var spCode = sp.Build();
-            yield return new CommandTextSegment(spCode);
+
+
+
+
+            var fi = _fileInfoFactory.CreateFileInfo(rootPath, fileName, pattern, spSchema, tableName, null, spName);
+            yield return new ContentFile(fi, new CommandTextSegment(spCode));
+
         }
     }
 

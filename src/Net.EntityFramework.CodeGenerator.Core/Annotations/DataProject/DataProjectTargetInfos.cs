@@ -35,10 +35,12 @@
         /// </summary>
         public string SchemasPatternPath { get; set; } = @"Schemas\{FileName}.sql";
 
+        /// <summary>
+        /// {FileName};{Schema};{SchemaExt};{TableName};{StoredProcedureName}
+        /// </summary>
+        public string StoredProceduresPatternPath { get; set; } = @"{Schema}\Stored Procedures\{TableName}\{FileName}.sql";
 
-        public string StoredProceduresPatternPath { get; set; } = @"{schema}\Stored Procedures\{name}\{spname}.sql";
-
-
+        
 
     }
 }

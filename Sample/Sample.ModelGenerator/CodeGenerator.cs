@@ -39,7 +39,7 @@ namespace Sample.ModelGenerator
 
 
                                 //var mapper = b.EntityMapper(); 
-                                //var select = b.SpSelect().Use(mapper);
+                                var select = b.SpSelect();//.Use(mapper);
                                 //b.SpDelete();
                                 //b.SpInsert();
                                 //b.SpUpdate();

@@ -31,7 +31,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
                     var rootPath = dbProjOptions.RootPath;
                     var pattern = dbProjOptions.IndexsPatternPath;
                     var fileName = cmd.Operation.Name;
-                    var fi = _fileInfoFactory.CreateFileInfo(rootPath, fileName, pattern, schema, tableName, null);
+                    var fi = _fileInfoFactory.CreateFileInfo(rootPath, fileName, pattern, schema, tableName, null, null);
                     yield return new ContentFile(fi, new CommandTextSegment(cmd.Command.CommandText));
                 }
             }

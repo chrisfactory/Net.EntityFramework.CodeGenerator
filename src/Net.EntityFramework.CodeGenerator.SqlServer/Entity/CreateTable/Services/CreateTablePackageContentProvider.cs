@@ -29,7 +29,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
                     var rootPath = dbProjOptions.RootPath;
                     var pattern = dbProjOptions.TablesPatternPath;
                     var fileName = cmd.Operation.Name;
-                    var fi = _fileInfoFactory.CreateFileInfo(rootPath, fileName, pattern, schema, name, null);
+                    var fi = _fileInfoFactory.CreateFileInfo(rootPath, fileName, pattern, schema, name, null, null);
                     yield return new ContentFile(fi, new CommandTextSegment(cmd.Command.CommandText));
                 }
 
