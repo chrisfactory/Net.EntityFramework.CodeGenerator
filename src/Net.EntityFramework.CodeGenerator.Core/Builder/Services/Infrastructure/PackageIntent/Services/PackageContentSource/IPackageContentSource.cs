@@ -2,19 +2,20 @@
 {
     public interface IPackageSource
     {
-        string Name { get; }
+        string? Name { get; }
     }
     public interface IEntityFrameworkSource : IPackageSource
     {
+     
     }
 
     public interface ICreateTableSource : IEntityFrameworkSource
     {
-
+        string? Schema { get; }
     }
     public interface ICreateIndexSource : IEntityFrameworkSource
     {
-
+        string? Schema { get; }
     }
 
     public interface IEnsureSchemaSource : IEntityFrameworkSource
@@ -23,7 +24,7 @@
     }
     public interface ICreateSequenceSource : IEntityFrameworkSource
     {
-
+        
     }
     public interface ICodeGeneratorSource : IPackageSource
     {

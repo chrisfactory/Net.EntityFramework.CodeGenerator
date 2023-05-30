@@ -9,7 +9,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             return services.AddCodeGenerator(cg =>
             {
-                cg.UseSefModeDbContext(modelBuilder, opt => { opt.UseSqlServer(); });
+                cg.UseSelfModeDbContext(modelBuilder, opt => { opt.UseSqlServer(); });
             });
         }
         public static IServiceCollection AddSqlServerCodeGenerator<TDbContext>(this IServiceCollection services, Action<DbContextOptionsBuilder>? optionsAction = null)

@@ -1,4 +1,6 @@
-﻿namespace Net.EntityFramework.CodeGenerator.Core
+﻿using System.Text;
+
+namespace Net.EntityFramework.CodeGenerator.Core
 {
     internal class IntentDispatcher : IIntentDispatcher
     {
@@ -8,6 +10,16 @@
             _intentProvider = intentProvider;
             Dispatch();
         }
+        public async Task CreateFileAsync(IContentFile file, CancellationToken token)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine("-- Autogen");
+            file.ContentBuilder.Build(sb);
+            var content = sb.ToString();
+
+            file.FileInfo.Directory?.Create();
+            await File.WriteAllTextAsync(file.FileInfo.FullName, content, token);
+        }
 
         private void Dispatch()
         {
@@ -16,51 +28,33 @@
                 foreach (var intent in package.Intents)
                 {
 
-
-
-                    foreach (var c in intent.Contents)
+                    if (intent.Target is IDataProjectTarget dbProjTarget)
                     {
+                        foreach (var content in intent.Contents)
+                        {
+                            if (content is IContentFile contentFile)
+                            {
+                                CreateFileAsync(contentFile, CancellationToken.None);
+                            }
+                        }
 
                     }
+                    //else if (intent.Target is IServiceProjectTarget serviceProjTarget)
+                    //{
 
 
-                    if (intent.Target is IDataBaseProjectTarget dbProjTarget)
-                    {
-                        if (intent.Target is ITableTarget tableTarget)
-                        {
+                    //}
+                    //else if (intent.Target is IDbServiceBuilderTarget serviceBuilderTarget)
+                    //{
+                    //    if (intent.Target is IDbServiceSpSelectTarget spSelect)
+                    //    {
 
-                        }
-                        else if (intent.Target is IIndexTarget indexTarget)
-                        {
-
-                        }
-                        else if (intent.Target is ISequenceTarget sequenceTarget)
-                        {
-
-                        }
-                        else if (intent.Target is IEnsureSchemaTarget ensureSchemaTarget)
-                        {
-
-                        }
-                        else if (intent.Target is IDbProjSpSelectTarget spSelect)
-                        {
-
-                        }
-                    }
-                    else if (intent.Target is IServiceProjectTarget serviceProjTarget)
-                    {
-
-
-                    }
-                    else if (intent.Target is IDbServiceBuilderTarget serviceBuilderTarget)
-                    {
-                        if (intent.Target is IDbServiceSpSelectTarget spSelect)
-                        {
-
-                        }
-                    }
+                    //    }
+                    //}
                 }
             }
         }
     }
+
+
 }

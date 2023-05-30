@@ -17,44 +17,74 @@ namespace Sample.ModelGenerator
                         modelBuilder =>
                         {
 
-
-                            //modelBuilder.HasDefaultSqlTargetOutput(@"..\..\..\..\Sample.DbProj");
-                            //modelBuilder.HasDefaultCsTargetOutput(@"..\..\..\..\Sample.App");
+                            modelBuilder.HasDataProject(@"..\..\..\..\Sample.DbProj");
+                            modelBuilder.HasDotNetProject(@"..\..\..\..\Sample.App");
 
                             modelBuilder.HasDefaultSchema("dbo");
 
                             modelBuilder.Entity<Animal>()
-                                 .UseTpcMappingStrategy();
+                                 .UseTpcMappingStrategy()
+                                  .Generate(b =>
+                                  {
+                                      b.CreateTable();
+                                      b.CreateIndex();
+                                  });
 
 
                             modelBuilder.Entity<Food>()
                             .Generate(b =>
                             {
-                                b.CreateIndex();
                                 b.CreateTable();
+                                b.CreateIndex();
 
-                                var mapper = b.EntityMapper(); 
-                                var select = b.SpSelect().Use(mapper);
+
+                                //var mapper = b.EntityMapper(); 
+                                //var select = b.SpSelect().Use(mapper);
                                 //b.SpDelete();
                                 //b.SpInsert();
                                 //b.SpUpdate();
-                                var x = b.DbService().Use(mapper, select);
+                                //var x = b.DbService().Use(mapper, select);
                             }).Property(typeof(string), "test");
-                            modelBuilder.Entity<Food2>();
 
-                            modelBuilder.Entity<FarmAnimal>();
-                            modelBuilder.Entity<Cat>();
-                            modelBuilder.Entity<Dog>();
-                            modelBuilder.Entity<Human>();
+                            modelBuilder.Entity<Food2>()
+                            .Generate(b =>
+                            {
+                                b.CreateTable();
+                                b.CreateIndex();
+                            });
+
+                            modelBuilder.Entity<FarmAnimal>()
+                             .Generate(b =>
+                             {
+                                 b.CreateTable();
+                                 b.CreateIndex();
+                             });
+                            modelBuilder.Entity<Cat>()
+                             .Generate(b =>
+                             {
+                                 b.CreateTable();
+                                 b.CreateIndex();
+                             });
+                            modelBuilder.Entity<Dog>()
+                             .Generate(b =>
+                             {
+                                 b.CreateTable();
+                                 b.CreateIndex();
+                             });
+                            modelBuilder.Entity<Human>()
+                             .Generate(b =>
+                             {
+                                 b.CreateTable();
+                                 b.CreateIndex();
+                             });
 
 
-
-
-                            // modelBuilder.Generate(b =>
-                            //{
-                            //    b.CreateSequences();
-                            //    b.EnsureSchemas();
-                            //});
+                            modelBuilder
+                            .Generate(b =>
+                               {
+                                  b.EnsureSchemas();
+                                   b.CreateSequences();
+                               });
                         });
 
 

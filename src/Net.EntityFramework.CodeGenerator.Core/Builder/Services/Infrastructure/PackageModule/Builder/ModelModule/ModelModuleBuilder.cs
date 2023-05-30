@@ -12,22 +12,26 @@ namespace Net.EntityFramework.CodeGenerator.Core
 
             Services = new ServiceCollection();
             Services.AddSingleton(metadata);
-            Services.AddSingleton<IPackageModuleBuilder>(this);
-            Services.AddSingleton<IModulePackage, Module>(); 
+            Services.AddSingleton(PackageTokenProvider); 
         }
         public IServiceCollection Services { get; }
         public IPackageTokenProvider PackageTokenProvider { get; } = new PackageTokenProvider();
 
         public IModulePackage Build()
         {
+
             var packageNode = Services.CreateNode();
             Services.AddTransient<IPackageStack>(p => new PackageStack(packageNode));
             _configure?.Invoke(this);
 
-            var provider = Services.BuildServiceProvider();
-            return provider.GetRequiredService<IModulePackage>();
-        }
+            var finalNode = Services.CreateNode();
 
+            var finalServices = finalNode.CreateBranch();
 
+            finalServices.AddSingleton<IPackageModuleBuilder>(this);
+            finalServices.AddSingleton<IModulePackage, Module>();
+            var provider = finalServices.BuildServiceProvider();
+            return provider.GetRequiredService<IModulePackage>(); 
+        } 
     }
 }

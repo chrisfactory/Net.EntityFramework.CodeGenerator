@@ -7,5 +7,6 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
         public IndexTarget(IPackageToken token) : base(token)
         {
         }
+         
     }
 }

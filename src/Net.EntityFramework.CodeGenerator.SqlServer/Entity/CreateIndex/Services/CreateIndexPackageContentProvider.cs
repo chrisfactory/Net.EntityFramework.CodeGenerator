@@ -6,22 +6,34 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
     internal class CreateIndexPackageContentProvider : IIntentContentProvider
     {
-        private readonly IMutableEntityType _entity;
+        private readonly ICreateIndexSource _source;
         private readonly IDbContextModelExtractor _context;
-        public CreateIndexPackageContentProvider(IMutableEntityType entity, IDbContextModelExtractor context)
+        private readonly IDataProjectFileInfoFactory _fileInfoFactory;
+        public CreateIndexPackageContentProvider(
+               ICreateIndexSource source,
+               IDbContextModelExtractor context,
+               IDataProjectFileInfoFactory fiFoctory)
         {
-            _entity = entity;
+            _source = source;
             _context = context;
+            _fileInfoFactory = fiFoctory;
         }
 
         public IEnumerable<IContent> Get()
         {
-            var schema = _entity.GetSchema();
-            var tableName = _entity.GetTableName();
+            var schema = _source.Schema;
+            var tableName = _source.Name;
             foreach (var cmd in _context.CreateIndexIntents)
             {
                 if (cmd.Operation.Schema == schema && cmd.Operation.Table == tableName)
-                    yield return new CommandTextSegment(cmd.Command.CommandText);
+                {
+                    var dbProjOptions = _context.DataProjectTargetInfos;
+                    var rootPath = dbProjOptions.RootPath;
+                    var pattern = dbProjOptions.IndexsPatternPath;
+                    var fileName = cmd.Operation.Name;
+                    var fi = _fileInfoFactory.CreateFileInfo(rootPath, fileName, pattern, schema, tableName, null);
+                    yield return new ContentFile(fi, new CommandTextSegment(cmd.Command.CommandText));
+                }
             }
         }
     }

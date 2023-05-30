@@ -11,19 +11,19 @@ namespace Net.EntityFramework.CodeGenerator.Core
         }
 
         public IEnumerable<IPackageModuleBuilder> Get()
-        {
+        { 
             foreach (var entity in _ModelExtractor.Entities)
             {
                 var tableBuilderAnnotation = entity.Table.FindAnnotation(Constants.EntityGenerateAnnotationKey);
 
-                if (entity.EntityType.TryGetAnnotation<Func<IEntityModuleBuilder>>(Constants.EntityGenerateAnnotationKey, out var enityBuilder))
+                if (entity.EntityType.TryGetAnnotation<Func<IEntityModuleBuilder>>(Constants.EntityGenerateAnnotationKey, out var enityBuilder) && enityBuilder != null)
                     yield return enityBuilder() ?? throw new InvalidOperationException();
-                if (entity.Table.TryGetAnnotation<Func<IEntityModuleBuilder>>(Constants.EntityGenerateAnnotationKey, out var tableBuilder))
+                if (entity.Table.TryGetAnnotation<Func<IEntityModuleBuilder>>(Constants.EntityGenerateAnnotationKey, out var tableBuilder) && tableBuilder != null)
                     yield return tableBuilder() ?? throw new InvalidOperationException();
             }
 
 
-            if (_ModelExtractor.Model.TryGetAnnotation<Func<IModelModuleBuilder>>(Constants.ModelGenerateAnnotationKey, out var modelBuilder))
+            if (_ModelExtractor.Model.TryGetAnnotation<Func<IModelModuleBuilder>>(Constants.ModelGenerateAnnotationKey, out var modelBuilder) && modelBuilder != null)
                 yield return modelBuilder() ?? throw new InvalidOperationException();
 
         }

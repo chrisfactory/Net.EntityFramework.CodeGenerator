@@ -2,7 +2,7 @@
 
 namespace Net.EntityFramework.CodeGenerator
 {
-    public interface ISequencesModuleIntentBuilder : IBuilder<IPackage>
+    public interface ISequencesModuleIntentBuilder : IPackageBuilder
     {
     }
 }

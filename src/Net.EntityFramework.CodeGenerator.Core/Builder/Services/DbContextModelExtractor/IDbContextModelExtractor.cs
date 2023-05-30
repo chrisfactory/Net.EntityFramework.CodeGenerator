@@ -1,12 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Net.EntityFramework.CodeGenerator.Core
 {
     public interface IDbContextModelExtractor
     {
         IModel Model { get; }
+        IDotNetProjectTargetInfos DotNetProjectTargetInfos { get;}
+        IDataProjectTargetInfos DataProjectTargetInfos { get; }
+
+
         IReadOnlyCollection<IEntityTypeTable> Entities { get; }
 
         IReadOnlyCollection<IOperationCommand<CreateTableOperation, MigrationCommand>> CreateTableIntents { get; }

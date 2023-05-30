@@ -1,6 +1,6 @@
 ﻿namespace Net.EntityFramework.CodeGenerator.Core
 {
-    public interface IStoredProcedureTarget : IDataBaseProjectTarget
+    public interface IStoredProcedureTarget : IDataProjectTarget
     {
 
     }

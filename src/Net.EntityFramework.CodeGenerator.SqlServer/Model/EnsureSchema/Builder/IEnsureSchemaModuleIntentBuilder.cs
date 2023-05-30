@@ -2,7 +2,7 @@
 
 namespace Net.EntityFramework.CodeGenerator
 {
-    public interface IEnsureSchemaModuleIntentBuilder : IBuilder<IPackage>
+    public interface IEnsureSchemaModuleIntentBuilder : IPackageBuilder
     {
     }
 }
