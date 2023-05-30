@@ -27,7 +27,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
                 var rootPath = dbProjOptions.RootPath;
                 var pattern = dbProjOptions.SchemasPatternPath;
                 var fileName = cmd.Operation.Name;
-                var fi = _fileInfoFactory.CreateFileInfo(rootPath, fileName, pattern, schema, null, null);
+                var fi = _fileInfoFactory.CreateFileInfo(rootPath, fileName, pattern, schema, null, null, null);
                 yield return new ContentFile(fi, new CommandTextSegment(ExtractCommand(schema, cmd.Command.CommandText)));
 
             }
@@ -35,7 +35,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 
         private string ExtractCommand(string schemaName, string commandText)
         {
-            return $"CREATE SCHEMA [{schemaName}];"; 
+            return $"CREATE SCHEMA [{schemaName}];";
         }
     }
 }
