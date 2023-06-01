@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Net.EntityFramework.CodeGenerator.Core;
+﻿using Net.EntityFramework.CodeGenerator.Core;
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
@@ -10,7 +9,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
         }
         protected override void DefineIntents(IIntentsBuilder intentBuilder)
         {
-            intentBuilder.DefineIntent<TableTarget, CreateTablePackageContentProvider>();
+            intentBuilder.DefineIntent<DataProjectTarget, CreateTablePackageContentProvider>();
         }
     }
 }

@@ -17,6 +17,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
                 services.AddSingleton<IIntentContentProvider, TContentProvider>();
                 services.AddSingleton(sp => sp.GetRequiredService<IIntentContentProvider>().Get());
                 services.AddSingleton<IDataProjectFileInfoFactory, DataProjectFileInfoFactory>();
+                services.AddSingleton<IDotNetProjectFileInfoFactory, DotNetProjectFileInfoFactory>();
                 intentBuilder?.Invoke(services);
                 return services.BuildServiceProvider().GetRequiredService<IIntent>();
             });

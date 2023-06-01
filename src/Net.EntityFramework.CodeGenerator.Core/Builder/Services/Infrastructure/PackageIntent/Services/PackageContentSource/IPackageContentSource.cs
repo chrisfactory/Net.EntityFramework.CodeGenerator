@@ -1,4 +1,6 @@
-﻿namespace Net.EntityFramework.CodeGenerator.Core
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+
+namespace Net.EntityFramework.CodeGenerator.Core
 {
     public interface IPackageSource
     {
@@ -53,5 +55,7 @@
 
     public interface IEntityMapperCodeGeneratorSource : ICodeGeneratorSource
     {
+        string? Schema { get; }
+        IMutableEntityType Entity { get; }
     }
 }

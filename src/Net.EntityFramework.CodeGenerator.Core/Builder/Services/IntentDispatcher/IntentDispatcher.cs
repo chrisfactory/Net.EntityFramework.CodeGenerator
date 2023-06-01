@@ -13,7 +13,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
         public async Task CreateFileAsync(IContentFile file, CancellationToken token)
         {
             var sb = new StringBuilder();
-            sb.AppendLine("-- Autogen");
+            //sb.AppendLine("-- Autogen");
             file.ContentBuilder.Build(sb);
             var content = sb.ToString();
 
@@ -40,11 +40,16 @@ namespace Net.EntityFramework.CodeGenerator.Core
                         }
 
                     }
-                    //else if (intent.Target is IServiceProjectTarget serviceProjTarget)
-                    //{
-
-
-                    //}
+                    else if (intent.Target is IDotNetProjectTarget serviceProjTarget)
+                    {
+                        foreach (var content in intent.Contents)
+                        {
+                            if (content is IContentFile contentFile)
+                            {
+                                await CreateFileAsync(contentFile, CancellationToken.None);
+                            }
+                        }
+                    }
                     //else if (intent.Target is IDbServiceBuilderTarget serviceBuilderTarget)
                     //{
                     //    if (intent.Target is IDbServiceSpSelectTarget spSelect)

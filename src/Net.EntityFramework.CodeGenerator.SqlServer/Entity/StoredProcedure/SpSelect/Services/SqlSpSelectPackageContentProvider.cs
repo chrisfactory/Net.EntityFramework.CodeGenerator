@@ -7,11 +7,11 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
     internal class SqlSpSelectPackageContentProvider : IIntentContentProvider
     {
         private readonly ISpSelectCodeGeneratorSource _source;
-        private readonly IDbContextModelExtractor _context;
+        private readonly IDbContextModelContext _context;
         private readonly IDataProjectFileInfoFactory _fileInfoFactory;
         public SqlSpSelectPackageContentProvider(
             ISpSelectCodeGeneratorSource source,
-            IDbContextModelExtractor context,
+            IDbContextModelContext context,
             IDataProjectFileInfoFactory fiFoctory)
         {
             _source = source;

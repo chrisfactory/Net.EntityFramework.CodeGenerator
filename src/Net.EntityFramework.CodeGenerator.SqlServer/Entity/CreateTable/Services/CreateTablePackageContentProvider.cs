@@ -5,11 +5,11 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
     internal class CreateTablePackageContentProvider : IIntentContentProvider
     {
         private readonly ICreateTableSource _source;
-        private readonly IDbContextModelExtractor _context;
+        private readonly IDbContextModelContext _context;
         private readonly IDataProjectFileInfoFactory _fileInfoFactory;
         public CreateTablePackageContentProvider(
             ICreateTableSource source,
-            IDbContextModelExtractor context,
+            IDbContextModelContext context,
             IDataProjectFileInfoFactory fiFoctory)
         {
             _source = source;

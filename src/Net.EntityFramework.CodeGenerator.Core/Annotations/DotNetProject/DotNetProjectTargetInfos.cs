@@ -12,9 +12,11 @@
         public const string AnnotationKey = $"sqlg.{nameof(DotNetProjectOptions)}";
 
         public string? RootPath { get; set; }
-
-        public string MapExtensionsPatternPath { get; set; } = @"MapExtensions\{name}\{classname}.cs";
-        public string DbServicePatternPath { get; set; } = @"DbService\{name}\{classname}.cs";
+        /// <summary>
+        /// {FileName};{Schema};{SchemaExt};{TableName}
+        /// </summary>
+        public string MapExtensionsPatternPath { get; set; } = @"MapExtensions\{FileName}.cs";
+        public string DbServicePatternPath { get; set; } = @"DbService\{name}\{FileName}.cs";
 
     }
 }

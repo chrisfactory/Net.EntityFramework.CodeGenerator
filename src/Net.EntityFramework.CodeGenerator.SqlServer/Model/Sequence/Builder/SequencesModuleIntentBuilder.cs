@@ -10,7 +10,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 
         protected override void DefineIntents(IIntentsBuilder intentBuilder)
         {
-            intentBuilder.DefineIntent<SequencesTarget, SequencesPackageContentProvider>();
+            intentBuilder.DefineIntent<DataProjectTarget, SequencesPackageContentProvider>();
         }
     }
 }

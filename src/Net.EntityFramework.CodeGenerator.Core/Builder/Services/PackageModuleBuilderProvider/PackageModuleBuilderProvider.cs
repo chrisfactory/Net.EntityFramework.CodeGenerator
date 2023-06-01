@@ -4,8 +4,8 @@ namespace Net.EntityFramework.CodeGenerator.Core
 {
     internal class PackageModuleBuilderProvider : IPackageModuleBuilderProvider
     {
-        private readonly IDbContextModelExtractor _ModelExtractor;
-        public PackageModuleBuilderProvider(IDbContextModelExtractor model)
+        private readonly IDbContextModelContext _ModelExtractor;
+        public PackageModuleBuilderProvider(IDbContextModelContext model)
         {
             _ModelExtractor = model;
         }
