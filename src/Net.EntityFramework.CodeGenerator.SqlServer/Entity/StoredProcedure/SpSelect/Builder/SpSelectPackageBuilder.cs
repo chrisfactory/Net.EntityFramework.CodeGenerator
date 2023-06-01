@@ -14,7 +14,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 
         protected override void DefineIntents(IIntentsBuilder intentBuilder)
         {
-            intentBuilder.DefineIntent<SqlSpSelectTarget, SqlSpSelectPackageContentProvider>();
+            intentBuilder.DefineIntent<DataProjectTarget, SqlSpSelectPackageContentProvider>();
             intentBuilder.DefineIntent<DbServiceSpSelectTarget, DbServiceSpSelectPackageContentProvider>();
         }
     }

@@ -47,6 +47,22 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
+  <Class Name="Net.EntityFramework.CodeGenerator.Core.DotNetProjectTarget" Collapsed="true">
+    <Position X="35" Y="13.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\Target\DotNetProjectTarget\IDotNetProjectTarget.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Net.EntityFramework.CodeGenerator.Core.DataProjectTarget" Collapsed="true">
+    <Position X="38.25" Y="13.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\Target\DbProj\IDataBaseProjectTarget.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
   <Interface Name="Net.EntityFramework.CodeGenerator.Core.ITarget">
     <Position X="35.25" Y="9.75" Width="1.5" />
     <AssociationLine Name="Token" Type="Net.EntityFramework.CodeGenerator.Core.IPackageToken">
@@ -63,7 +79,7 @@
     </ShowAsAssociation>
   </Interface>
   <Interface Name="Net.EntityFramework.CodeGenerator.Core.IDataProjectTarget">
-    <Position X="40.75" Y="12" Width="2.25" />
+    <Position X="38.25" Y="12" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\Target\DbProj\IDataBaseProjectTarget.cs</FileName>
@@ -94,7 +110,7 @@
   <Interface Name="Net.EntityFramework.CodeGenerator.Core.ICreateSequenceSource" Collapsed="true">
     <Position X="5.75" Y="20" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContentSource\IPackageContentSource.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -108,7 +124,7 @@
   <Interface Name="Net.EntityFramework.CodeGenerator.Core.IEntityMapperCodeGeneratorSource" Collapsed="true">
     <Position X="20" Y="19.5" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContentSource\IPackageContentSource.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -132,13 +148,6 @@
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContentSource\IPackageContentSource.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Net.EntityFramework.CodeGenerator.Core.ITableTarget" Collapsed="true">
-    <Position X="43.25" Y="14" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\Target\DbProj\TableTarget\ITableTarget.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Interface Name="Net.EntityFramework.CodeGenerator.Core.IIntentContentProvider" Collapsed="true">
     <Position X="20.5" Y="11" Width="2.5" />
     <TypeIdentifier>
@@ -160,61 +169,11 @@
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContent\ContentStringSegment\IContentStringSegment.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Net.EntityFramework.CodeGenerator.Core.IServiceProjectTarget" Collapsed="true">
-    <Position X="35" Y="12" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\Target\ServiceProjectTarget\IServiceProjectTarget.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Net.EntityFramework.CodeGenerator.Core.IIndexTarget" Collapsed="true">
-    <Position X="45.25" Y="14" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\Target\DbProj\IndexTarget\IIndexTarget.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Net.EntityFramework.CodeGenerator.Core.ISequenceTarget" Collapsed="true">
-    <Position X="39" Y="14" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\Target\DbProj\SequenceTarget\ISequenceTarget.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Net.EntityFramework.CodeGenerator.Core.IStoredProcedureTarget" Collapsed="true">
-    <Position X="47.25" Y="14" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\Target\DbProj\Sp\IStoredProcedureTarget.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Net.EntityFramework.CodeGenerator.Core.IEntityMapperTarget" Collapsed="true">
-    <Position X="33.25" Y="13.25" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\Target\ServiceProjectTarget\IEntityMapperTarget.cs</FileName>
-      <NewMemberFileName>Builder\Services\Infrastructure\PackageIntent\Services\Target\ServiceProjectTarget\IDbServiceTarget.cs</NewMemberFileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Net.EntityFramework.CodeGenerator.Core.IEnsureSchemaTarget" Collapsed="true">
-    <Position X="41" Y="14" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\Target\DbProj\EnsureSchemaTarget\IEnsureSchemaTarget.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Interface Name="Net.EntityFramework.CodeGenerator.Core.IDbServiceSpSelectTarget" Collapsed="true">
     <Position X="30.25" Y="13.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\Target\DbServiceBuilder\DbServiceTarget\SpSelect\IDbServiceSpSelectTarget.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Net.EntityFramework.CodeGenerator.Core.IDbProjSpSelectTarget" Collapsed="true">
-    <Position X="47" Y="15.5" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\Target\DbProj\Sp\Select\IDbProjSpSelectTarget.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Net.EntityFramework.CodeGenerator.Core.IDbServiceBuilderTarget" Collapsed="true">
@@ -311,11 +270,11 @@
       <Property Name="Packages" />
     </ShowAsCollectionAssociation>
   </Interface>
-  <Interface Name="Net.EntityFramework.CodeGenerator.Core.IDbContextModelExtractor">
+  <Interface Name="Net.EntityFramework.CodeGenerator.Core.IDbContextModelContext">
     <Position X="5" Y="6" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>gQAAAAAQAgAEAAAAAAAAAAAAAAAEAAAAAAkAAAAAAAA=</HashCode>
-      <FileName>Builder\Services\DbContextModelExtractor\IDbContextModelExtractor.cs</FileName>
+      <HashCode>gQAAAAAQCgAEAABAAAAAAAAAAAAEAAAAAAkAAAAAAAA=</HashCode>
+      <FileName>Builder\Services\DbContextModelExtractor\IDbContextModelContext.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Net.EntityFramework.CodeGenerator.Core.IStoredProcedureInfos" Collapsed="true">
@@ -332,13 +291,6 @@
       <FileName>Builder\Services\Infrastructure\PackageIntent\Services\PackageContentSource\IPackageContentSource.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Net.EntityFramework.CodeGenerator.Core.IDbServiceTarget" Collapsed="true">
-    <Position X="36" Y="13.25" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\Target\ServiceProjectTarget\IDbServiceTarget.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Interface Name="Net.EntityFramework.CodeGenerator.Core.IContentFile">
     <Position X="20" Y="12.75" Width="1.5" />
     <AssociationLine Name="ContentBuilder" Type="Net.EntityFramework.CodeGenerator.Core.IContentStringSegment">
@@ -353,6 +305,13 @@
     <ShowAsAssociation>
       <Property Name="ContentBuilder" />
     </ShowAsAssociation>
+  </Interface>
+  <Interface Name="Net.EntityFramework.CodeGenerator.Core.IDotNetProjectTarget">
+    <Position X="35" Y="12" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Builder\Services\Infrastructure\PackageIntent\Services\Target\DotNetProjectTarget\IDotNetProjectTarget.cs</FileName>
+    </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

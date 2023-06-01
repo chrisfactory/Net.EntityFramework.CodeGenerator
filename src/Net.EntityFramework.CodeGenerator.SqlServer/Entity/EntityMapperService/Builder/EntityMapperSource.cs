@@ -1,36 +1,21 @@
-﻿using Net.EntityFramework.CodeGenerator.Core;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Net.EntityFramework.CodeGenerator.Core;
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
     internal class EntityMapperSource : IEntityMapperCodeGeneratorSource
     {
-        public EntityMapperSource(IPackageToken token, IPackageLink link)
+        public EntityMapperSource(IMutableEntityType entity)
         {
-            //var storedProcedures = new List<IStoredProcedureInfos>();
-            //var keys = token.CorrelateTokens.ToHashSet();
-            //foreach (var package in link.Packages)
-            //{
-            //    if (keys.Contains(package.Token))
-            //    {
-            //        foreach (var intent in package.Intents)
-            //        {
-            //            if (intent.Target is IDbServiceBuilderTarget serviceBuilderTarget)
-            //            {
-            //                if (intent.Target is IDbServiceSpSelectTarget spSelect)
-            //                {
-            //                    foreach (var content in intent.Contents)
-            //                    {
-            //                        if (content is IStoredProcedureInfos storedProcedure)
-            //                        {
-            //                            storedProcedures.Add(storedProcedure);
-            //                        }
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
+            Entity = entity; 
+            Schema = entity.GetSchema();
+            Name = entity.GetTableName();
         }
-        public string Name { get; } = "Db Service";
+        
+        public string Schema { get; } 
+        public string Name { get; }
+
+        public IMutableEntityType Entity { get; }
     }
 }

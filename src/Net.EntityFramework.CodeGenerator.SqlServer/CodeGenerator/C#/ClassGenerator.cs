@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Net.EntityFramework.CodeGenerator.Core;
+using System.Text;
 
 namespace Net.EntityFramework.CodeGenerator
 {
@@ -22,6 +23,8 @@ namespace Net.EntityFramework.CodeGenerator
         public bool IsInterface { get; set; }
         public bool IsPartiale { get; set; }
         public bool IsStatic { get; set; }
+
+        public List<IContentCodeSegment> Contents { get; set; }
     }
 
     public interface ICodeBuilder
@@ -33,10 +36,16 @@ namespace Net.EntityFramework.CodeGenerator
 
         string Build();
     }
+    public interface IContentCodeSegment
+    {
+        List<string> Usings { get; }
+        void Build(ICodeBuilder builder);
+    }
+
     internal class CodeBuilder : ICodeBuilder
     {
         private int nbrIndent = 0;
-        private string _indent;
+        private string _indent = string.Empty;
         private StringBuilder _str = new StringBuilder();
 
 
@@ -88,7 +97,7 @@ namespace Net.EntityFramework.CodeGenerator
         {
             var s = string.Empty;
             for (int i = 0; i < nbrIndent; i++)
-                s += "   ";
+                s += "    ";
             _indent = s;
         }
     }
@@ -103,12 +112,28 @@ namespace Net.EntityFramework.CodeGenerator
 
 
         public string Build()
-        { 
+        {
             var builder = new CodeBuilder();
-            if (_options.Usings != null)
-                foreach (var usingItem in _options.Usings)
+
+            var usingsLines = _options.Usings ?? new List<string>();
+            if (_options.Contents != null)
+            {
+                foreach (var content in _options.Contents)
+                {
+                    if (content.Usings != null)
+                    {
+                        usingsLines.AddRange(content.Usings);
+                    }
+                }
+            }
+
+            usingsLines = usingsLines.Where(usg => usg != _options.Namespace).Distinct().ToList();
+            if (usingsLines.Count > 0)
+            {
+                foreach (var usingItem in usingsLines)
                     builder.AppendLine($"using {usingItem};");
-            builder.AppendLine();
+                builder.AppendLine();
+            }
             if (!string.IsNullOrEmpty(_options.Namespace))
             {
                 builder.AppendLine($"namespace {_options.Namespace}");
@@ -117,11 +142,18 @@ namespace Net.EntityFramework.CodeGenerator
 
             using (builder.Indent())
             {
-                builder.AppendLine($"{GetAccessibilit(_options.Accessibility)}{GetTypeContract(_options)}");
+                builder.AppendLine($"{GetAccessibilit(_options.Accessibility)}{GetTypeContract(_options)} {_options.Name}");
                 builder.AppendLine("{");
 
-                using (builder.Indent())
+                if (_options.Contents != null)
                 {
+                    using (builder.Indent())
+                    {
+                        foreach (var content in _options.Contents)
+                        {
+                            content.Build(builder);
+                        }
+                    }
                 }
 
                 builder.AppendLine("}");

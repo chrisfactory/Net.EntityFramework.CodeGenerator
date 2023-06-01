@@ -13,7 +13,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
         public static ICodeGeneratorBuilder UseDbContext<TDbContext>(this ICodeGeneratorBuilder builder, Action<DbContextOptionsBuilder>? optionsAction = null)
             where TDbContext : DbContext
         {
-            builder.Services.AddDbContext<SelfDbContext>(optionsAction);
+            builder.Services.AddDbContext<TDbContext>(optionsAction);
             builder.Services.AddSingleton(pb => (DbContext)pb.GetRequiredService<TDbContext>());
             return builder;
         }

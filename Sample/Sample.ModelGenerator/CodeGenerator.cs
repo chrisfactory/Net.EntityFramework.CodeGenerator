@@ -1,11 +1,140 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Net.EntityFramework.CodeGenerator.Core;
 using Sample.App;
-using System.Security.Cryptography.X509Certificates;
+using System.Data;
+using System.Reflection.PortableExecutable;
 
 namespace Sample.ModelGenerator
 {
+
+    public class SampleDbContext : DbContext
+    {
+        public SampleDbContext(DbContextOptions<SampleDbContext> options) : base(options)
+        {
+
+        }
+
+        //public  Food2? GetFood2(int id)
+        //{
+
+        //    return this.Set<Food2>()
+        //        .FromSql($"[dbo].[SelectCustomFood2ByFoodId] @FoodId={id}")
+        //        .AsEnumerable()
+        //        .FirstOrDefault();
+        //    // return db.Database.SqlQuery<Food2>("truc",);
+        //    //using (var command = this.Database.GetDbConnection().CreateCommand())
+        //    //{
+        //    //    command.CommandText = "[dbo].[SelectCustomFood2ByFoodId]";
+        //    //    command.CommandType = CommandType.StoredProcedure;
+        //    //    command.Parameters.Add(new SqlParameter("FoodId",id));
+
+        //    //    command.Connection?.Open();
+        //    //   // db.Database.OpenConnection();
+
+        //    //    using (var result = command.ExecuteReader())
+        //    //    {
+
+        //    //        return ((IObjectContextAdapter)this).ObjectContext.Translate<Food2>(reader).Single();
+        //    //    }
+        //    //}
+
+        //   // return ((IObjectContextAdapter)context).ObjectContext.Translate<Food2>(reader).Single();
+        //}
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.HasDataProject(@"..\..\..\..\Sample.DbProj");
+            modelBuilder.HasDotNetProject(@"..\..\..\..\Sample.App");
+
+            modelBuilder.HasDefaultSchema("dbo");
+
+            modelBuilder.Entity<Animal>()
+                 .UseTpcMappingStrategy()
+                 .GenerateFilesFor(b =>
+                 {
+                     b.CreateTable();
+                     b.CreateIndex();
+                 });
+
+
+            modelBuilder.Entity<Food>()
+            .GenerateFilesFor(b =>
+            {
+                b.CreateTable();
+                b.CreateIndex();
+
+                var mapper = b.EntityMapper();
+                var select = b.SpSelect();
+
+                //b.SpDelete();
+                //b.SpInsert();
+                //b.SpUpdate();
+                b.DbService().Use(mapper, select);
+            }).Property(typeof(string), "test");
+
+            modelBuilder.Entity<Food2>()
+            .GenerateFilesFor(b =>
+            {
+                b.CreateTable();
+                b.CreateIndex();
+
+                var mapper = b.EntityMapper();
+                var select = b.SpSelect();
+
+                b.EFDbService().Use(select);
+            });
+
+            modelBuilder.Entity<FarmAnimal>()
+             .GenerateFilesFor(b =>
+             {
+                 b.CreateTable();
+                 b.CreateIndex();
+                 var select = b.SpSelect();
+             });
+            modelBuilder.Entity<Cat>()
+             .GenerateFilesFor(b =>
+             {
+                 b.CreateTable();
+                 b.CreateIndex();
+                 var select = b.SpSelect();
+             });
+            modelBuilder.Entity<Dog>()
+             .GenerateFilesFor(b =>
+             {
+                 b.CreateTable();
+                 b.CreateIndex();
+                 var select = b.SpSelect();
+             });
+            modelBuilder.Entity<Human>()
+             .GenerateFilesFor(b =>
+             {
+                 b.CreateTable();
+                 b.CreateIndex();
+                 var select = b.SpSelect();
+             });
+            modelBuilder.Entity<CustomSchemaTableExemple>()
+            .GenerateFilesFor(b =>
+            {
+                b.CreateTable();
+                b.CreateIndex();
+                var select = b.SpSelect();
+            });
+
+
+
+
+            modelBuilder
+            .GenerateFilesFor(b =>
+            {
+                b.EnsureSchemas();
+                b.CreateSequences();
+            });
+        }
+    }
 
     partial class CodeGenerator
     {
@@ -14,98 +143,28 @@ namespace Sample.ModelGenerator
         {
 
             var services = new ServiceCollection();
-            services.AddSqlServerCodeGenerator(
-                        modelBuilder =>
-                        {
+            services.AddSqlServerCodeGenerator<SampleDbContext>(opt => opt.UseSqlServer());
 
-                            modelBuilder.HasDataProject(@"..\..\..\..\Sample.DbProj");
-                            modelBuilder.HasDotNetProject(@"..\..\..\..\Sample.App");
+            //  public static Food2 Map(this DbContext context, DbDataReader reader)
+            //{
 
-                            modelBuilder.HasDefaultSchema("dbo");
-
-                            modelBuilder.Entity<Animal>()
-                                 .UseTpcMappingStrategy()
-                                 .GenerateFilesFor(b =>
-                                  {
-                                      b.CreateTable();
-                                      b.CreateIndex();
-                                  });
-
-
-                            modelBuilder.Entity<Food>()
-                            .GenerateFilesFor(b =>
-                            {
-                                b.CreateTable();
-                                b.CreateIndex();
-
-
-                                //var mapper = b.EntityMapper(); 
-                                var select = b.SpSelect();//.Use(mapper);
-
-                                //b.SpDelete();
-                                //b.SpInsert();
-                                //b.SpUpdate();
-                                //var x = b.DbService().Use(mapper, select);
-                            }).Property(typeof(string), "test");
-
-                            modelBuilder.Entity<Food2>()
-                            .GenerateFilesFor(b =>
-                            {
-                                b.CreateTable();
-                                b.CreateIndex();
-                                var select = b.SpSelect();
-                            });
-
-                            modelBuilder.Entity<FarmAnimal>()
-                             .GenerateFilesFor(b =>
-                             {
-                                 b.CreateTable();
-                                 b.CreateIndex();
-                                 var select = b.SpSelect();
-                             });
-                            modelBuilder.Entity<Cat>()
-                             .GenerateFilesFor(b =>
-                             {
-                                 b.CreateTable();
-                                 b.CreateIndex();
-                                 var select = b.SpSelect();
-                             });
-                            modelBuilder.Entity<Dog>()
-                             .GenerateFilesFor(b =>
-                             {
-                                 b.CreateTable();
-                                 b.CreateIndex();
-                                 var select = b.SpSelect();
-                             });
-                            modelBuilder.Entity<Human>()
-                             .GenerateFilesFor(b =>
-                             {
-                                 b.CreateTable();
-                                 b.CreateIndex();
-                                 var select = b.SpSelect();
-                             });
-                            modelBuilder.Entity<CustomSchemaTableExemple>()
-                            .GenerateFilesFor(b =>
-                            {
-                                b.CreateTable();
-                                b.CreateIndex();
-                                var select = b.SpSelect();
-                            });
-
-
-
-
-                            modelBuilder
-                            .GenerateFilesFor(b =>
-                               {
-                                   b.EnsureSchemas();
-                                   b.CreateSequences();
-                               });
-                        });
-
-
+            //    return ((IObjectContextAdapter)context).ObjectContext.Translate<Food2>(reader).Single();
+            //}
             var provider = services.BuildServiceProvider();
             var codeGen = provider.GetServices<ICodeGenerator>().ToList();
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             Console.WriteLine("finished");

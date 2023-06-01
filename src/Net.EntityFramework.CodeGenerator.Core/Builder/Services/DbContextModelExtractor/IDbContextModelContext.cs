@@ -5,10 +5,13 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Net.EntityFramework.CodeGenerator.Core
 {
-    public interface IDbContextModelExtractor
+    public interface IDbContextModelContext
     {
+        Type DbContextType { get; }
+        bool IsSelfDbContext { get; }
+
         IModel Model { get; }
-        IDotNetProjectTargetInfos DotNetProjectTargetInfos { get;}
+        IDotNetProjectTargetInfos DotNetProjectTargetInfos { get; }
         IDataProjectTargetInfos DataProjectTargetInfos { get; }
 
 

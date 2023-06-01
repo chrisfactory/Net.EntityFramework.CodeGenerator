@@ -8,7 +8,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
     public class SpSelectSource : ISpSelectCodeGeneratorSource
     {
         public SpSelectSource(
-            IDbContextModelExtractor context,
+            IDbContextModelContext context,
             IMutableEntityType entity,
             IStoredProcedureNameProvider storedProcedureNameProvider,
             IStoredProcedureSchemaProvider storedProcedureSchemaProvider)

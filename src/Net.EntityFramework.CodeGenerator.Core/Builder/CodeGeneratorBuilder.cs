@@ -12,7 +12,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
 
         public ICodeGenerator Build()
         {
-            Services.AddSingleton<IDbContextModelExtractor, DbContextModelExtractor>();
+            Services.AddSingleton<IDbContextModelContext, DbContextModelExtractor>();
             Services.AddSingleton<IPackageModuleBuilderProvider, PackageModuleBuilderProvider>();
             Services.AddSingleton<IPackageModuleIntentsProvider, PackageModuleIntentsProvider>();
             Services.AddSingleton<IIntentDispatcher, IntentDispatcher>();

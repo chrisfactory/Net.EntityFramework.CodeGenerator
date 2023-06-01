@@ -4,10 +4,10 @@ namespace Net.EntityFramework.CodeGenerator.Core
 {
     internal class PackageModuleIntentsProvider : IPackageModuleIntentsProvider
     {
-        private readonly IDbContextModelExtractor _context;
+        private readonly IDbContextModelContext _context;
         private readonly IPackageModuleBuilderProvider _moduleBuilderProvider;
         public PackageModuleIntentsProvider(
-            IDbContextModelExtractor context,
+            IDbContextModelContext context,
             IPackageModuleBuilderProvider moduleBuilderProvider)
         {
             _context = context;

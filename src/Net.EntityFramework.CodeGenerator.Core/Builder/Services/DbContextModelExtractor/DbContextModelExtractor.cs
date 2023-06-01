@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Net.EntityFramework.CodeGenerator.Core
 {
-    internal class DbContextModelExtractor : IDbContextModelExtractor
+    internal class DbContextModelExtractor : IDbContextModelContext
     {
         private readonly DbContext _context;
         private readonly IRelationalModel _relationModel;
@@ -15,6 +15,9 @@ namespace Net.EntityFramework.CodeGenerator.Core
         {
 
             _context = dbContext;
+            IsSelfDbContext = _context is SelfDbContext;
+            DbContextType = _context.GetType();
+
             var designTimeMode = dbContext.GetService<IDesignTimeModel>();
             var diff = dbContext.GetService<IMigrationsModelDiffer>();
             var mig = dbContext.GetService<IMigrationsSqlGenerator>();
@@ -48,6 +51,9 @@ namespace Net.EntityFramework.CodeGenerator.Core
 
         }
 
+
+        public Type DbContextType { get; }
+        public bool IsSelfDbContext{ get; }
 
 
         public IModel Model { get; }

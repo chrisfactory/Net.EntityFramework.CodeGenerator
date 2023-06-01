@@ -5,11 +5,11 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
     internal class SequencesPackageContentProvider : IIntentContentProvider
     {
         private readonly ICreateSequenceSource _source;
-        private readonly IDbContextModelExtractor _context;
+        private readonly IDbContextModelContext _context;
         private readonly IDataProjectFileInfoFactory _fileInfoFactory;
         public SequencesPackageContentProvider(
                ICreateSequenceSource source,
-               IDbContextModelExtractor context,
+               IDbContextModelContext context,
                IDataProjectFileInfoFactory fiFoctory)
         {
             _source = source;
