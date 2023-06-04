@@ -6,7 +6,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
     {
         public DbServiceSource(IPackageToken token, IPackageLink link)
         {
-            var storedProcedures = new List<IStoredProcedureInfos>();
+            var segments = new List<IDotNetContentCodeSegment>();
             var keys = token.CorrelateTokens.ToHashSet();
             foreach (var package in link.Packages)
             {
@@ -16,21 +16,23 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
                     {
                         if (intent.Target is IDbServiceBuilderTarget serviceBuilderTarget)
                         {
-                            if (intent.Target is IDbServiceSpSelectTarget spSelect)
+                            foreach (var content in intent.Contents)
                             {
-                                foreach (var content in intent.Contents)
+                                if (content is IDotNetContentCodeSegment storedProcedure)
                                 {
-                                    if (content is IStoredProcedureInfos storedProcedure)
-                                    {
-                                        storedProcedures.Add(storedProcedure);
-                                    }
+                                    segments.Add(storedProcedure);
                                 }
                             }
                         }
                     }
                 }
             }
+
+            Segments = segments;
         }
+         
         public string Name { get; } = "Db Service";
+
+        public IReadOnlyList<IDotNetContentCodeSegment> Segments { get; }
     }
 }

@@ -40,6 +40,8 @@ namespace Net.EntityFramework.CodeGenerator.Core
 
     public interface ISpSelectCodeGeneratorSource : IStoredProcedureCodeGeneratorSource
     {
+        Type DbContextType { get; }
+        bool IsSelfDbContext { get; }
         string TableName { get; }
         string TableFullName { get; }
         IEntityTypeTable EntityTable { get; }
@@ -51,6 +53,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
 
     public interface IDbServiceCodeGeneratorSource : ICodeGeneratorSource
     {
+        IReadOnlyList<IDotNetContentCodeSegment> Segments { get; }  
     }
 
     public interface IEntityMapperCodeGeneratorSource : ICodeGeneratorSource

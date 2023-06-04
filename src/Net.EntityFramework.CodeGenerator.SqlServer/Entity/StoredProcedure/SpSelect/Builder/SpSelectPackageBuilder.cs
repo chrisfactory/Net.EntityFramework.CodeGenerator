@@ -12,10 +12,11 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
             Services.AddSingleton<IStoredProcedureNameProvider, SelectTableProcedureNameProvider>();
         }
 
-        protected override void DefineIntents(IIntentsBuilder intentBuilder)
+        protected override void DefineIntentProviders(IIntentsBuilder intentBuilder)
         {
-            intentBuilder.DefineIntent<DataProjectTarget, SqlSpSelectPackageContentProvider>();
-            intentBuilder.DefineIntent<DbServiceSpSelectTarget, DbServiceSpSelectPackageContentProvider>();
+            intentBuilder.DefineIntentProvider<DataProjectTarget, SqlSpSelectPackageContentProvider>();
+            intentBuilder.DefineIntentProvider<DbServiceBuilderTarget, DbServiceSpSelectPackageContentProvider>();
+            intentBuilder.DefineIntentProvider<EfDbContextExtensionBuilderTarget, EfDbContextExtensionSpSelectPackageContentProvider>();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
         }
         public IServiceCollection Services { get; }
 
-        protected abstract void DefineIntents(IIntentsBuilder intentBuilder);
+        protected abstract void DefineIntentProviders(IIntentsBuilder intentBuilder);
         public IPackage Build()
         {
             var intentNode = Services.CreateNode();
@@ -23,7 +23,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
             internalPackageServices.AddSingleton(p =>
             {
                 var builder = new IntentsBuilder(intentNode);
-                DefineIntents(builder);
+                DefineIntentProviders(builder);
                 return builder.Build();
             });
             return internalPackageServices.BuildServiceProvider().GetRequiredService<IPackage>();

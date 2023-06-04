@@ -4,7 +4,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
 {
     public static class IIntentsBuilderExtensions
     {
-        public static void DefineIntent<TTarget, TContentProvider>(this IIntentsBuilder builder, Action<IServiceCollection>? intentBuilder = null)
+        public static void DefineIntentProvider<TTarget, TContentProvider>(this IIntentsBuilder builder, Action<IServiceCollection>? intentBuilder = null)
             where TTarget : class, ITarget
             where TContentProvider : class, IIntentContentProvider
         {

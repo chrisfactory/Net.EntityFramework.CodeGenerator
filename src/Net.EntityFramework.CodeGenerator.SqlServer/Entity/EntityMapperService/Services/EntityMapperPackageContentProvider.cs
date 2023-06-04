@@ -39,7 +39,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
                 Name = className,
                 IsStatic = true,
                 Namespace = clrType.Namespace,
-                Contents = new List<IContentCodeSegment>()
+                Contents = new List<IDotNetContentCodeSegment>()
                  {
                      new MethodMapper(_source.Entity,entityTable)
                  }
@@ -57,7 +57,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
             yield return new ContentFile(fi, new CommandTextSegment(str));
         }
 
-        private class MethodMapper : IContentCodeSegment
+        private class MethodMapper : IDotNetContentCodeSegment
         {
             private readonly IMutableEntityType _entity;
             private readonly IEntityTypeTable _entityTable;

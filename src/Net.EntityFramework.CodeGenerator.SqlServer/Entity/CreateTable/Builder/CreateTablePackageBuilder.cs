@@ -7,9 +7,9 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
         public CreateTablePackageBuilder(IPackageStack packageStack) : base(packageStack)
         {
         }
-        protected override void DefineIntents(IIntentsBuilder intentBuilder)
+        protected override void DefineIntentProviders(IIntentsBuilder intentBuilder)
         {
-            intentBuilder.DefineIntent<DataProjectTarget, CreateTablePackageContentProvider>();
+            intentBuilder.DefineIntentProvider<DataProjectTarget, CreateTablePackageContentProvider>();
         }
     }
 }

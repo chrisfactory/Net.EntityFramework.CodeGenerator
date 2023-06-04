@@ -1,4 +1,5 @@
 ﻿using Net.EntityFramework.CodeGenerator.Core;
+using System.Reflection;
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
@@ -12,22 +13,16 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 
         public IEnumerable<IContent> Get()
         {
-            yield return new SpSelectStoredProcedureInfos(
-                _source.Name,
-                _source.PrimaryKeys);
+            yield return new SpSelectStoredProcedureInfos();
         }
     }
      
-    internal class SpSelectStoredProcedureInfos : IStoredProcedureInfos
+    internal class SpSelectStoredProcedureInfos : IContent
     {
-        public SpSelectStoredProcedureInfos(string name, IReadOnlyCollection<IEntityColumn> parameters)
-        {
-            StoredProcedureName = name;
-            Parameters = parameters;
-        }
-        public string StoredProcedureName { get; }
-        public IReadOnlyCollection<IEntityColumn> Parameters { get; }
+        public SpSelectStoredProcedureInfos( )
+        { 
+        } 
 
-
+    
     }
 }

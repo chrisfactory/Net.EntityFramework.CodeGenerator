@@ -8,9 +8,9 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
         {
 
         }
-        protected override void DefineIntents(IIntentsBuilder intentBuilder)
+        protected override void DefineIntentProviders(IIntentsBuilder intentBuilder)
         {
-            intentBuilder.DefineIntent<DotNetProjectTarget, EntityMapperPackageContentProvider>();
+            intentBuilder.DefineIntentProvider<DotNetProjectTarget, EntityMapperPackageContentProvider>();
 
         }
     }
