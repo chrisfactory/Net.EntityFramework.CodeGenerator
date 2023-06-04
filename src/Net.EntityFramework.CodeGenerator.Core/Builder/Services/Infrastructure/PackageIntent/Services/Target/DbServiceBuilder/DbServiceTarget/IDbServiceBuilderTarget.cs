@@ -4,4 +4,14 @@
     {
 
     }
+
+    public class DbServiceBuilderTarget : IDbServiceBuilderTarget
+    {
+        public DbServiceBuilderTarget(IPackageToken token)
+        {
+            Token = token;
+        }
+
+        public IPackageToken Token { get; }
+    }
 }

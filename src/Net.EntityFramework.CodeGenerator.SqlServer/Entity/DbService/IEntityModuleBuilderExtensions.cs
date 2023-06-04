@@ -6,9 +6,9 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class IEntityModuleBuilderExtensions
     {
-        public static IPackageToken DbService(this IEntityModuleBuilder module)
-        {
-            return module.UsePackageBuilder<IDbServiceModuleIntentBuilder, DbServiceModuleIntentBuilder>();
-        }
+        //public static IPackageToken DbService(this IEntityModuleBuilder module)
+        //{
+        //    return module.UsePackageBuilder<IDbServiceModuleIntentBuilder, DbServiceModuleIntentBuilder>();
+        //}
     }
 }

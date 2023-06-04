@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection.Extensions;
-using Net.EntityFramework.CodeGenerator;
+﻿using Net.EntityFramework.CodeGenerator;
 using Net.EntityFramework.CodeGenerator.Core;
 using Net.EntityFramework.CodeGenerator.SqlServer;
 
@@ -26,7 +25,7 @@ namespace Microsoft.Extensions.DependencyInjection
         }
         public static IPackageToken SpSelect(this IEntityModuleBuilder module, Action<ISpSelectPackageBuilder>? configure = null)
         {
-            return module.UsePackageBuilder<ISpSelectPackageBuilder, SpSelectPackageBuilder>(configure); 
+            return module.UsePackageBuilder<ISpSelectPackageBuilder, SpSelectPackageBuilder>(configure);
         }
     }
 }

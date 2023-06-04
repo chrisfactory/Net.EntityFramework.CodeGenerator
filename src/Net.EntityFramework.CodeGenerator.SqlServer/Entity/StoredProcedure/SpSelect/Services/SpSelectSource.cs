@@ -14,7 +14,8 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
             IStoredProcedureSchemaProvider storedProcedureSchemaProvider)
         {
 
-           
+            DbContextType = context.DbContextType;
+            IsSelfDbContext = context.IsSelfDbContext;
 
             TableName = entity.GetTableName();
             TableFullName = entity.GetTableFullName();
@@ -32,6 +33,10 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
                 TableFullName = TableFullName
             });
         }
+
+        public Type DbContextType { get; }
+        public bool IsSelfDbContext { get; }
+
         public string? Schema { get; }
         public string Name { get; }
         public string TableName { get; }

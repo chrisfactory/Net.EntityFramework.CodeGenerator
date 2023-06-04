@@ -1,10 +1,11 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Net.EntityFramework.CodeGenerator.Core;
 using Sample.App;
-using System.Data;
-using System.Reflection.PortableExecutable;
+
+
+
+
 
 namespace Sample.ModelGenerator
 {
@@ -67,13 +68,14 @@ namespace Sample.ModelGenerator
                 b.CreateTable();
                 b.CreateIndex();
 
-                var mapper = b.EntityMapper();
-                var select = b.SpSelect();
+              //  var mapper = b.EntityMapper();
+                var select = b.SpSelectSingle();
 
                 //b.SpDelete();
                 //b.SpInsert();
                 //b.SpUpdate();
-                b.DbService().Use(mapper, select);
+                //b.DbService().Use(select);
+                b.EFDbService().Use(select);
             }).Property(typeof(string), "test");
 
             modelBuilder.Entity<Food2>()
@@ -82,7 +84,7 @@ namespace Sample.ModelGenerator
                 b.CreateTable();
                 b.CreateIndex();
 
-                var mapper = b.EntityMapper();
+             //   var mapper = b.EntityMapper();
                 var select = b.SpSelect();
 
                 b.EFDbService().Use(select);
@@ -125,8 +127,6 @@ namespace Sample.ModelGenerator
             });
 
 
-
-
             modelBuilder
             .GenerateFilesFor(b =>
             {
@@ -136,41 +136,24 @@ namespace Sample.ModelGenerator
         }
     }
 
-    partial class CodeGenerator
+
+
+    public partial class CodeGenerator
     {
-        static int idx = 0;
         static void Main(string[] args)
         {
 
             var services = new ServiceCollection();
             services.AddSqlServerCodeGenerator<SampleDbContext>(opt => opt.UseSqlServer());
 
-            //  public static Food2 Map(this DbContext context, DbDataReader reader)
-            //{
-
-            //    return ((IObjectContextAdapter)context).ObjectContext.Translate<Food2>(reader).Single();
-            //}
+          
             var provider = services.BuildServiceProvider();
             var codeGen = provider.GetServices<ICodeGenerator>().ToList();
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
             Console.WriteLine("finished");
             Console.ReadLine();
         }
-
 
     }
 

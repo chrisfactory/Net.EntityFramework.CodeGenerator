@@ -2,7 +2,7 @@
 using System.Text;
 
 namespace Net.EntityFramework.CodeGenerator
-{
+{  
     public enum AccessibilityLevels
     {
         None,
@@ -24,83 +24,9 @@ namespace Net.EntityFramework.CodeGenerator
         public bool IsPartiale { get; set; }
         public bool IsStatic { get; set; }
 
-        public List<IContentCodeSegment> Contents { get; set; }
+        public List<IDotNetContentCodeSegment> Contents { get; set; }
     }
-
-    public interface ICodeBuilder
-    {
-        ICodeBuilder AppendLine();
-        ICodeBuilder AppendLine(string? value);
-
-        IDisposable Indent();
-
-        string Build();
-    }
-    public interface IContentCodeSegment
-    {
-        List<string> Usings { get; }
-        void Build(ICodeBuilder builder);
-    }
-
-    internal class CodeBuilder : ICodeBuilder
-    {
-        private int nbrIndent = 0;
-        private string _indent = string.Empty;
-        private StringBuilder _str = new StringBuilder();
-
-
-        public ICodeBuilder AppendLine()
-        {
-            _str.AppendLine();
-            return this;
-        }
-        public ICodeBuilder AppendLine(string? value)
-        {
-            _str.AppendLine($"{_indent}{value}");
-            return this;
-        }
-
-        public string Build()
-        {
-            return _str.ToString();
-        }
-
-        public IDisposable Indent() => new IndentElement(this);
-        private class IndentElement : IDisposable
-        {
-            private readonly CodeBuilder _builder;
-            public IndentElement(CodeBuilder builder)
-            {
-                _builder = builder;
-                lock (builder)
-                    _builder.AddIndent();
-            }
-            public void Dispose()
-            {
-                lock (_builder)
-                    _builder.RemoveIndent();
-            }
-        }
-
-        private void AddIndent()
-        {
-            nbrIndent++;
-            SetIndent();
-        }
-
-        private void RemoveIndent()
-        {
-            nbrIndent--;
-            SetIndent();
-        }
-        private void SetIndent()
-        {
-            var s = string.Empty;
-            for (int i = 0; i < nbrIndent; i++)
-                s += "    ";
-            _indent = s;
-        }
-    }
+     
     internal class ClassGenerator
     {
         private readonly ClassGeneratorOptions _options;
