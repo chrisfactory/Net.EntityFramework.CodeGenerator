@@ -1,4 +1,5 @@
-﻿using Net.EntityFramework.CodeGenerator;
+﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+using Net.EntityFramework.CodeGenerator;
 using Net.EntityFramework.CodeGenerator.Core;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -19,6 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             return (builder) =>
             {
+                builder.Services.TryAddSingleton(SelectResultSet.SelectSingle());
                 configure?.Invoke(builder);
             };
         }
