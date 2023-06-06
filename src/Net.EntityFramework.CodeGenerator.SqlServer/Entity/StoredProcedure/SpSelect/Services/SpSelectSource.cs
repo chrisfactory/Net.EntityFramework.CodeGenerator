@@ -9,6 +9,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
     {
         public SpSelectSource(
             IDbContextModelContext context,
+            ISelectResultSet resultSet,
             IMutableEntityType entity,
             IStoredProcedureNameProvider storedProcedureNameProvider,
             IStoredProcedureSchemaProvider storedProcedureSchemaProvider)
@@ -16,6 +17,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 
             DbContextType = context.DbContextType;
             IsSelfDbContext = context.IsSelfDbContext;
+            ResultSet = resultSet.ResultSet;
 
             TableName = entity.GetTableName();
             TableFullName = entity.GetTableFullName();
@@ -36,7 +38,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 
         public Type DbContextType { get; }
         public bool IsSelfDbContext { get; }
-
+        public SelectResultSets ResultSet { get; }
         public string? Schema { get; }
         public string Name { get; }
         public string TableName { get; }
@@ -45,5 +47,6 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
         public IReadOnlyCollection<IEntityColumn> ProjectionColumns { get; }
         public IReadOnlyCollection<IEntityColumn> PrimaryKeys { get; }
 
+       
     }
 }
