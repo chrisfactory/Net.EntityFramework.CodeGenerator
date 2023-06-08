@@ -6,23 +6,23 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
     internal class CreateIndexPackageContentProvider : IIntentContentProvider
     {
-        private readonly ICreateIndexSource _source;
+        private readonly IMutableEntityType _entity;
         private readonly IDbContextModelContext _context;
         private readonly IDataProjectFileInfoFactory _fileInfoFactory;
         public CreateIndexPackageContentProvider(
-               ICreateIndexSource source,
+               IMutableEntityType entity,
                IDbContextModelContext context,
                IDataProjectFileInfoFactory fiFoctory)
         {
-            _source = source;
+            _entity = entity;
             _context = context;
             _fileInfoFactory = fiFoctory;
         }
 
         public IEnumerable<IContent> Get()
-        {
-            var schema = _source.Schema;
-            var tableName = _source.Name;
+        { 
+            var schema = _entity.GetSchema();
+            var tableName = _entity.GetTableName();
             foreach (var cmd in _context.CreateIndexIntents)
             {
                 if (cmd.Operation.Schema == schema && cmd.Operation.Table == tableName)

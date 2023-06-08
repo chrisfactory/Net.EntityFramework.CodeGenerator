@@ -5,15 +5,12 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
     internal class EFDbServicePackageContentProvider : IIntentContentProvider
     {
-        private readonly IDbServiceCodeGeneratorSource _source;
         private readonly IDbContextModelContext _context;
         private readonly IDotNetProjectFileInfoFactory _fileInfoFactory;
         public EFDbServicePackageContentProvider(
-               IDbServiceCodeGeneratorSource source,
                IDbContextModelContext context,
                IDotNetProjectFileInfoFactory fiFoctory)
         {
-            _source = source;
             _context = context;
             _fileInfoFactory = fiFoctory;
         }
@@ -40,7 +37,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
                     Name = className,
                     IsStatic = true,
                     Namespace = dbContextType.Namespace,
-                    Contents = new List<IDotNetContentCodeSegment>(_source.Segments)
+                  //  Contents = new List<IDotNetContentCodeSegment>(_source.Segments)
                 });
                 var str = code.Build();
 

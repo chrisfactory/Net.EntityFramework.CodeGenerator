@@ -5,13 +5,13 @@ using Net.EntityFramework.CodeGenerator.Core;
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    public class SpSelectSource : ISpSelectCodeGeneratorSource
+    public class SpSelectSource 
     {
         public SpSelectSource(
             IDbContextModelContext context,
-            ISelectResultSet resultSet,
+            IResultSet resultSet,
             IMutableEntityType entity,
-            IStoredProcedureNameProvider storedProcedureNameProvider,
+            //IStoredProcedureNameProvider storedProcedureNameProvider,
             IStoredProcedureSchemaProvider storedProcedureSchemaProvider)
         {
 
@@ -26,19 +26,34 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
             PrimaryKeys = EntityTable.PrimaryKeys.ToList();
 
             Schema = storedProcedureSchemaProvider.Get();
-            Name = storedProcedureNameProvider.Get(new SPInfos()
-            {
-                TableName = TableName,
-                EntityTable = EntityTable,
-                PrimaryKeys = PrimaryKeys,
-                ProjectionColumns = ProjectionColumns,
-                TableFullName = TableFullName
-            });
+
+            //var action = string.Empty;
+            //switch (ResultSet)
+            //{
+            //    case ResultSets.None:
+            //        action = "Select";
+            //        break;
+            //    case ResultSets.First: 
+            //    case ResultSets.FirstOrDefault: 
+            //    case ResultSets.Single: 
+            //    case ResultSets.SingleOrDefault:
+            //        action = "Get";
+            //        break;
+            //    default:
+            //    throw new NotImplementedException($"{ResultSet}");
+            //}
+
+            //Name = storedProcedureNameProvider.Get(new SPInfos()
+            //{
+            //    TableName = TableName,
+            //    Parameters = PrimaryKeys,
+            //    Action = "Select"
+            //});
         }
 
         public Type DbContextType { get; }
         public bool IsSelfDbContext { get; }
-        public SelectResultSets ResultSet { get; }
+        public ResultSets ResultSet { get; }
         public string? Schema { get; }
         public string Name { get; }
         public string TableName { get; }
@@ -47,6 +62,6 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
         public IReadOnlyCollection<IEntityColumn> ProjectionColumns { get; }
         public IReadOnlyCollection<IEntityColumn> PrimaryKeys { get; }
 
-       
+
     }
 }

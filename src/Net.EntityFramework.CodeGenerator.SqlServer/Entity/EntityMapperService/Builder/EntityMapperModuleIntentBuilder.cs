@@ -2,7 +2,7 @@
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    internal class EntityMapperModuleIntentBuilder : PackageBuilder<IEntityMapperCodeGeneratorSource, EntityMapperSource>, IEntityMapperModuleIntentBuilder
+    internal class EntityMapperModuleIntentBuilder : PackageBuilder, IEntityMapperModuleIntentBuilder
     {
         public EntityMapperModuleIntentBuilder(IPackageStack packageStack) : base(packageStack)
         {

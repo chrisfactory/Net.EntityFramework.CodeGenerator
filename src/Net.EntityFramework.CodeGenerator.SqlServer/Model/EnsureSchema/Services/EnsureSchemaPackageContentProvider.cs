@@ -4,15 +4,12 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
     internal class EnsureSchemaPackageContentProvider : IIntentContentProvider
     {
-        private readonly IEnsureSchemaSource _source;
         private readonly IDbContextModelContext _context;
         private readonly IDataProjectFileInfoFactory _fileInfoFactory;
         public EnsureSchemaPackageContentProvider(
-               IEnsureSchemaSource source,
                IDbContextModelContext context,
                IDataProjectFileInfoFactory fiFoctory)
         {
-            _source = source;
             _context = context;
             _fileInfoFactory = fiFoctory;
         }

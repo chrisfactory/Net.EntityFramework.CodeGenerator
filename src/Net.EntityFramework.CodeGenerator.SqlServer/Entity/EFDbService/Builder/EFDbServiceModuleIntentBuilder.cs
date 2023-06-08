@@ -2,7 +2,7 @@
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    internal class EFDbServiceModuleIntentBuilder : PackageBuilder<IDbServiceCodeGeneratorSource, DbServiceSource>, IEFDbServiceModuleIntentBuilder
+    internal class EFDbServiceModuleIntentBuilder : PackageBuilder, IEFDbServiceModuleIntentBuilder
     {
         public EFDbServiceModuleIntentBuilder(IPackageStack packageStack) : base(packageStack)
         {

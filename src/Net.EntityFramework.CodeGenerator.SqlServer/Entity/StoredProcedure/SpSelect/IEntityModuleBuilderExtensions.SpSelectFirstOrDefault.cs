@@ -20,7 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             return (builder) =>
             {
-                builder.Services.TryAddSingleton(SelectResultSet.SelectFirstOrDefault());
+                builder.Services.TryAddSingleton(ResultSetProvider.SelectFirstOrDefault());
                 configure?.Invoke(builder); 
             };
         }

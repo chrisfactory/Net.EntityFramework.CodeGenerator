@@ -35,27 +35,12 @@ namespace Net.EntityFramework.CodeGenerator.Core
     }
     public interface IPackageStack
     {
-        IServiceCollection GetNewStack<TSource, TSourceImplementation>()
-            where TSource : class, IPackageSource
-            where TSourceImplementation : class, TSource;
+        IServiceCollection GetStack();
     }
     internal class PackageStack : IPackageStack
     {
-        private readonly IServiceCollection _stack;
-        public PackageStack(INodeSnapshotPoint moduleSnapshot)
-        {
-            _stack = moduleSnapshot.CreateBranch();
-        }
-
-
-
-        public IServiceCollection GetNewStack<TSource, TSourceImplementation>()
-            where TSource : class, IPackageSource
-            where TSourceImplementation : class, TSource
-        {
-            _stack.AddSingleton<TSource, TSourceImplementation>();
-            _stack.AddSingleton<IPackageSource>(p => p.GetRequiredService<TSource>());
-            return _stack;
-        }
+        private readonly INodeSnapshotPoint _moduleSnapshot;
+        public PackageStack(INodeSnapshotPoint moduleSnapshot) => _moduleSnapshot = moduleSnapshot; 
+        public IServiceCollection GetStack() => _moduleSnapshot.CreateBranch();
     }
 }

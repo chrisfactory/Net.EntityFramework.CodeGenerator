@@ -3,13 +3,13 @@ using Net.EntityFramework.CodeGenerator.Core;
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    public class SpSelectPackageBuilder : PackageBuilder<ISpSelectCodeGeneratorSource, SpSelectSource>, ISpSelectPackageBuilder
+    public class SpSelectPackageBuilder : PackageBuilder, ISpSelectPackageBuilder
     {
         public SpSelectPackageBuilder(IPackageStack packageStack)
             : base(packageStack)
         {
             Services.AddSingleton<IStoredProcedureSchemaProvider, TablePackageProcedureSchemaProvider>();
-            Services.AddSingleton<IStoredProcedureNameProvider, SelectTableProcedureNameProvider>();
+            //Services.AddSingleton<IStoredProcedureNameProvider, StoredProcedureNameProvider>();
         }
 
         protected override void DefineIntentProviders(IIntentsBuilder intentBuilder)

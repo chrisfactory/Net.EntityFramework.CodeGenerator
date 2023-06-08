@@ -2,8 +2,7 @@
 {
     public interface IPackage
     {
-        IPackageToken Token { get; }
-        IPackageSource Source { get; }
+        IPackageToken Token { get; } 
         IEnumerable<IIntent> Intents { get; }
     }
 }
