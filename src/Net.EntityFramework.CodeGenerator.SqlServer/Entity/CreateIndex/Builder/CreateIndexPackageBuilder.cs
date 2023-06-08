@@ -2,7 +2,7 @@
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    internal class CreateIndexPackageBuilder : PackageBuilder<ICreateIndexSource, CreateIndexSource>, ICreateIndexPackageBuilder
+    internal class CreateIndexPackageBuilder : PackageBuilder, ICreateIndexPackageBuilder
     {
         public CreateIndexPackageBuilder(IPackageStack packageStack) : base(packageStack)
         {

@@ -2,7 +2,7 @@
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    internal class CreateTablePackageBuilder : PackageBuilder<ICreateTableSource, CreateTableSource>, ICreateTablePackageBuilder
+    internal class CreateTablePackageBuilder : PackageBuilder, ICreateTablePackageBuilder
     {
         public CreateTablePackageBuilder(IPackageStack packageStack) : base(packageStack)
         {

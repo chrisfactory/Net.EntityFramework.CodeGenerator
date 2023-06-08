@@ -3,24 +3,20 @@
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
     internal class SequencesPackageContentProvider : IIntentContentProvider
-    {
-        private readonly ICreateSequenceSource _source;
+    { 
         private readonly IDbContextModelContext _context;
         private readonly IDataProjectFileInfoFactory _fileInfoFactory;
-        public SequencesPackageContentProvider(
-               ICreateSequenceSource source,
+        public SequencesPackageContentProvider( 
                IDbContextModelContext context,
                IDataProjectFileInfoFactory fiFoctory)
-        {
-            _source = source;
+        { 
             _context = context;
             _fileInfoFactory = fiFoctory;
         }
 
 
         public IEnumerable<IContent> Get()
-        {
-            var name = _source.Name;
+        { 
             foreach (var cmd in _context.CreateSequenceIntents)
             {
 

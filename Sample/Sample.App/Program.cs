@@ -20,7 +20,7 @@ namespace Sample.App
             {
                 using (var db = scope.ServiceProvider.GetRequiredService<SampleDbContext>())
                 {
-                    var foo = db.SelectCustomFood2ByFoodId(1);
+                    //var foo = db.SelectCustomFood2ByFoodId(1);
                     //Get(db, 1).GetAwaiter().GetResult();
                     //  var fooAsync = db.SelectCustomFood2ByFoodIdAsync(1).GetAwaiter().GetResult();
 

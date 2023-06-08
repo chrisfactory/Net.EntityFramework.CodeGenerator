@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Net.EntityFramework.CodeGenerator.Core;
 using System.Data;
 
@@ -7,29 +7,30 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
     internal class EntityMapperPackageContentProvider : IIntentContentProvider
     {
-
-        private readonly IEntityMapperCodeGeneratorSource _source;
+         
         private readonly IDbContextModelContext _context;
+        private readonly IMutableEntityType _entity;
         private readonly IDotNetProjectFileInfoFactory _fileInfoFactory;
         public EntityMapperPackageContentProvider(
-               IEntityMapperCodeGeneratorSource source,
+               IMutableEntityType entity,
                IDbContextModelContext context,
                IDotNetProjectFileInfoFactory fiFoctory)
         {
-            _source = source;
+            _entity = entity;
             _context = context;
             _fileInfoFactory = fiFoctory;
         }
 
 
         public IEnumerable<IContent> Get()
-        {
-            var schema = _source.Schema;
-            var tableName = _source.Name;
-            var clrType = _source.Entity.ClrType;
+        { 
+
+            var schema = _entity.GetSchema();
+            var tableName = _entity.GetTableName();
+            var clrType = _entity.ClrType;
             var className = $"{tableName}Extensions";
 
-            var tableFullName = _source.Entity.GetTableFullName();
+            var tableFullName = _entity.GetTableFullName();
             var entityTable = _context.Entities.Single(e => e.TableFullName == tableFullName);
 
             var code = new ClassGenerator(new ClassGeneratorOptions()
@@ -41,7 +42,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
                 Namespace = clrType.Namespace,
                 Contents = new List<IDotNetContentCodeSegment>()
                  {
-                     new MethodMapper(_source.Entity,entityTable)
+                     new MethodMapper(_entity,entityTable)
                  }
 
             });

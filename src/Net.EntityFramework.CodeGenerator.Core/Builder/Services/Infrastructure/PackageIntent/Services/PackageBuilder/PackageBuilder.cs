@@ -2,13 +2,11 @@
 
 namespace Net.EntityFramework.CodeGenerator.Core
 {
-    public abstract class PackageBuilder<TSource, TSourceImplementation> : IPackageBuilder
-           where TSource : class, IPackageSource
-           where TSourceImplementation : class, TSource
+    public abstract class PackageBuilder : IPackageBuilder 
     {
         public PackageBuilder(IPackageStack packageStack)
         {
-            Services = packageStack.GetNewStack<TSource, TSourceImplementation>();
+            Services = packageStack.GetStack();
         }
         public IServiceCollection Services { get; }
 

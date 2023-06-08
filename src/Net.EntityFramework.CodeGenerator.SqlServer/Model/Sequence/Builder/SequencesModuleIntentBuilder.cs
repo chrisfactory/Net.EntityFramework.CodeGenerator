@@ -2,7 +2,7 @@
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    internal class SequencesModuleIntentBuilder : PackageBuilder<ICreateSequenceSource, SequencesSource>, ISequencesModuleIntentBuilder
+    internal class SequencesModuleIntentBuilder : PackageBuilder, ISequencesModuleIntentBuilder
     {
         public SequencesModuleIntentBuilder(IPackageStack packageStack) : base(packageStack)
         {

@@ -5,10 +5,8 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
     internal class DbServiceSpSelectPackageContentProvider : IIntentContentProvider
     {
-        private readonly ISpSelectCodeGeneratorSource _source;
-        public DbServiceSpSelectPackageContentProvider(ISpSelectCodeGeneratorSource src)
-        {
-            _source = src;
+        public DbServiceSpSelectPackageContentProvider()
+        { 
         }
 
         public IEnumerable<IContent> Get()
@@ -21,8 +19,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
     {
         public SpSelectStoredProcedureInfos( )
         { 
-        } 
-
+        }  
     
     }
 }

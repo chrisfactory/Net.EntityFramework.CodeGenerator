@@ -2,7 +2,7 @@
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    internal class DbServiceSource : IDbServiceCodeGeneratorSource
+    internal class DbServiceSource 
     {
         public DbServiceSource(IPackageToken token, IPackageLink link)
         {

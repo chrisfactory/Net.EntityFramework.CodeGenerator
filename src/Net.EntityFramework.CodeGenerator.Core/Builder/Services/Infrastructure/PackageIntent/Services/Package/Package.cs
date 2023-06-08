@@ -2,14 +2,12 @@
 {
     public class Package : IPackage
     {
-        public Package(IPackageToken token, IPackageSource source, IEnumerable<IIntent> intents)
+        public Package(IPackageToken token, IEnumerable<IIntent> intents)
         {
-            Token = token;
-            Source = source;
+            Token = token; 
             Intents = intents;
         }
         public IPackageToken Token { get; }
-        public IPackageSource Source { get; }
         public IEnumerable<IIntent> Intents { get; }
     }
 }

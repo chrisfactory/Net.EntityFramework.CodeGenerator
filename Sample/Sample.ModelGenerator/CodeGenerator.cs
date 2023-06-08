@@ -42,10 +42,10 @@ namespace Sample.ModelGenerator
                 b.CreateIndex();
 
                 //var select = b.SpSelect();
-                //var select = b.SpSelectSingle();
+                var select = b.SpSelectSingle();
                 //var select = b.SpSelectSingleOrDefault();
                 //var select = b.SpSelectFirst();
-                var select = b.SpSelectFirstOrDefault();
+               // var select = b.SpSelectFirstOrDefault();
 
                 b.EFDbService().Use(select);
             }).Property(typeof(string), "test");

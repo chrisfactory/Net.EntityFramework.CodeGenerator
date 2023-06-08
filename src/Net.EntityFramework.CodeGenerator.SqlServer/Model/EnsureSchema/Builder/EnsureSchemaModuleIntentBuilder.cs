@@ -2,7 +2,7 @@
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    internal class EnsureSchemaModuleIntentBuilder : PackageBuilder<IEnsureSchemaSource, EnsureSchemaSource>, IEnsureSchemaModuleIntentBuilder
+    internal class EnsureSchemaModuleIntentBuilder : PackageBuilder, IEnsureSchemaModuleIntentBuilder
     {
         public EnsureSchemaModuleIntentBuilder(IPackageStack packageStack) : base(packageStack)
         {
