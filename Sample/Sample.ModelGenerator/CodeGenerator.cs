@@ -11,10 +11,10 @@ namespace Sample.ModelGenerator
         public SampleDbContext(DbContextOptions<SampleDbContext> options) : base(options)
         {
 
-        } 
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        { 
+        {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.HasDataProject(@"..\..\..\..\Sample.DbProj");
@@ -37,13 +37,13 @@ namespace Sample.ModelGenerator
                 b.CreateTable();
                 b.CreateIndex();
 
-                //var select = b.SpSelect();
-                var select = b.SpSelectSingle();
-                //var select = b.SpSelectSingleOrDefault();
-                //var select = b.SpSelectFirst();
-               // var select = b.SpSelectFirstOrDefault();
+                var s1 = b.SpSelect();
+                var s2 = b.SpSelectSingle();
+                var s3 = b.SpSelectSingleOrDefault();
+                var s4 = b.SpSelectFirst();
+                var s5 = b.SpSelectFirstOrDefault();
 
-                b.EFDbService().Use(select);
+                b.EFDbService().Use(s1, s2, s3, s4, s5);
             }).Property(typeof(string), "test");
 
             modelBuilder.Entity<Food2>()
@@ -52,10 +52,13 @@ namespace Sample.ModelGenerator
                 b.CreateTable();
                 b.CreateIndex();
 
-             //   var mapper = b.EntityMapper();
-                //var select = b.SpSelect();
+                var s1 = b.SpSelect();
+                var s2 = b.SpSelectSingle();
+                var s3 = b.SpSelectSingleOrDefault();
+                var s4 = b.SpSelectFirst();
+                var s5 = b.SpSelectFirstOrDefault();
 
-                //b.EFDbService().Use(select);
+                b.EFDbService().Use(s1, s2, s3, s4, s5);
             });
 
             modelBuilder.Entity<FarmAnimal>()
@@ -63,35 +66,70 @@ namespace Sample.ModelGenerator
              {
                  b.CreateTable();
                  b.CreateIndex();
-                 //var select = b.SpSelect();
+
+                 var s1 = b.SpSelect();
+                 var s2 = b.SpSelectSingle();
+                 var s3 = b.SpSelectSingleOrDefault();
+                 var s4 = b.SpSelectFirst();
+                 var s5 = b.SpSelectFirstOrDefault();
+
+                 b.EFDbService().Use(s1, s2, s3, s4, s5);
              });
             modelBuilder.Entity<Cat>()
              .GenerateFilesFor(b =>
              {
                  b.CreateTable();
                  b.CreateIndex();
-                 //var select = b.SpSelect();
+
+                 var s1 = b.SpSelect();
+                 var s2 = b.SpSelectSingle();
+                 var s3 = b.SpSelectSingleOrDefault();
+                 var s4 = b.SpSelectFirst();
+                 var s5 = b.SpSelectFirstOrDefault();
+
+                 b.EFDbService().Use(s1, s2, s3, s4, s5);
              });
             modelBuilder.Entity<Dog>()
              .GenerateFilesFor(b =>
              {
                  b.CreateTable();
                  b.CreateIndex();
-                 //var select = b.SpSelect();
+
+                 var s1 = b.SpSelect();
+                 var s2 = b.SpSelectSingle();
+                 var s3 = b.SpSelectSingleOrDefault();
+                 var s4 = b.SpSelectFirst();
+                 var s5 = b.SpSelectFirstOrDefault();
+
+                 b.EFDbService().Use(s1, s2, s3, s4, s5);
              });
             modelBuilder.Entity<Human>()
              .GenerateFilesFor(b =>
              {
                  b.CreateTable();
                  b.CreateIndex();
-                 //var select = b.SpSelect();
+
+                 var s1 = b.SpSelect();
+                 var s2 = b.SpSelectSingle();
+                 var s3 = b.SpSelectSingleOrDefault();
+                 var s4 = b.SpSelectFirst();
+                 var s5 = b.SpSelectFirstOrDefault();
+
+                 b.EFDbService().Use(s1, s2, s3, s4, s5);
              });
             modelBuilder.Entity<CustomSchemaTableExemple>()
             .GenerateFilesFor(b =>
             {
                 b.CreateTable();
                 b.CreateIndex();
-                //var select = b.SpSelect();
+
+                var s1 = b.SpSelect();
+                var s2 = b.SpSelectSingle();
+                var s3 = b.SpSelectSingleOrDefault();
+                var s4 = b.SpSelectFirst();
+                var s5 = b.SpSelectFirstOrDefault();
+
+                b.EFDbService().Use(s1, s2, s3, s4, s5);
             });
 
 
@@ -114,7 +152,7 @@ namespace Sample.ModelGenerator
             var services = new ServiceCollection();
             services.AddSqlServerCodeGenerator<SampleDbContext>(opt => opt.UseSqlServer());
 
-          
+
             var provider = services.BuildServiceProvider();
             var codeGen = provider.GetServices<ICodeGenerator>().ToList();
 

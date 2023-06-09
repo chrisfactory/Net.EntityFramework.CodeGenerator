@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Net.EntityFramework.CodeGenerator.Core;
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
@@ -6,16 +7,19 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
     internal class EFDbServicePackageContentProvider : IIntentContentProvider
     {
         private readonly IDbContextModelContext _context;
+        private readonly IMutableEntityType _mutableEntity;
         private readonly IDotNetProjectFileInfoFactory _fileInfoFactory;
         private readonly IPackageToken _token;
         private readonly IPackageLink _link;
         public EFDbServicePackageContentProvider(
                IDbContextModelContext context,
+               IMutableEntityType mutableEntity,
                IDotNetProjectFileInfoFactory fiFoctory,
-               IPackageToken token, 
+               IPackageToken token,
                IPackageLink link)
         {
             _context = context;
+            _mutableEntity = mutableEntity;
             _fileInfoFactory = fiFoctory;
             _token = token;
             _link = link;
@@ -27,8 +31,8 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
             {
                 var dbContextType = _context.DbContextType;
 
-                var schema = "_source.Schema";
-                var tableName = "_source.Name";
+                var schema = _mutableEntity.GetSchema();
+                var tableName = _mutableEntity.ClrType.Name;
                 var className = $"{dbContextType.Name}Extensions";
 
 
@@ -45,14 +49,14 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 
                 var dbProjOptions = _context.DotNetProjectTargetInfos;
                 var rootPath = dbProjOptions.RootPath;
-                var pattern = dbProjOptions.MapExtensionsPatternPath;
+                var pattern = dbProjOptions.DbContextExtensionsPatternPath;
                 var fileName = $"{className}.{tableName}";
                 var fi = _fileInfoFactory.CreateFileInfo(rootPath, fileName, pattern, schema, tableName, null, null);
 
                 yield return new ContentFile(fi, new CommandTextSegment(str));
 
 
-            } 
+            }
         }
         private IReadOnlyList<IDotNetContentCodeSegment> GetSegments(IPackageToken token, IPackageLink link)
         {

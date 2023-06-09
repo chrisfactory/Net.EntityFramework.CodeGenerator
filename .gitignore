@@ -351,3 +351,5 @@ MigrationBackup/
  
 /Sample/Sample.DbProj/*
 /Sample/Sample.App/MapExtensions
+/Sample/Sample.App/DbContextExtensions
+

@@ -8,12 +8,15 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
     public class StoredProcedureEfCallerNameProvider : IStoredProcedureEfCallerNameProvider
     {
         private readonly IMutableEntityType _mutableEntity;
+        private readonly IResultSet _resultSet;
         private readonly ISpSelectParametersProvider _parametetersProvider;
         public StoredProcedureEfCallerNameProvider(
             IMutableEntityType mutableEntity,
+            IResultSet resultSet,
             ISpSelectParametersProvider parametersProvider)
         {
             _mutableEntity = mutableEntity;
+            _resultSet = resultSet;
             _parametetersProvider = parametersProvider;
         }
         public string Get()
@@ -21,18 +24,21 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
             var name = _mutableEntity.ClrType.Name;
 
             string by = string.Empty;
-            string all = string.Empty;
+            string scope = _resultSet.ResultSet == ResultSets.None ? string.Empty : $"{_resultSet.ResultSet}";
 
             var parameters = _parametetersProvider.GetParameters();
             if (parameters == null || parameters.Count == 0)
-                all = "All";
+            {
+                if (_resultSet.ResultSet != ResultSets.None)
+                    scope = "All";
+            }
             else
             {
                 by += "By";
                 foreach (var parameter in parameters)
                     by += parameter.PropertyName;
             }
-            return $"Get{all}{name}{by}";
+            return $"Get{scope}{name}{by}";
         }
     }
 
