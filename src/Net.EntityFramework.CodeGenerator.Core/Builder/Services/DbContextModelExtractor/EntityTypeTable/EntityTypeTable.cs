@@ -39,7 +39,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
         {
             var primaryKeys = new List<IEntityColumn>();
             var updatableColumns = new List<IEntityColumn>();
-            var insertColumns = new List<IEntityColumn>();
+          //  var insertColumns = new List<IEntityColumn>();
             var allColumns = new List<IEntityColumn>();
             var pks = new HashSet<IColumn>();
 
@@ -70,14 +70,14 @@ namespace Net.EntityFramework.CodeGenerator.Core
                 var column = new EntityColumn(item, pks.Contains(item), pi);
                 if (column.IsPrimaryKey)
                     primaryKeys.Add(column);
-                else if (column.PropertyInfo != null)
+                else //if (column.PropertyInfo != null)
                     updatableColumns.Add(column);
                 allColumns.Add(column);
             }
 
             PrimaryKeys = primaryKeys;
             UpdatableColumns = updatableColumns;
-            InsertColumns = insertColumns;
+            InsertColumns = updatableColumns;
             AllColumns = allColumns;
         }
 

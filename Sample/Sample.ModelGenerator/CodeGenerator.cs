@@ -43,7 +43,9 @@ namespace Sample.ModelGenerator
                 var s4 = b.SpSelectFirst();
                 var s5 = b.SpSelectFirstOrDefault();
 
-                b.DbContextExtensions().Use(s1, s2, s3, s4, s5);
+                var i1 = b.SpInsert();
+                 
+                b.DbContextExtensions().Use(s1, s2, s3, s4, s5,i1);
             }).Property(typeof(string), "test");
 
             modelBuilder.Entity<Food2>()
@@ -58,7 +60,9 @@ namespace Sample.ModelGenerator
                 var s4 = b.SpSelectFirst();
                 var s5 = b.SpSelectFirstOrDefault();
 
-                var dbExt = b.DbContextExtensions().Use(s1, s2, s3, s4, s5);
+                var i1 = b.SpInsert();
+
+                b.DbContextExtensions().Use(s1, s2, s3, s4, s5, i1);
             });
 
             modelBuilder.Entity<FarmAnimal>()
@@ -73,7 +77,9 @@ namespace Sample.ModelGenerator
                  var s4 = b.SpSelectFirst();
                  var s5 = b.SpSelectFirstOrDefault();
 
-                 b.DbContextExtensions().Use(s1, s2, s3, s4, s5);
+                 var i1 = b.SpInsert();
+
+                 b.DbContextExtensions().Use(s1, s2, s3, s4, s5, i1);
              });
             modelBuilder.Entity<Cat>()
              .GenerateFilesFor(b =>
@@ -87,7 +93,9 @@ namespace Sample.ModelGenerator
                  var s4 = b.SpSelectFirst();
                  var s5 = b.SpSelectFirstOrDefault();
 
-                 b.DbContextExtensions().Use(s1, s2, s3, s4, s5);
+                 var i1 = b.SpInsert();
+
+                 b.DbContextExtensions().Use(s1, s2, s3, s4, s5, i1);
              });
             modelBuilder.Entity<Dog>()
              .GenerateFilesFor(b =>
@@ -101,7 +109,9 @@ namespace Sample.ModelGenerator
                  var s4 = b.SpSelectFirst();
                  var s5 = b.SpSelectFirstOrDefault();
 
-                 b.DbContextExtensions().Use(s1, s2, s3, s4, s5);
+                 var i1 = b.SpInsert();
+
+                 b.DbContextExtensions().Use(s1, s2, s3, s4, s5, i1);
              });
             modelBuilder.Entity<Human>()
              .GenerateFilesFor(b =>
@@ -115,7 +125,9 @@ namespace Sample.ModelGenerator
                  var s4 = b.SpSelectFirst();
                  var s5 = b.SpSelectFirstOrDefault();
 
-                 b.DbContextExtensions().Use(s1, s2, s3, s4, s5);
+                 var i1 = b.SpInsert();
+
+                 b.DbContextExtensions().Use(s1, s2, s3, s4, s5, i1);
              });
             modelBuilder.Entity<CustomSchemaTableExemple>()
             .GenerateFilesFor(b =>
@@ -129,7 +141,9 @@ namespace Sample.ModelGenerator
                 var s4 = b.SpSelectFirst();
                 var s5 = b.SpSelectFirstOrDefault();
 
-                b.DbContextExtensions().Use(s1, s2, s3, s4, s5);
+                var i1 = b.SpInsert();
+
+                b.DbContextExtensions().Use(s1, s2, s3, s4, s5, i1);
             });
 
 

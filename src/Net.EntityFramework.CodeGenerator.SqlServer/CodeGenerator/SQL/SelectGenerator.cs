@@ -37,7 +37,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 
             foreach (var column in keys)
             {
-                requ.AddRow(column.ColumnName, null);
+                requ.AddRow($"[{column.ColumnName}]", null);
             }
 
             var result = requ.Build();
@@ -57,7 +57,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 
             foreach (var column in keys)
             {
-                requ.AddRow(column.ColumnName, null, $"@{column.ColumnName}", null);
+                requ.AddRow($"[{column.ColumnName}]", null, $"@{column.ColumnName}", null);
             }
 
             var result = requ.Build();
