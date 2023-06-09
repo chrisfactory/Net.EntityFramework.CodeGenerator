@@ -6,7 +6,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class IEFDbServiceModuleIntentBuilderExtensions
     {
-        public static IPackageToken EFDbService<TEntity>(this IEntityModuleBuilder<TEntity> module)
+        public static IPackageToken DbContextExtensions<TEntity>(this IEntityModuleBuilder<TEntity> module)
              where TEntity : class
         {
             return module.UsePackageBuilder<IEFDbServiceModuleIntentBuilder, EFDbServiceModuleIntentBuilder>();
