@@ -1,5 +1,4 @@
 ﻿using Net.EntityFramework.CodeGenerator.Core;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer

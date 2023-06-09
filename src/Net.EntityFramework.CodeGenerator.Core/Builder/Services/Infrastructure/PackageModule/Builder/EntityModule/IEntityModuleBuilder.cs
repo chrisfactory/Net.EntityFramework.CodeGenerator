@@ -1,6 +1,7 @@
 ﻿namespace Net.EntityFramework.CodeGenerator.Core
 {
-    public interface IEntityModuleBuilder : IPackageModuleBuilder
+    public interface IEntityModuleBuilder<TEntity> : IPackageModuleBuilder
+         where TEntity : class
     {
     } 
 }

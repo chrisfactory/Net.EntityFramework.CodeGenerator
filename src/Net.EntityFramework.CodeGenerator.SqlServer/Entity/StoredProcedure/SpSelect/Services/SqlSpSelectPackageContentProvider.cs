@@ -1,44 +1,52 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.DependencyInjection;
 using Net.EntityFramework.CodeGenerator.Core;
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
     internal class SqlSpSelectPackageContentProvider : IIntentContentProvider
-    { 
+    {
         private readonly IDbContextModelContext _context;
+        private readonly IEntityTypeTable _entityTable;
         private readonly IDataProjectFileInfoFactory _fileInfoFactory;
-        public SqlSpSelectPackageContentProvider( 
+        private readonly ISpSelectParametersProvider _parametersProvider;
+        private readonly IStoredProcedureSchemaProvider _schemaProvider;
+        private readonly IStoredProcedureNameProvider _spNameProvider;
+        public SqlSpSelectPackageContentProvider(
             IDbContextModelContext context,
-            IDataProjectFileInfoFactory fiFoctory)
-        { 
+            IMutableEntityType mutableEntity,
+            IDataProjectFileInfoFactory fiFoctory,
+            ISpSelectParametersProvider parametersProvider,
+            IStoredProcedureSchemaProvider schemaProvider,
+            IStoredProcedureNameProvider spNameProvider)
+        {
             _context = context;
+            _entityTable = context.GetEntity(mutableEntity);
             _fileInfoFactory = fiFoctory;
+            _parametersProvider = parametersProvider;
+            _schemaProvider = schemaProvider;
+            _spNameProvider = spNameProvider;
         }
 
 
         public IEnumerable<IContent> Get()
         {
-            throw new NotImplementedException();
-            //var dbProjOptions = _context.DataProjectTargetInfos;
-            //var rootPath = dbProjOptions.RootPath;
-            //var pattern = dbProjOptions.StoredProceduresPatternPath;
-            //var spSchema = _source.Schema;
-            //var spName = _source.Name;
-            //var targetTableFullName = _source.TableFullName;
-            //var tableName = _source.TableName;
-            //var projectionColumns = _source.ProjectionColumns;
-            //var primaryKeys = _source.PrimaryKeys;
-            //var fileName = spName;
-            //var spOptions = new StoredProcedureOptions(spSchema, spName);
-            //var sp = new StoredProcedureGenerator(spOptions, primaryKeys, new SelectGenerator(targetTableFullName, false, projectionColumns, primaryKeys));
-            //var spCode = sp.Build();
+            var dbProjOptions = _context.DataProjectTargetInfos;
+            var rootPath = dbProjOptions.RootPath;
+            var pattern = dbProjOptions.StoredProceduresPatternPath;
+            var spSchema = _schemaProvider.Get();
+            var spName = _spNameProvider.Get();
+            var targetTableFullName = _entityTable.TableFullName;
+            var tableName = _entityTable.Table.Name;
+            var projectionColumns = _entityTable.AllColumns;
+            var parameters = _parametersProvider.GetParameters();
+            var fileName = spName;
+            var spOptions = new StoredProcedureOptions(spSchema, spName);
+            var sp = new StoredProcedureGenerator(spOptions, parameters, new SelectGenerator(targetTableFullName, false, projectionColumns, parameters));
+            var spCode = sp.Build();
 
-
-
-
-            //var fi = _fileInfoFactory.CreateFileInfo(rootPath, fileName, pattern, spSchema, tableName, null, spName);
-            //yield return new ContentFile(fi, new CommandTextSegment(spCode));
+            var fi = _fileInfoFactory.CreateFileInfo(rootPath, fileName, pattern, spSchema, tableName, null, spName);
+            yield return new ContentFile(fi, new CommandTextSegment(spCode));
 
         }
     }

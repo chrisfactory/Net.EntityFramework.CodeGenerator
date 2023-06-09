@@ -15,6 +15,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
 
             PropertyInfo = property;
             PropertyName = PropertyInfo?.Name;
+            CallPropertyName = ToCallPropertyName(PropertyName);
             PropertyType = item.ProviderClrType.ToCSharpString();
 
             Column = item;
@@ -26,8 +27,19 @@ namespace Net.EntityFramework.CodeGenerator.Core
 
         public PropertyInfo? PropertyInfo { get; }
         public string? PropertyName { get; }
+        public string? CallPropertyName { get; }
         public string PropertyType { get; }
 
         public IColumn Column { get; }
+
+
+        private string? ToCallPropertyName(string? propertyName)
+        {
+            if(string.IsNullOrWhiteSpace(propertyName)) return null;
+
+           return $"{char.ToLower(propertyName[0])}{propertyName.Substring(1)}"; 
+        }
+
+
     }
 }

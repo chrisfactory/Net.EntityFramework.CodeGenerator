@@ -6,7 +6,8 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class IEntityModuleBuilderExtensions
     {
-        public static IPackageToken CreateTable(this IEntityModuleBuilder module)
+        public static IPackageToken CreateTable<TEntity>(this IEntityModuleBuilder<TEntity> module)
+               where TEntity : class
         {
             return module.UsePackageBuilder<ICreateTablePackageBuilder, CreateTablePackageBuilder>();
         }

@@ -6,17 +6,21 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class IEntityModuleBuilderExtensions
     {
-        public static IPackageToken SpSelectSingle(this IEntityModuleBuilder module, string? schema, string name, Action<ISpSelectPackageBuilder>? configure = null)
+        public static IPackageToken SpSelectSingle<TEntity>(this IEntityModuleBuilder<TEntity> module, string? schema, string name, Action<ISpSelectPackageBuilder<TEntity>>? configure = null)
+            where TEntity : class
             => module.SpSelect(schema, name, ConfiguerSelectSingle(configure));
 
-        public static IPackageToken SpSelectSingle(this IEntityModuleBuilder module, string name, Action<ISpSelectPackageBuilder>? configure = null)
+        public static IPackageToken SpSelectSingle<TEntity>(this IEntityModuleBuilder<TEntity> module, string name, Action<ISpSelectPackageBuilder<TEntity>>? configure = null)
+            where TEntity : class
             => module.SpSelect(name, ConfiguerSelectSingle(configure));
 
-        public static IPackageToken SpSelectSingle(this IEntityModuleBuilder module, Action<ISpSelectPackageBuilder>? configure = null)
+        public static IPackageToken SpSelectSingle<TEntity>(this IEntityModuleBuilder<TEntity> module, Action<ISpSelectPackageBuilder<TEntity>>? configure = null)
+            where TEntity : class
             => module.SpSelect(ConfiguerSelectSingle(configure));
 
 
-        private static Action<ISpSelectPackageBuilder> ConfiguerSelectSingle(Action<ISpSelectPackageBuilder>? configure)
+        private static Action<ISpSelectPackageBuilder<TEntity>> ConfiguerSelectSingle<TEntity>(Action<ISpSelectPackageBuilder<TEntity>>? configure)
+            where TEntity : class
         {
             return (builder) =>
             {

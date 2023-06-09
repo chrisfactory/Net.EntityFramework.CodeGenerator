@@ -3,10 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Net.EntityFramework.CodeGenerator.Core
 {
-    internal class EntityModuleBuilder : IEntityModuleBuilder
+    internal class EntityModuleBuilder<TEntity> : IEntityModuleBuilder<TEntity>
+        where TEntity : class
     {
-        private readonly Action<IEntityModuleBuilder>? _configure;
-        public EntityModuleBuilder(IMutableEntityType metadata, Action<IEntityModuleBuilder>? configure)
+        private readonly Action<IEntityModuleBuilder<TEntity>>? _configure;
+        public EntityModuleBuilder(IMutableEntityType metadata, Action<IEntityModuleBuilder<TEntity>>? configure)
         {
             _configure = configure;
 
@@ -40,7 +41,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
     internal class PackageStack : IPackageStack
     {
         private readonly INodeSnapshotPoint _moduleSnapshot;
-        public PackageStack(INodeSnapshotPoint moduleSnapshot) => _moduleSnapshot = moduleSnapshot; 
+        public PackageStack(INodeSnapshotPoint moduleSnapshot) => _moduleSnapshot = moduleSnapshot;
         public IServiceCollection GetStack() => _moduleSnapshot.CreateBranch();
     }
 }
