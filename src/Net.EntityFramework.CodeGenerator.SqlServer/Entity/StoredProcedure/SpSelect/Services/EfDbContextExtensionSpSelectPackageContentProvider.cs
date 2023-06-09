@@ -1,77 +1,123 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.DependencyInjection;
 using Net.EntityFramework.CodeGenerator.Core;
 
 namespace Net.EntityFramework.CodeGenerator.SqlServer
 {
-    internal class EfDbContextExtensionSpSelectPackageContentProvider : IIntentContentProvider
+    public class EfDbContextExtensionSpSelectPackageContentProvider : IIntentContentProvider
     {
-        public EfDbContextExtensionSpSelectPackageContentProvider()
+        private readonly IDbContextModelContext _context;
+        private readonly IEntityTypeTable _entityTable;
+        private readonly ISpSelectParametersProvider _parametersProvider;
+        private readonly IStoredProcedureSchemaProvider _schemaProvider;
+        private readonly IStoredProcedureNameProvider _spNameProvider;
+        private readonly IStoredProcedureEfCallerNameProvider _callerNameProvider;
+        private readonly IResultSet _resultSet;
+        public EfDbContextExtensionSpSelectPackageContentProvider(
+            IDbContextModelContext context,
+            IMutableEntityType mutableEntity,
+            ISpSelectParametersProvider parametersProvider,
+            IStoredProcedureSchemaProvider schemaProvider,
+            IStoredProcedureNameProvider spNameProvider,
+            IStoredProcedureEfCallerNameProvider callerNameProvider,
+            IResultSet resultSet)
         {
+            _context = context;
+            _parametersProvider = parametersProvider;
+            _schemaProvider = schemaProvider;
+            _spNameProvider = spNameProvider;
+            _callerNameProvider = callerNameProvider;
+            _entityTable = context.GetEntity(mutableEntity);
+            _resultSet = resultSet;
         }
 
         public IEnumerable<IContent> Get()
         {
-            yield return new EFStoredProcedureCaller();
+            yield return new EFStoredProcedureCaller(_context, _entityTable, _parametersProvider, _schemaProvider, _spNameProvider, _callerNameProvider, _resultSet);
         }
 
 
         private class EFStoredProcedureCaller : IDotNetContentCodeSegment
         {
-            public EFStoredProcedureCaller()
+            private readonly IDbContextModelContext _context;
+            private readonly IEntityTypeTable _entityTable;
+            private readonly ISpSelectParametersProvider _parametersProvider;
+            private readonly IStoredProcedureSchemaProvider _schemaProvider;
+            private readonly IStoredProcedureNameProvider _spNameProvider;
+            private readonly IStoredProcedureEfCallerNameProvider _callerNameProvider;
+            private readonly IResultSet _resultSet;
+            public EFStoredProcedureCaller(
+                IDbContextModelContext context,
+                IEntityTypeTable entityTable,
+                ISpSelectParametersProvider parametersProvider,
+                IStoredProcedureSchemaProvider schemaProvider,
+                IStoredProcedureNameProvider spNameProvider,
+                IStoredProcedureEfCallerNameProvider callerNameProvider,
+                IResultSet resultSet)
             {
-                //_source = source;
-                //var usingType = new List<Type>() { typeof(RelationalQueryableExtensions), source.EntityTable.EntityType.ClrType };
-                //if (!_source.IsSelfDbContext)
-                //    usingType.Add(_source.DbContextType);
-                //if (_source.ResultSet == ResultSets.None)
-                //    usingType.Add(typeof(IEnumerable<>));
-                //foreach (var item in usingType)
-                //{
-                //    if (!string.IsNullOrEmpty(item.Namespace))
-                //        Usings.Add(item.Namespace);
-                //}
+                _context = context;
+                _entityTable = entityTable;
+                _parametersProvider = parametersProvider;
+                _schemaProvider = schemaProvider;
+                _spNameProvider = spNameProvider;
+                _callerNameProvider = callerNameProvider;
+                _resultSet = resultSet;
+
+                var usingType = new List<Type>() { typeof(RelationalQueryableExtensions), _entityTable.EntityType.ClrType };
+                if (!context.IsSelfDbContext)
+                    usingType.Add(context.DbContextType);
+                if (resultSet.ResultSet == ResultSets.None)
+                    usingType.Add(typeof(IEnumerable<>));
+                foreach (var item in usingType)
+                {
+                    if (!string.IsNullOrEmpty(item.Namespace))
+                        Usings.Add(item.Namespace);
+                }
             }
             public List<string> Usings { get; } = new List<string>();
 
             public void Build(ICodeBuilder builder)
             {
-                //string typeName = _source.EntityTable.EntityType.ClrType.Name;
-                //var spSchema = _source.Schema;
-                //var spName = _source.Name;
-                //var primaryKeys = _source.PrimaryKeys;
+                string typeName = _entityTable.EntityType.ClrType.Name;
 
-                //var methodName = spName;
-
-                //var extTypeName = _source.DbContextType.Name;
-                //var methodParameters = string.Empty;
-                //var spParameters = string.Empty;
-                //if (primaryKeys != null)
-                //{
-                //    string sep = string.Empty; ;
-                //    foreach (var parameter in primaryKeys)
-                //    {
-                //        methodParameters += $",  {parameter.PropertyType}  {parameter.PropertyName}";
-                //        spParameters += $"  {sep}@{parameter.ColumnName} = {{{parameter.PropertyName}}}";
-                //        sep = ",";
-                //    }
-                //}
+                var spSchema = _schemaProvider.Get();
+                var spName = _spNameProvider.Get();
+                var methodName = _callerNameProvider.Get();
+                var parameters = _parametersProvider.GetParameters();
 
 
-                //var resultType = GetResultType(_source.ResultSet, typeName);
+                var extTypeName = _context.DbContextType.Name;
+                var methodParameters = string.Empty;
+                var spParameters = string.Empty;
+                if (parameters != null)
+                {
+                    string sep = string.Empty; ;
+                    foreach (var parameter in parameters)
+                    {
+                        methodParameters += $", {parameter.PropertyType} {parameter.CallPropertyName}";
+                        spParameters += $"{sep}@{parameter.ColumnName} = {{{parameter.CallPropertyName}}}";
+                        sep = ",";
+                    }
+                }
 
-                //builder.AppendLine($"public static {resultType} {methodName}(this {extTypeName} dbContext{methodParameters})");
-                //builder.AppendLine($"=> dbContext");
-                //builder.AppendLine($"   .Set<{typeName}>()");
-                //builder.AppendLine($"   .FromSql($\"EXECUTE [{spSchema}].[{spName}] {spParameters}\")");
-                //BuildResultSet(builder, _source.ResultSet);
-                //builder.AppendLine();
+                if (!string.IsNullOrEmpty(spSchema))
+                    spSchema = $"[{spSchema}].";
+                var resultType = GetResultType(_resultSet.ResultSet, typeName);
 
-                //builder.AppendLine($"public static async Task<{resultType}> {methodName}Async(this {extTypeName} dbContext{methodParameters})");
-                //builder.AppendLine($"=> (await dbContext");
-                //builder.AppendLine($"   .Set<{typeName}>()");
-                //builder.AppendLine($"   .FromSql($\"EXECUTE [{spSchema}].[{spName}] {spParameters}\")");
-                //BuildAsyncResultSet(builder, _source.ResultSet);
-                //builder.AppendLine();
+                builder.AppendLine($"public static {resultType} {methodName}(this {extTypeName} dbContext{methodParameters})");
+                builder.AppendLine($"=> dbContext");
+                builder.AppendLine($"   .Set<{typeName}>()");
+                builder.AppendLine($"   .FromSql($\"EXECUTE {spSchema}[{spName}] {spParameters}\")");
+                BuildResultSet(builder, _resultSet.ResultSet);
+                builder.AppendLine();
+
+                builder.AppendLine($"public static async Task<{resultType}> {methodName}Async(this {extTypeName} dbContext{methodParameters})");
+                builder.AppendLine($"=> (await dbContext");
+                builder.AppendLine($"   .Set<{typeName}>()");
+                builder.AppendLine($"   .FromSql($\"EXECUTE {spSchema}[{spName}] {spParameters}\")");
+                BuildAsyncResultSet(builder, _resultSet.ResultSet);
+                builder.AppendLine();
             }
 
             private string GetResultType(ResultSets resultSet, string typeName)

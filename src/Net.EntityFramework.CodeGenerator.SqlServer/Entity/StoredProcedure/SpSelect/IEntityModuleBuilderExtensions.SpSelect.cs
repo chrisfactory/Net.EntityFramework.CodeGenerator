@@ -7,35 +7,39 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class IEntityModuleBuilderExtensions
     {
-        public static IPackageToken SpSelect(this IEntityModuleBuilder module, string? schema, string name, Action<ISpSelectPackageBuilder>? configure = null)
+        public static IPackageToken SpSelect<TEntity>(this IEntityModuleBuilder<TEntity> module, string? schema, string name, Action<ISpSelectPackageBuilder<TEntity>>? configure = null)
+           where TEntity : class
         {
             return module.SpSelect(builder =>
             {
-                builder.SetSchema(schema);
-                builder.SetName(name);
+                builder.SetSpSchema(schema);
+                builder.SetSpName(name);
                 configure?.Invoke(builder);
             });
         }
-        public static IPackageToken SpSelect(this IEntityModuleBuilder module, string name, Action<ISpSelectPackageBuilder>? configure = null)
+        public static IPackageToken SpSelect<TEntity>(this IEntityModuleBuilder<TEntity> module, string name, Action<ISpSelectPackageBuilder<TEntity>>? configure = null)
+            where TEntity : class
         {
             return module.SpSelect(builder =>
             {
-                builder.SetName(name);
+                builder.SetSpName(name);
                 configure?.Invoke(builder);
             });
         }
-        public static IPackageToken SpSelect(this IEntityModuleBuilder module, Action<ISpSelectPackageBuilder>? configure = null)
+        public static IPackageToken SpSelect<TEntity>(this IEntityModuleBuilder<TEntity> module, Action<ISpSelectPackageBuilder<TEntity>>? configure = null)
+            where TEntity : class
         {
-            return module.UsePackageBuilder<ISpSelectPackageBuilder, SpSelectPackageBuilder>(ConfiguerSelect(configure));
+            return module.UsePackageBuilder<ISpSelectPackageBuilder<TEntity>, SpSelectPackageBuilder<TEntity>>(ConfiguerSelect(configure));
         }
 
-        private static Action<ISpSelectPackageBuilder> ConfiguerSelect(Action<ISpSelectPackageBuilder>? configure)
+        private static Action<ISpSelectPackageBuilder<TEntity>> ConfiguerSelect<TEntity>(Action<ISpSelectPackageBuilder<TEntity>>? configure)
+            where TEntity : class
         {
             return (builder) =>
             {
-                configure?.Invoke(builder); 
+                configure?.Invoke(builder);
                 builder.Services.TryAddSingleton(ResultSetProvider.Select());
             };
         }
-    } 
+    }
 }

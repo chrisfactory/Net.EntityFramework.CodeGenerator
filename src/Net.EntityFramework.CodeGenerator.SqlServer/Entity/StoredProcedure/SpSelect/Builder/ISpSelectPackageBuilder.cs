@@ -2,7 +2,8 @@
 
 namespace Net.EntityFramework.CodeGenerator
 {
-    public interface ISpSelectPackageBuilder : IStoredProcedurePackageBuilder
+    public interface ISpSelectPackageBuilder<TEntity> : IStoredProcedurePackageBuilder
+         where TEntity : class
     {
     }
 }

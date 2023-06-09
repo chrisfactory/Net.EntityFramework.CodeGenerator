@@ -12,6 +12,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
 
         PropertyInfo? PropertyInfo { get; }
         string? PropertyName { get; }
+        string? CallPropertyName { get; }
         string PropertyType { get; }
 
         IColumn Column { get; }

@@ -16,6 +16,7 @@ namespace Net.EntityFramework.CodeGenerator.Core
 
 
         IReadOnlyCollection<IEntityTypeTable> Entities { get; }
+        IEntityTypeTable GetEntity(IMutableEntityType mutableEntity);
 
         IReadOnlyCollection<IOperationCommand<CreateTableOperation, MigrationCommand>> CreateTableIntents { get; }
         IReadOnlyCollection<IOperationCommand<CreateIndexOperation, MigrationCommand>> CreateIndexIntents { get; }

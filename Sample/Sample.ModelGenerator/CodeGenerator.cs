@@ -3,10 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Net.EntityFramework.CodeGenerator.Core;
 using Sample.App;
 
-
-
-
-
 namespace Sample.ModelGenerator
 {
 
@@ -15,10 +11,10 @@ namespace Sample.ModelGenerator
         public SampleDbContext(DbContextOptions<SampleDbContext> options) : base(options)
         {
 
-        }
+        } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        { 
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.HasDataProject(@"..\..\..\..\Sample.DbProj");

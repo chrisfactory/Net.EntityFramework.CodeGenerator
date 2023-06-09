@@ -7,12 +7,18 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
     {
         private readonly IDbContextModelContext _context;
         private readonly IDotNetProjectFileInfoFactory _fileInfoFactory;
+        private readonly IPackageToken _token;
+        private readonly IPackageLink _link;
         public EFDbServicePackageContentProvider(
                IDbContextModelContext context,
-               IDotNetProjectFileInfoFactory fiFoctory)
+               IDotNetProjectFileInfoFactory fiFoctory,
+               IPackageToken token, 
+               IPackageLink link)
         {
             _context = context;
             _fileInfoFactory = fiFoctory;
+            _token = token;
+            _link = link;
         }
 
         public IEnumerable<IContent> Get()
@@ -23,11 +29,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
 
                 var schema = "_source.Schema";
                 var tableName = "_source.Name";
-                //var clrType = _source.Entity.ClrType;
                 var className = $"{dbContextType.Name}Extensions";
-
-                //var tableFullName = _source.Entity.GetTableFullName();
-                //  var entityTable = _context.Entities.Single(e => e.TableFullName == tableFullName);
 
 
                 var code = new ClassGenerator(new ClassGeneratorOptions()
@@ -37,7 +39,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
                     Name = className,
                     IsStatic = true,
                     Namespace = dbContextType.Namespace,
-                  //  Contents = new List<IDotNetContentCodeSegment>(_source.Segments)
+                    Contents = new List<IDotNetContentCodeSegment>(GetSegments(_token, _link))
                 });
                 var str = code.Build();
 
@@ -50,7 +52,33 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
                 yield return new ContentFile(fi, new CommandTextSegment(str));
 
 
+            } 
+        }
+        private IReadOnlyList<IDotNetContentCodeSegment> GetSegments(IPackageToken token, IPackageLink link)
+        {
+            var segments = new List<IDotNetContentCodeSegment>();
+            var keys = token.CorrelateTokens.ToHashSet();
+            foreach (var package in link.Packages)
+            {
+                if (keys.Contains(package.Token))
+                {
+                    foreach (var intent in package.Intents)
+                    {
+                        if (intent.Target is IEfDbContextExtensionBuilderTarget serviceBuilderTarget)
+                        {
+                            foreach (var content in intent.Contents)
+                            {
+                                if (content is IDotNetContentCodeSegment storedProcedure)
+                                {
+                                    segments.Add(storedProcedure);
+                                }
+                            }
+                        }
+                    }
+                }
             }
+
+            return segments;
         }
 
     }

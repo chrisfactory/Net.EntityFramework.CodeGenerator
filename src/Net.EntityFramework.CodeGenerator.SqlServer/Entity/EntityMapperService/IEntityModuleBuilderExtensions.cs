@@ -6,7 +6,8 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class IEntityModuleBuilderExtensions
     {
-        public static IPackageToken EntityMapper(this IEntityModuleBuilder module)
+        public static IPackageToken EntityMapper<TEntity>(this IEntityModuleBuilder<TEntity> module) 
+            where TEntity : class
         {
             return module.UsePackageBuilder<IEntityMapperModuleIntentBuilder, EntityMapperModuleIntentBuilder>();
         }

@@ -1,7 +1,5 @@
 ﻿namespace Net.EntityFramework.CodeGenerator.Core
 {
-
-
     public class ResultSetProvider : IResultSet
     {
         private ResultSetProvider(ResultSets resultSet)

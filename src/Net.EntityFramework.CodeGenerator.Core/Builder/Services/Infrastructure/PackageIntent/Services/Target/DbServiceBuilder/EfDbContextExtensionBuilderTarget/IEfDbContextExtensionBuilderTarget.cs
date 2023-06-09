@@ -5,7 +5,7 @@
 
     }
 
-    public class EfDbContextExtensionBuilderTarget : IDbServiceBuilderTarget
+    public class EfDbContextExtensionBuilderTarget : IEfDbContextExtensionBuilderTarget
     {
         public EfDbContextExtensionBuilderTarget(IPackageToken token)
         {
