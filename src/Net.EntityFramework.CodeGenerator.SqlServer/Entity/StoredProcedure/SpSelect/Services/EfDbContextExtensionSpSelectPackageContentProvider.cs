@@ -67,8 +67,8 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
                 var usingType = new List<Type>() { typeof(RelationalQueryableExtensions), _entityTable.EntityType.ClrType };
                 if (!context.IsSelfDbContext)
                     usingType.Add(context.DbContextType);
-                if (resultSet.ResultSet == ResultSets.None)
-                    usingType.Add(typeof(IEnumerable<>));
+                //if (resultSet.ResultSet == ResultSets.None)
+                //    usingType.Add(typeof(IEnumerable<>));
                 foreach (var item in usingType)
                 {
                     if (!string.IsNullOrEmpty(item.Namespace))
