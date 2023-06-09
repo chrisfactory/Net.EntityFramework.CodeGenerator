@@ -100,9 +100,6 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
         public string Value { get; }
     }
 
-
-
-
     internal class SeparatorColumn : ConstanteColumn
     {
         public SeparatorColumn(string value) : base(value)
