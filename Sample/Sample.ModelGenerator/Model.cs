@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Sample.App
@@ -83,7 +84,8 @@ namespace Sample.App
     [Table(nameof(CustomSchemaTableExemple), Schema = "CustomSchema")]
     public class CustomSchemaTableExemple
     {
-        public int Id { get; set; }
+        [Key]
+        public int MyKey { get; set; }
         public string Name { get; set; }
         public string Data { get; set; }
     }

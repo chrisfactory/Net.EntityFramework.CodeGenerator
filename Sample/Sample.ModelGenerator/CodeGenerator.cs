@@ -43,7 +43,7 @@ namespace Sample.ModelGenerator
                 var s4 = b.SpSelectFirst();
                 var s5 = b.SpSelectFirstOrDefault();
 
-                b.EFDbService().Use(s1, s2, s3, s4, s5);
+                b.DbContextExtensions().Use(s1, s2, s3, s4, s5);
             }).Property(typeof(string), "test");
 
             modelBuilder.Entity<Food2>()
@@ -58,7 +58,7 @@ namespace Sample.ModelGenerator
                 var s4 = b.SpSelectFirst();
                 var s5 = b.SpSelectFirstOrDefault();
 
-                b.EFDbService().Use(s1, s2, s3, s4, s5);
+                var dbExt = b.DbContextExtensions().Use(s1, s2, s3, s4, s5);
             });
 
             modelBuilder.Entity<FarmAnimal>()
@@ -73,7 +73,7 @@ namespace Sample.ModelGenerator
                  var s4 = b.SpSelectFirst();
                  var s5 = b.SpSelectFirstOrDefault();
 
-                 b.EFDbService().Use(s1, s2, s3, s4, s5);
+                 b.DbContextExtensions().Use(s1, s2, s3, s4, s5);
              });
             modelBuilder.Entity<Cat>()
              .GenerateFilesFor(b =>
@@ -87,7 +87,7 @@ namespace Sample.ModelGenerator
                  var s4 = b.SpSelectFirst();
                  var s5 = b.SpSelectFirstOrDefault();
 
-                 b.EFDbService().Use(s1, s2, s3, s4, s5);
+                 b.DbContextExtensions().Use(s1, s2, s3, s4, s5);
              });
             modelBuilder.Entity<Dog>()
              .GenerateFilesFor(b =>
@@ -101,7 +101,7 @@ namespace Sample.ModelGenerator
                  var s4 = b.SpSelectFirst();
                  var s5 = b.SpSelectFirstOrDefault();
 
-                 b.EFDbService().Use(s1, s2, s3, s4, s5);
+                 b.DbContextExtensions().Use(s1, s2, s3, s4, s5);
              });
             modelBuilder.Entity<Human>()
              .GenerateFilesFor(b =>
@@ -115,7 +115,7 @@ namespace Sample.ModelGenerator
                  var s4 = b.SpSelectFirst();
                  var s5 = b.SpSelectFirstOrDefault();
 
-                 b.EFDbService().Use(s1, s2, s3, s4, s5);
+                 b.DbContextExtensions().Use(s1, s2, s3, s4, s5);
              });
             modelBuilder.Entity<CustomSchemaTableExemple>()
             .GenerateFilesFor(b =>
@@ -129,7 +129,7 @@ namespace Sample.ModelGenerator
                 var s4 = b.SpSelectFirst();
                 var s5 = b.SpSelectFirstOrDefault();
 
-                b.EFDbService().Use(s1, s2, s3, s4, s5);
+                b.DbContextExtensions().Use(s1, s2, s3, s4, s5);
             });
 
 
