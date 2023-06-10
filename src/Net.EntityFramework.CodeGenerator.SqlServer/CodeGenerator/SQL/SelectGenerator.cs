@@ -50,7 +50,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
         private void BuildWhere(StringBuilder builder, IEnumerable<IEntityColumn> keys)
         {
             var columnTable = new Column(6, ColumnAlignment.Left);
-            var equal = new ConstanteColumn("=", 2, ColumnAlignment.Center, 2);
+            var equal = new ConstanteColumn("=", 1, ColumnAlignment.Center, 1);
             var argColumnTableTable = new Column(ColumnAlignment.Left);
             var sep = new SeparatorColumn("AND,", 2);
             var requ = new DataFormater(columnTable, equal, argColumnTableTable, sep);

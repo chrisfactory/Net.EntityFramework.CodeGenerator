@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection.Extensions;
-using Net.EntityFramework.CodeGenerator;
+﻿using Net.EntityFramework.CodeGenerator;
 using Net.EntityFramework.CodeGenerator.Core;
 using Net.EntityFramework.CodeGenerator.SqlServer;
 
@@ -31,6 +30,6 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             return module.UsePackageBuilder<ISpInsertPackageBuilder<TEntity>, SpInsertPackageBuilder<TEntity>>(configure);
         }
-         
+
     }
 }
