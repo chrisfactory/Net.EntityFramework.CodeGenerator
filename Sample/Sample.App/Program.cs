@@ -20,7 +20,8 @@ namespace Sample.App
             {
                 using (var db = scope.ServiceProvider.GetRequiredService<SampleDbContext>())
                 {
-                    //var foo = db.SelectCustomFood2ByFoodId(1);
+                    //var foo = db.GetSingleFoodById(1);
+                    //var foo2 = db.InsertFood(foo,"rrrrrrrrr");
                     //Get(db, 1).GetAwaiter().GetResult();
                     //  var fooAsync = db.SelectCustomFood2ByFoodIdAsync(1).GetAwaiter().GetResult();
 
@@ -29,6 +30,6 @@ namespace Sample.App
             Console.WriteLine("Hello, World!");
         }
 
-     
+
     }
 }

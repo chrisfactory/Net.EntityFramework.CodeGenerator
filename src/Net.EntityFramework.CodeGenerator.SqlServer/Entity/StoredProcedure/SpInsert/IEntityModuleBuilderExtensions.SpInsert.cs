@@ -17,7 +17,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 configure?.Invoke(builder);
             });
         }
-        public static IPackageToken SpSeSpInsertlect<TEntity>(this IEntityModuleBuilder<TEntity> module, string name, Action<ISpInsertPackageBuilder<TEntity>>? configure = null)
+        public static IPackageToken SpInsert<TEntity>(this IEntityModuleBuilder<TEntity> module, string name, Action<ISpInsertPackageBuilder<TEntity>>? configure = null)
             where TEntity : class
         {
             return module.SpInsert(builder =>

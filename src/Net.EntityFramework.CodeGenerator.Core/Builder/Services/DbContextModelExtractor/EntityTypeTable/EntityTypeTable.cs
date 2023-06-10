@@ -6,7 +6,7 @@ using System.Reflection;
 namespace Net.EntityFramework.CodeGenerator.Core
 {
 
- 
+
     internal class EntityTypeTable : IEntityTypeTable
     {
         public EntityTypeTable(
@@ -39,7 +39,6 @@ namespace Net.EntityFramework.CodeGenerator.Core
         {
             var primaryKeys = new List<IEntityColumn>();
             var updatableColumns = new List<IEntityColumn>();
-          //  var insertColumns = new List<IEntityColumn>();
             var allColumns = new List<IEntityColumn>();
             var pks = new HashSet<IColumn>();
 
@@ -49,30 +48,20 @@ namespace Net.EntityFramework.CodeGenerator.Core
                     pks.Add(pk);
             }
 
+        
 
-            var dictionaryProps = new Dictionary<string, PropertyInfo>();
-            var runtimeProps = EntityType.GetRuntimeProperties().Values.ToList();
-            foreach (var item in runtimeProps)
-            {
-                if (item != null)
-                {
-                    var attr = item.GetCustomAttribute<ColumnAttribute>();
-                    if (attr != null && !string.IsNullOrEmpty(attr.Name))
-                        dictionaryProps.Add(attr.Name, item);
-                    else
-                        dictionaryProps.Add(item.Name, item);
-                }
-            }
             foreach (var item in Table.Columns)
             {
-                PropertyInfo? pi = null;
-                dictionaryProps.TryGetValue(item.Name, out pi);
-                var column = new EntityColumn(item, pks.Contains(item), pi);
+                var isPk = pks.Contains(item);
+
+                var column = new EntityColumn(item, isPk);
+             
                 if (column.IsPrimaryKey)
                     primaryKeys.Add(column);
                 else //if (column.PropertyInfo != null)
                     updatableColumns.Add(column);
                 allColumns.Add(column);
+
             }
 
             PrimaryKeys = primaryKeys;
@@ -81,6 +70,6 @@ namespace Net.EntityFramework.CodeGenerator.Core
             AllColumns = allColumns;
         }
 
-
+       
     }
 }

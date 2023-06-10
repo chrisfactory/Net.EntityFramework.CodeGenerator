@@ -18,6 +18,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
         protected override void DefineIntentProviders(IIntentsBuilder intentBuilder)
         {
             intentBuilder.DefineIntentProvider<DataProjectTarget, SqlSpInsertPackageContentProvider>();
+            intentBuilder.DefineIntentProvider<EfDbContextExtensionBuilderTarget, EfDbContextExtensionSpInsertPackageContentProvider>();
         }
     }
 }

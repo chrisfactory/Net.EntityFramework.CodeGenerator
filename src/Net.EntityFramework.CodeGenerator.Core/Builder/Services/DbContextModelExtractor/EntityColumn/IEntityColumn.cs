@@ -6,13 +6,14 @@ namespace Net.EntityFramework.CodeGenerator.Core
     public interface IEntityColumn
     {
         bool IsPrimaryKey { get; }
-
+        bool IsForeignKey { get; }
+        bool IsShadowProperty { get; }
         string ColumnName { get; }
         string SqlType { get; }
 
         PropertyInfo? PropertyInfo { get; }
         string? PropertyName { get; }
-        string? CallPropertyName { get; }
+        string? CallPropertyName { get; } 
         string PropertyType { get; }
 
         IColumn Column { get; }
