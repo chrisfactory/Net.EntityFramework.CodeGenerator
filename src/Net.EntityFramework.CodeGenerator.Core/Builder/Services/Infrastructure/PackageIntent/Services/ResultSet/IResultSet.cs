@@ -8,11 +8,11 @@
         }
         public ResultSets ResultSet { get; }
 
-        public static IResultSet Select() => new ResultSetProvider(ResultSets.None);
-        public static IResultSet SelectFirst() => new ResultSetProvider(ResultSets.First);
-        public static IResultSet SelectFirstOrDefault() => new ResultSetProvider(ResultSets.FirstOrDefault);
-        public static IResultSet SelectSingle() => new ResultSetProvider(ResultSets.Single);
-        public static IResultSet SelectSingleOrDefault() => new ResultSetProvider(ResultSets.SingleOrDefault);
+        public static IResultSet Default() => new ResultSetProvider(ResultSets.None);
+        public static IResultSet First() => new ResultSetProvider(ResultSets.First);
+        public static IResultSet FirstOrDefault() => new ResultSetProvider(ResultSets.FirstOrDefault);
+        public static IResultSet Single() => new ResultSetProvider(ResultSets.Single);
+        public static IResultSet SingleOrDefault() => new ResultSetProvider(ResultSets.SingleOrDefault);
     }
     public interface IResultSet
     {

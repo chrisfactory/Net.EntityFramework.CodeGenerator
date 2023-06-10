@@ -87,9 +87,9 @@ namespace Net.EntityFramework.CodeGenerator.Core
             return result;
         }
         public IEntityTypeTable GetEntity(IMutableEntityType mutableEntity)
-        {
+        { 
             var tableFullName = mutableEntity.GetTableFullName();
-            return Entities.Single(e => e.TableFullName == tableFullName);
+            return Entities.Single(e => e.TableFullName == tableFullName && e.EntityType.ClrType == mutableEntity.ClrType);
         }
 
         private void ExtractEfIntents(IReadOnlyList<MigrationOperation> operations, IMigrationsSqlGenerator mig, out List<IOperationCommand<CreateTableOperation, MigrationCommand>> createTables, out List<IOperationCommand<EnsureSchemaOperation, MigrationCommand>> schemaTables, out List<IOperationCommand<CreateIndexOperation, MigrationCommand>> indexsTables, out List<IOperationCommand<CreateSequenceOperation, MigrationCommand>> sequenceTables)

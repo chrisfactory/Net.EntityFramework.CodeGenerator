@@ -1,26 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Sample.App
 {
-    [Table("CustomFood")]
-    public class Food
+
+    public class BasicEntity
     {
-        [Column("FoodId")]
-        public int Id { get; set; }
-        [Column("NameAlias")]
-        public string Name { get; set; }
-        public int? Food2lId { get; set; }
-        public Food2? Food2 { get; set; }
-    }
-    [Table("CustomFood2")]
-    public class Food2
-    {
-        [Column("FoodId")]
+        [Column("IdColumName")]
         public int Id { get; set; }
 
-        public Animal? Animal { get; set; }
+        [Column("DataName")]
+        public string Data { get; set; }
+        //[Column("yoloId")]
+        //public int FreindAnimalId { get; set; }
+        [Column("DataNameV2")]
+        public Animal FreindAnimal { get; set; }
     }
 
     public class Animal
@@ -30,27 +24,16 @@ namespace Sample.App
         public virtual string Species { get; set; }
         public int? FoodId { get; set; }
         public Food? Food { get; set; }
-    }
 
+        //public Animal FreindAnimal { get; set; }
+    }
     public abstract class Pet : Animal
     {
         public string? Vet { get; set; }
-
-        public ICollection<Human> Humans { get; } = new List<Human>();
     }
 
-    public class FarmAnimal : Animal
-    {
-        public override string Species { get; set; }
 
-        [Precision(18, 2)]
-        public decimal Value { get; set; }
-
-        public override string ToString()
-            => $"Farm animal '{Name}' ({Species}/{Id}) worth {Value:C} eats {Food?.ToString() ?? "<Unknown>"}";
-    }
-
-    public class Cat : Pet
+    public class Cat : Animal
     {
         public string EducationLevel { get; set; }
         public override string Species => "Felis catus";
@@ -61,7 +44,7 @@ namespace Sample.App
 
     public class Dog : Pet
     {
-
+        public int DogId { get; set; }
         public string FavoriteToy { get; set; }
         public override string Species => "Canis familiaris";
 
@@ -69,25 +52,29 @@ namespace Sample.App
             => $"Dog '{Name}' ({Species}/{Id}) with favorite toy '{FavoriteToy}' eats {Food?.ToString() ?? "<Unknown>"}";
     }
 
-    public class Human : Animal
+
+
+    [Table("CustomFood")]
+    public class Food
     {
-        public override string Species => "Homo sapiens";
+        [Column("FoodId")]
+        public int Id { get; set; }
+        [Column("NameAlias")]
+        public string Name { get; set; }
 
-        public Animal? FavoriteAnimal { get; set; }
-        public ICollection<Pet> Pets { get; } = new List<Pet>();
-
-        public override string ToString()
-            => $"Human '{Name}' ({Species}/{Id}) with favorite animal '{FavoriteAnimal?.Name ?? "<Unknown>"}'" +
-               $" eats {Food?.ToString() ?? "<Unknown>"}";
     }
 
-    [Table(nameof(CustomSchemaTableExemple), Schema = "CustomSchema")]
-    public class CustomSchemaTableExemple
+
+
+
+    [Table(nameof(MyAnimal), Schema = "CustomSchema")]
+    public class MyAnimal
     {
         [Key]
         public int MyKey { get; set; }
         public string Name { get; set; }
-        public string Data { get; set; }
+
+        public Animal Animal { get; set; }
     }
 
 

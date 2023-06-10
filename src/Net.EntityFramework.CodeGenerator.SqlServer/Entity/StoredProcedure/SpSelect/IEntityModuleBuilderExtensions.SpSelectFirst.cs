@@ -25,7 +25,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             return (builder) =>
             {
-                builder.Services.TryAddSingleton(ResultSetProvider.SelectFirst());
+                builder.Services.TryAddSingleton(ResultSetProvider.First());
                 configure?.Invoke(builder);
             };
         }
