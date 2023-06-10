@@ -26,104 +26,22 @@ namespace Sample.ModelGenerator
 
             modelBuilder.Entity<Animal>()
                  .UseTpcMappingStrategy()
-                 .GenerateFilesFor(b =>
-                 {
-                     b.CreateTable();
-                     b.CreateIndex();
-
-                     var s1 = b.SpSelect();
-                     var s2 = b.SpSelectSingle();
-                     var s3 = b.SpSelectSingleOrDefault();
-                     var s4 = b.SpSelectFirst();
-                     var s5 = b.SpSelectFirstOrDefault();
-
-                     var i1 = b.SpInsert();
-
-                     b.DbContextExtensions().Use(s1, s2, s3, s4, s5, i1);
-                 });
-
-
+                 .GenerateFilesFor(AllFunctions);
+             
             modelBuilder.Entity<Cat>()
-            .GenerateFilesFor(b =>
-            {
-                b.CreateTable();
-                b.CreateIndex();
-
-                var s1 = b.SpSelect();
-                var s2 = b.SpSelectSingle();
-                var s3 = b.SpSelectSingleOrDefault();
-                var s4 = b.SpSelectFirst();
-                var s5 = b.SpSelectFirstOrDefault();
-
-                var i1 = b.SpInsert();
-
-                b.DbContextExtensions().Use(s1, s2, s3, s4, s5, i1);
-            }).Property(typeof(string), "ShadowPropertyTest");
+                .GenerateFilesFor(AllFunctions)
+                .Property(typeof(string), "ShadowPropertyTest");
 
             modelBuilder.Entity<Dog>()
-            .GenerateFilesFor(b =>
-            {
-                b.CreateTable();
-                b.CreateIndex();
+                .GenerateFilesFor(AllFunctions);
 
-                var s1 = b.SpSelect();
-                var s2 = b.SpSelectSingle();
-                var s3 = b.SpSelectSingleOrDefault();
-                var s4 = b.SpSelectFirst();
-                var s5 = b.SpSelectFirstOrDefault();
-
-                var i1 = b.SpInsert();
-
-                b.DbContextExtensions().Use(s1, s2, s3, s4, s5, i1);
-            });
             modelBuilder.Entity<BasicEntity>()
-            .GenerateFilesFor(b =>
-            {
-                b.CreateTable();
-                b.CreateIndex();
+                .GenerateFilesFor(AllFunctions).Property(typeof(int?), "ShadowPropertyTest"); ;
 
-                var s1 = b.SpSelect();
-                var s2 = b.SpSelectSingle();
-                var s3 = b.SpSelectSingleOrDefault();
-                var s4 = b.SpSelectFirst();
-                var s5 = b.SpSelectFirstOrDefault();
-
-                var i1 = b.SpInsert();
-
-                b.DbContextExtensions().Use(s1, s2, s3, s4, s5, i1);
-            }).Property(typeof(int?), "ShadowPropertyTest"); ;
             modelBuilder.Entity<Food>()
-             .GenerateFilesFor(b =>
-             {
-                 b.CreateTable();
-                 b.CreateIndex();
-
-                 var s1 = b.SpSelect();
-                 var s2 = b.SpSelectSingle();
-                 var s3 = b.SpSelectSingleOrDefault();
-                 var s4 = b.SpSelectFirst();
-                 var s5 = b.SpSelectFirstOrDefault();
-
-                 var i1 = b.SpInsert();
-
-                 b.DbContextExtensions().Use(s1, s2, s3, s4, s5, i1);
-             });
+                .GenerateFilesFor(AllFunctions);
             modelBuilder.Entity<MyAnimal>()
-             .GenerateFilesFor(b =>
-             {
-                 b.CreateTable();
-                 b.CreateIndex();
-
-                 var s1 = b.SpSelect();
-                 var s2 = b.SpSelectSingle();
-                 var s3 = b.SpSelectSingleOrDefault();
-                 var s4 = b.SpSelectFirst();
-                 var s5 = b.SpSelectFirstOrDefault();
-
-                 var i1 = b.SpInsert();
-
-                 b.DbContextExtensions().Use(s1, s2, s3, s4, s5, i1);
-             });
+                .GenerateFilesFor(AllFunctions);
 
 
 
@@ -133,6 +51,25 @@ namespace Sample.ModelGenerator
                 b.EnsureSchemas();
                 b.CreateSequences();
             });
+        }
+
+        private static void AllFunctions<TEntity>(IEntityModuleBuilder<TEntity> b)
+             where TEntity : class
+        {
+            b.CreateTable();
+            b.CreateIndex();
+
+            var s1 = b.SpSelect();
+            var s2 = b.SpSelectSingle();
+            var s3 = b.SpSelectSingleOrDefault();
+            var s4 = b.SpSelectFirst();
+            var s5 = b.SpSelectFirstOrDefault();
+
+            var i1 = b.SpInsert();
+
+            var u1 = b.SpUpdate();
+
+            b.DbContextExtensions().Use(s1, s2, s3, s4, s5, i1, u1);
         }
     }
 
