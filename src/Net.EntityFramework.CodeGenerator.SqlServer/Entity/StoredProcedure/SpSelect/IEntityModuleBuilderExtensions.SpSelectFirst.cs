@@ -8,18 +8,18 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IPackageToken SpSelectFirst<TEntity>(this IEntityModuleBuilder<TEntity> module, string? schema, string name, Action<ISpSelectPackageBuilder<TEntity>>? configure = null)
             where TEntity : class
-            => module.SpSelect(schema, name, ConfiguerSelectFirst(configure));
+            => module.SpSelect(schema, name, ConfigureSelectFirst(configure));
 
         public static IPackageToken SpSelectFirst<TEntity>(this IEntityModuleBuilder<TEntity> module, string name, Action<ISpSelectPackageBuilder<TEntity>>? configure = null)
             where TEntity : class
-            => module.SpSelect(name, ConfiguerSelectFirst(configure));
+            => module.SpSelect(name, ConfigureSelectFirst(configure));
 
         public static IPackageToken SpSelectFirst<TEntity>(this IEntityModuleBuilder<TEntity> module, Action<ISpSelectPackageBuilder<TEntity>>? configure = null)
             where TEntity : class
-            => module.SpSelect(ConfiguerSelectFirst(configure));
+            => module.SpSelect(ConfigureSelectFirst(configure));
 
 
-        private static Action<ISpSelectPackageBuilder<TEntity>> ConfiguerSelectFirst<TEntity>(Action<ISpSelectPackageBuilder<TEntity>>? configure) 
+        private static Action<ISpSelectPackageBuilder<TEntity>> ConfigureSelectFirst<TEntity>(Action<ISpSelectPackageBuilder<TEntity>>? configure) 
             where TEntity : class
         
         {

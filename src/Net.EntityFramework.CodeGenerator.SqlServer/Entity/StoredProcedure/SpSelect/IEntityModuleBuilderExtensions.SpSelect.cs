@@ -29,10 +29,10 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IPackageToken SpSelect<TEntity>(this IEntityModuleBuilder<TEntity> module, Action<ISpSelectPackageBuilder<TEntity>>? configure = null)
             where TEntity : class
         {
-            return module.UsePackageBuilder<ISpSelectPackageBuilder<TEntity>, SpSelectPackageBuilder<TEntity>>(ConfiguerSelect(configure));
+            return module.UsePackageBuilder<ISpSelectPackageBuilder<TEntity>, SpSelectPackageBuilder<TEntity>>(ConfigureSelect(configure));
         }
 
-        private static Action<ISpSelectPackageBuilder<TEntity>> ConfiguerSelect<TEntity>(Action<ISpSelectPackageBuilder<TEntity>>? configure)
+        private static Action<ISpSelectPackageBuilder<TEntity>> ConfigureSelect<TEntity>(Action<ISpSelectPackageBuilder<TEntity>>? configure)
             where TEntity : class
         {
             return (builder) =>
