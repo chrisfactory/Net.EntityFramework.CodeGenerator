@@ -8,7 +8,9 @@
         }
         public ResultSets ResultSet { get; }
 
-        public static IResultSet Default() => new ResultSetProvider(ResultSets.None);
+        public static IResultSet None() => new ResultSetProvider(ResultSets.None);
+        public static IResultSet Enumerable() => new ResultSetProvider(ResultSets.Enumerable);
+        public static IResultSet List() => new ResultSetProvider(ResultSets.List);
         public static IResultSet First() => new ResultSetProvider(ResultSets.First);
         public static IResultSet FirstOrDefault() => new ResultSetProvider(ResultSets.FirstOrDefault);
         public static IResultSet Single() => new ResultSetProvider(ResultSets.Single);
@@ -21,6 +23,8 @@
     public enum ResultSets
     {
         None,
+        Enumerable,
+        List,
         First,
         FirstOrDefault,
         Single,

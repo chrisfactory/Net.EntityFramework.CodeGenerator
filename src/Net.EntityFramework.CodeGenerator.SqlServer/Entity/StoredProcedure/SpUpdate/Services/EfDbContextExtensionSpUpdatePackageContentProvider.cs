@@ -126,7 +126,7 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
                 builder.AppendLine($"public static {resultType} {methodName}(this {extTypeName} dbContext, {methodParametersStr})");
                 builder.AppendLine($"=> dbContext");
                 builder.AppendLine($"   .Set<{typeName}>()");
-                builder.AppendLine($"   .FromSql($\"EXECUTE {spSchema}[{spName}] {spParametersStr}\")");
+                builder.AppendLine($"   .FromSql($\"EXECUTE {spSchema}[{spName}] {spParametersStr}\"){(_resultSet.ResultSet == ResultSets.None ? ";" : string.Empty)}");
                 BuildResultSet(builder, _resultSet.ResultSet);
                 builder.AppendLine();
 
@@ -134,16 +134,19 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
                 builder.AppendLine($"=> dbContext.{methodName}({methodDataParametersStr});");
                 builder.AppendLine();
 
-                builder.AppendLine($"public static async Task<{resultType}> {methodName}Async(this {extTypeName} dbContext, {methodParametersStr})");
-                builder.AppendLine($"=> (await dbContext");
-                builder.AppendLine($"   .Set<{typeName}>()");
-                builder.AppendLine($"   .FromSql($\"EXECUTE {spSchema}[{spName}] {spParametersStr}\")");
-                BuildAsyncResultSet(builder, _resultSet.ResultSet);
-                builder.AppendLine();
+                if (_resultSet.ResultSet != ResultSets.None)
+                {
+                    builder.AppendLine($"public static async Task<{resultType}> {methodName}Async(this {extTypeName} dbContext, {methodParametersStr})");
+                    builder.AppendLine($"=> (await dbContext");
+                    builder.AppendLine($"   .Set<{typeName}>()");
+                    builder.AppendLine($"   .FromSql($\"EXECUTE {spSchema}[{spName}] {spParametersStr}\")");
+                    BuildAsyncResultSet(builder, _resultSet.ResultSet);
+                    builder.AppendLine();
 
-                builder.AppendLine($"public static async Task<{resultType}> {methodName}Async(this {extTypeName} dbContext, {typeName} data{methodShadowParametersStr})");
-                builder.AppendLine($"=> await dbContext.{methodName}Async({methodDataParametersStr});");
-                builder.AppendLine();
+                    builder.AppendLine($"public static async Task<{resultType}> {methodName}Async(this {extTypeName} dbContext, {typeName} data{methodShadowParametersStr})");
+                    builder.AppendLine($"=> await dbContext.{methodName}Async({methodDataParametersStr});");
+                    builder.AppendLine();
+                }
             }
 
             private string GetResultType(ResultSets resultSet, string typeName)
@@ -151,7 +154,11 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
                 switch (resultSet)
                 {
                     case ResultSets.None:
+                        return $"IQueryable<{typeName}>";
+                    case ResultSets.Enumerable:
                         return $"IEnumerable<{typeName}>";
+                    case ResultSets.List:
+                        return $"List<{typeName}>";
                     case ResultSets.Single:
                     case ResultSets.First:
                         return $"{typeName}";
@@ -167,8 +174,16 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
                 switch (resultSet)
                 {
                     case ResultSets.None:
+                        break;
+                    case ResultSets.Enumerable:
                         {
                             builder.AppendLine($"   .AsEnumerable();");
+                        }
+                        break;
+                    case ResultSets.List:
+                        {
+                            builder.AppendLine($"   .AsEnumerable()");
+                            builder.AppendLine($"   .ToList();");
                         }
                         break;
                     case ResultSets.Single:
@@ -204,6 +219,9 @@ namespace Net.EntityFramework.CodeGenerator.SqlServer
                 switch (resultSet)
                 {
                     case ResultSets.None:
+                        throw new NotImplementedException($"{resultSet}");
+                    case ResultSets.Enumerable:
+                    case ResultSets.List:
                         {
                             builder.AppendLine($"   .ToListAsync());");
                         }

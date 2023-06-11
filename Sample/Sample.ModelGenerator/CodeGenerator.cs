@@ -12,9 +12,8 @@ namespace Sample.ModelGenerator
 
             var services = new ServiceCollection();
             services.AddSqlServerCodeGenerator<SampleDbContext>(opt => opt.UseSqlServer());
-
-
             var provider = services.BuildServiceProvider();
+
             var codeGen = provider.GetServices<ICodeGenerator>().ToList();
 
 
@@ -79,6 +78,8 @@ namespace Sample.ModelGenerator
             var features = new IPackageToken[]
             {
                 b.SpSelect(),
+                b.SpSelectEnumerable(),
+                b.SpSelectList(),
                 b.SpSelectSingle(),
                 b.SpSelectSingleOrDefault(),
                 b.SpSelectFirst(),
@@ -87,6 +88,8 @@ namespace Sample.ModelGenerator
                 b.SpInsert(),
 
                 b.SpUpdate(),
+                b.SpUpdateEnumerable(),
+                b.SpUpdateList(),
                 b.SpUpdateSingle(),
                 b.SpUpdateSingleOrDefault(),
                 b.SpUpdateFirst(),
@@ -94,6 +97,8 @@ namespace Sample.ModelGenerator
 
 
                 b.SpDelete(),
+                b.SpDeleteEnumerable(),
+                b.SpDeleteList(),
                 b.SpDeleteSingle(),
                 b.SpDeleteSingleOrDefault(),
                 b.SpDeleteFirst(),
