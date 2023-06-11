@@ -91,6 +91,13 @@ namespace Sample.ModelGenerator
                 b.SpUpdateSingleOrDefault(),
                 b.SpUpdateFirst(),
                 b.SpUpdateFirstOrDefault(),
+
+
+                b.SpDelete(),
+                b.SpDeleteSingle(),
+                b.SpDeleteSingleOrDefault(),
+                b.SpDeleteFirst(),
+                b.SpDeleteFirstOrDefault(),
             };
              
             b.DbContextExtensions().Use(features);
