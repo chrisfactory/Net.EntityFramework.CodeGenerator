@@ -19,6 +19,11 @@ namespace Net.EntityFramework.CodeGenerator.Core
             _str.AppendLine($"{_indent}{value}");
             return this;
         }
+        public ICodeBuilder Append(string? value)
+        {
+            _str.Append($"{value}");
+            return this;
+        }
 
         public string Build()
         {
