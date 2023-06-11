@@ -20,11 +20,18 @@ namespace Sample.App
             {
                 using (var db = scope.ServiceProvider.GetRequiredService<SampleDbContext>())
                 {
-                    //var foo = db.GetSingleFoodById(1);
-                    //var foo2 = db.InsertFood(foo,"rrrrrrrrr");
-                    //Get(db, 1).GetAwaiter().GetResult();
-                    //  var fooAsync = db.SelectCustomFood2ByFoodIdAsync(1).GetAwaiter().GetResult();
+                    //var food = new Food()
+                    //{
+                    //    Name = "New Food Name"
+                    //};
+                    //food = db.InsertFood(food);
 
+                    //food.Name = "Updated Food Name";
+                    //food = db.UpdateSingleFoodById(food);
+
+                    //food = db.GetSingleFoodById(food.Id);
+
+                    //food = db.DeleteSingleFoodById(food.Id);
                 }
             }
             Console.WriteLine("Hello, World!");
