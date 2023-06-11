@@ -1,4 +1,5 @@
-﻿using Net.EntityFramework.CodeGenerator;
+﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+using Net.EntityFramework.CodeGenerator;
 using Net.EntityFramework.CodeGenerator.Core;
 using Net.EntityFramework.CodeGenerator.SqlServer;
 
@@ -28,7 +29,17 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IPackageToken SpUpdate<TEntity>(this IEntityModuleBuilder<TEntity> module, Action<ISpUpdatePackageBuilder<TEntity>>? configure = null)
             where TEntity : class
         {
-            return module.UsePackageBuilder<ISpUpdatePackageBuilder<TEntity>, SpUpdatePackageBuilder<TEntity>>(configure);
+            return module.UsePackageBuilder<ISpUpdatePackageBuilder<TEntity>, SpUpdatePackageBuilder<TEntity>>(ConfigureUpdate(configure));
+        }
+
+        private static Action<ISpUpdatePackageBuilder<TEntity>> ConfigureUpdate<TEntity>(Action<ISpUpdatePackageBuilder<TEntity>>? configure)
+          where TEntity : class
+        {
+            return (builder) =>
+            {
+                configure?.Invoke(builder);
+                builder.Services.TryAddSingleton(ResultSetProvider.Default());
+            };
         }
 
     }

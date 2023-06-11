@@ -5,7 +5,24 @@ using Sample.App;
 
 namespace Sample.ModelGenerator
 {
+    public partial class CodeGenerator
+    {
+        static void Main(string[] args)
+        {
 
+            var services = new ServiceCollection();
+            services.AddSqlServerCodeGenerator<SampleDbContext>(opt => opt.UseSqlServer());
+
+
+            var provider = services.BuildServiceProvider();
+            var codeGen = provider.GetServices<ICodeGenerator>().ToList();
+
+
+            Console.WriteLine("finished");
+            Console.ReadLine();
+        }
+
+    }
     public class SampleDbContext : DbContext
     {
         public SampleDbContext(DbContextOptions<SampleDbContext> options) : base(options)
@@ -26,22 +43,22 @@ namespace Sample.ModelGenerator
 
             modelBuilder.Entity<Animal>()
                  .UseTpcMappingStrategy()
-                 .GenerateFilesFor(AllFunctions);
-             
+                 .GenerateFilesFor(AllFunctionsForSample);
+
             modelBuilder.Entity<Cat>()
-                .GenerateFilesFor(AllFunctions)
+                .GenerateFilesFor(AllFunctionsForSample)
                 .Property(typeof(string), "ShadowPropertyTest");
 
             modelBuilder.Entity<Dog>()
-                .GenerateFilesFor(AllFunctions);
+                .GenerateFilesFor(AllFunctionsForSample);
 
             modelBuilder.Entity<BasicEntity>()
-                .GenerateFilesFor(AllFunctions).Property(typeof(int?), "ShadowPropertyTest"); ;
+                .GenerateFilesFor(AllFunctionsForSample).Property(typeof(int?), "ShadowPropertyTest"); ;
 
             modelBuilder.Entity<Food>()
-                .GenerateFilesFor(AllFunctions);
+                .GenerateFilesFor(AllFunctionsForSample);
             modelBuilder.Entity<MyAnimal>()
-                .GenerateFilesFor(AllFunctions);
+                .GenerateFilesFor(AllFunctionsForSample);
 
 
 
@@ -53,45 +70,30 @@ namespace Sample.ModelGenerator
             });
         }
 
-        private static void AllFunctions<TEntity>(IEntityModuleBuilder<TEntity> b)
+        private static void AllFunctionsForSample<TEntity>(IEntityModuleBuilder<TEntity> b)
              where TEntity : class
         {
             b.CreateTable();
             b.CreateIndex();
 
-            var s1 = b.SpSelect();
-            var s2 = b.SpSelectSingle();
-            var s3 = b.SpSelectSingleOrDefault();
-            var s4 = b.SpSelectFirst();
-            var s5 = b.SpSelectFirstOrDefault();
+            var features = new IPackageToken[]
+            {
+                b.SpSelect(),
+                b.SpSelectSingle(),
+                b.SpSelectSingleOrDefault(),
+                b.SpSelectFirst(),
+                b.SpSelectFirstOrDefault(),
 
-            var i1 = b.SpInsert();
+                b.SpInsert(),
 
-            var u1 = b.SpUpdate();
-
-            b.DbContextExtensions().Use(s1, s2, s3, s4, s5, i1, u1);
+                b.SpUpdate(),
+                b.SpUpdateSingle(),
+                b.SpUpdateSingleOrDefault(),
+                b.SpUpdateFirst(),
+                b.SpUpdateFirstOrDefault(),
+            };
+             
+            b.DbContextExtensions().Use(features);
         }
-    }
-
-
-
-    public partial class CodeGenerator
-    {
-        static void Main(string[] args)
-        {
-
-            var services = new ServiceCollection();
-            services.AddSqlServerCodeGenerator<SampleDbContext>(opt => opt.UseSqlServer());
-
-
-            var provider = services.BuildServiceProvider();
-            var codeGen = provider.GetServices<ICodeGenerator>().ToList();
-
-
-            Console.WriteLine("finished");
-            Console.ReadLine();
-        }
-
-    }
-
+    } 
 }
