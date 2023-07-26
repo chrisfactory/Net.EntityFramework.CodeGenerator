@@ -9,6 +9,20 @@ namespace Sample.ModelGenerator
     {
         static void Main(string[] args)
         {
+            List<string> dropFiles = new List<string>();
+            List<string> dropDirectories = new List<string>();
+
+
+            dropFiles.AddRange(Directory.GetFiles(@"..\..\..\..\Sample.DbProj", $"*.sqlg.*", SearchOption.AllDirectories));
+            dropFiles.AddRange(Directory.GetFiles(@"..\..\..\..\Sample.App", $"*.sqlg.*", SearchOption.AllDirectories));
+            dropDirectories.AddRange( Directory.GetDirectories(@"..\..\..\..\Sample.DbProj", "bin", SearchOption.AllDirectories));
+
+          
+            foreach (string file in dropFiles) 
+                File.Delete(file);
+            foreach (string dir in dropDirectories)
+                Directory.Delete(dir,true);
+
 
             var services = new ServiceCollection();
             services.AddSqlServerCodeGenerator<SampleDbContext>(opt => opt.UseSqlServer());
@@ -104,8 +118,8 @@ namespace Sample.ModelGenerator
                 b.SpDeleteFirst(),
                 b.SpDeleteFirstOrDefault(),
             };
-             
+
             b.DbContextExtensions().Use(features);
         }
-    } 
+    }
 }

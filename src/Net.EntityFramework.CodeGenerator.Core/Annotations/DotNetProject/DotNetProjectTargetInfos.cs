@@ -18,9 +18,9 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         /// {FileName};{Schema};{SchemaExt};{TableName}
         /// </summary>
-        public string MapExtensionsPatternPath { get; set; } = @"MapExtensions\{FileName}.cs";
-        public string DbContextExtensionsPatternPath { get; set; } = @"DbContextExtensions\{FileName}.cs";
-        public string DbServicePatternPath { get; set; } = @"DbService\{name}\{FileName}.cs";
+        public string MapExtensionsPatternPath { get; set; } = @"MapExtensions\{FileName}.sqlg.cs";
+        public string DbContextExtensionsPatternPath { get; set; } = @"DbContextExtensions\{FileName}.sqlg.cs";
+        public string DbServicePatternPath { get; set; } = @"DbService\{name}\{FileName}.sqlg.cs";
 
     }
 }
